@@ -1,7 +1,7 @@
 //Test test
-programme PLIC0n2{
+programme PLIC {
 	entier b ;
-	b := 6
 	entier c ;
-	b := 7
+	d := 6 ;
+	e := 7 ;
 }

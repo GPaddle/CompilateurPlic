@@ -26,13 +26,16 @@ public class TDS {
 
 	public void ajouter(Entree e, Symbole s) throws DoubleDeclaration {
 		cptDepl++;
+		
 		if (liste.containsKey(e)) {
 			throw new DoubleDeclaration(e);
 		}
-		
+
 		liste.put(e, s);
 
 	}
+
+	// CptDepl
 
 	public int getCptDepl() {
 		return cptDepl;
@@ -42,8 +45,19 @@ public class TDS {
 		this.cptDepl = cptDepl;
 	}
 
-	public Map<Entree, Symbole> getListe() {
-		return liste;
+	// Liste
+
+	public int getListeSize() {
+		return liste.size();
+	}
+
+	public boolean listeContains(Object key) {
+		return liste.containsKey(key);
+	}
+	
+	public Symbole identifier(Entree e) {
+		Symbole s = liste.get(e);
+		return s;
 	}
 
 	public void setListe(Map<Entree, Symbole> liste) {

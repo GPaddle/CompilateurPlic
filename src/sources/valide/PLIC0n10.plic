@@ -5,8 +5,6 @@ programme test {
 	entier c ;
 	entier d ;
 	entier e ;
-	ecrire 1 ;
-	ecrire 1 ;
 	a := 2 ;
 	ecrire a ;
 }

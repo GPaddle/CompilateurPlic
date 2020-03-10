@@ -32,8 +32,10 @@ public class TDSTest {
 
 	@Test
 	public void testAjouter() throws DoubleDeclaration {
+		assertTrue("La liste devrait être vide",tds.getListeSize()==0);
 		tds.ajouter(e, s);
-		assertTrue("L'entrée "+e+" devrait être dans la liste",tds.getListe().containsKey(e));
+		assertTrue("La liste devrait contenir un élément",tds.getListeSize()==1);
+		assertTrue("L'entrée "+e+" devrait être dans la liste",tds.identifier(e)!=null);
 	}
 
 	@Test
@@ -44,8 +46,8 @@ public class TDSTest {
 		tds.ajouter(e, s);
 		tds.ajouter(e2, s2);
 
-		assertTrue("L'entrée "+e+" devrait être dans la liste",tds.getListe().containsKey(e));
-		assertTrue("L'entrée "+e2+" devrait être dans la liste",tds.getListe().containsKey(e2));
+		assertTrue("L'entrée "+e+" devrait être dans la liste",tds.identifier(e)!=null);
+		assertTrue("L'entrée "+e2+" devrait être dans la liste",tds.identifier(e2)!=null);
 	}
 
 	@Test(expected = DoubleDeclaration.class) 

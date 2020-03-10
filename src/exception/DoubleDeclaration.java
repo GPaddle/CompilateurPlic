@@ -2,6 +2,7 @@ package exception;
 
 import repint.Entree;
 
+@SuppressWarnings("serial")
 public class DoubleDeclaration extends Exception {
 
 	public DoubleDeclaration() {

@@ -2,8 +2,10 @@ package exception;
 
 public class ErreurSyntaxique extends Exception {
 
-	public ErreurSyntaxique(String string) {
-		System.out.println("ERREUR: "+string);
-	}
+	String s;
 
+	public ErreurSyntaxique(String s) {
+		super(s);
+		this.s = s;
+	}
 }

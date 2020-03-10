@@ -1,12 +1,23 @@
 package analyse;
 
+import java.io.Console;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import exception.DoubleDeclaration;
 import exception.ErreurSyntaxique;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.SyntaxException;
+import repint.Affectation;
+import repint.Bloc;
+import repint.Ecrire;
+import repint.Entree;
+import repint.Expression;
+import repint.Idf;
+import repint.Instruction;
+import repint.Nombre;
+import repint.Symbole;
+import repint.TDS;
 
 public class AnalyseurSyntaxique {
 
@@ -19,106 +30,113 @@ public class AnalyseurSyntaxique {
 		this.aLex = new AnalyseurLexical(f);
 	}
 
-	public void analyse() throws ErreurSyntaxique {
+	public Bloc analyse() throws ErreurSyntaxique, DoubleDeclaration {
 		this.uniteCourante = this.aLex.next();
 
 		this.analyseProg();
 		this.analyseIDF();
-		this.analyseBloc();
+		Bloc bloc = this.analyseBloc();
 		if (!this.uniteCourante.equals("EOF")) {
 			throw new ErreurSyntaxique("EOF attendu");
 		}
+		return bloc;
 
 	}
 
-	private void analyseBloc() throws ErreurSyntaxique {
-
+	private Bloc analyseBloc() throws ErreurSyntaxique, DoubleDeclaration {
+		Bloc b = new Bloc();
 		this.analyseTerminal("{");
 
-//Iterer :
+		// Iterer :
 		while (uniteCourante.equals("entier") || uniteCourante.equals("tableau")) {
 			this.analyseDeclaration();
 		}
 
-		this.analyseInstruction();
-//Iterer :
-		while (uniteCourante.equals("ecrire")) {
-			this.analyseInstruction();
-		}
+		Instruction i = null;
+		int compte = 0;
+
+		do {
+			try {
+				i = this.analyseInstruction();
+				b.ajouter(i);
+				compte++;
+			} catch (ErreurSyntaxique e) {
+
+				if (compte == 0) {
+					throw e;
+				}
+
+				break;
+			}
+
+		} while (i != null);
 
 		this.analyseTerminal("}");
 
+		return b;
+
 	}
 
-	private void analyseInstruction() throws ErreurSyntaxique {
-		int i = 0;
-		
+	private Instruction analyseInstruction() throws ErreurSyntaxique {
+
+		Instruction instruction = null;
+
+
 		try {
-			analyseES();
+			instruction = analyseES();
 		} catch (ErreurSyntaxique e) {
-			i++;
 		}
-		
-		try {
-			analyseAffectation();
-		} catch (ErreurSyntaxique e) {
-			i++;
+		if (instruction == null) {
+			try {
+				instruction = analyseAffectation();
+			} catch (ErreurSyntaxique e) {
+			}
 		}
-		
-		if (i == 2) {
+
+		if (instruction == null) {
 			throw new ErreurSyntaxique("Pas d'instruction");
 		}
 
+		return instruction;
+
 	}
 
-	private boolean analyseAffectation() throws ErreurSyntaxique {
+	private Affectation analyseAffectation() throws ErreurSyntaxique {
 
-		analyseAcces();
+		Idf i = analyseAcces();
 		analyseTerminal(":=");
-		analyseExpression();
-		return true;
+		Expression e = analyseExpression();
+		analyseTerminal(";");
+
+		return new Affectation(i, e);
 	}
 
-	private void analyseExpression() throws ErreurSyntaxique {
-		analyseOperande();
-
-		analyseOperateur();
-
-		analyseOperande();
-
+	private Expression analyseExpression() throws ErreurSyntaxique {
+		Nombre n = analyseOperande();
+		return n;
 	}
 
-	private void analyseOperateur() {
+	/*
+	 * private void analyseOperateur() {
+	 * 
+	 * switch (uniteCourante) { case "+": case "-": case "*": case "et": case "ou":
+	 * case "<": case ">": case "=": case "#": case "<=": case ">=":
+	 * 
+	 * this.uniteCourante = this.aLex.next(); break;
+	 * 
+	 * default: break; }
+	 * 
+	 * throw new SyntaxException("Operateur attendu"); // throw new
+	 * SyntaxException("Caractère inconnu"); }
+	 */
 
-		switch (uniteCourante) {
-		case "+":
-		case "-":
-		case "*":
-		case "et":
-		case "ou":
-		case "<":
-		case ">":
-		case "=":
-		case "#":
-		case "<=":
-		case ">=":
-
-			this.uniteCourante = this.aLex.next();
-			break;
-
-		default:
-			break;
-		}
-
-		throw new SyntaxException("Operateur attendu");
-//		throw new SyntaxException("Caractère inconnu");
-	}
-
-	private void analyseOperande() throws ErreurSyntaxique {
+	private Nombre analyseOperande() throws ErreurSyntaxique {
 		if (!estCsteEntiere(uniteCourante)) {
 			throw new ErreurSyntaxique("Operande attendu");
 		}
+		int uc = Integer.parseInt(this.uniteCourante);
 		uniteCourante = this.aLex.next();
+		return new Nombre(uc);
 
 	}
 
@@ -131,22 +149,31 @@ public class AnalyseurSyntaxique {
 		}
 	}
 
-	private void analyseAcces() throws ErreurSyntaxique {
-		analyseIDF();
+	private Idf analyseAcces() throws ErreurSyntaxique {
+		Idf i = analyseIDF();
+		return i;
 
 	}
 
-	private boolean analyseES() throws ErreurSyntaxique {
+	private Ecrire analyseES() throws ErreurSyntaxique {
 		analyseTerminal("ecrire");
-		analyseExpression();
+//		Expression e = analyseExpression();
+		Expression e = analyseIDF();
 		analyseTerminal(";");
-		return true;
+
+		return new Ecrire(e);
 	}
 
-	private void analyseDeclaration() throws ErreurSyntaxique {
-		analyseTerminal("entier");
-		analyseIDF();
+	private void analyseDeclaration() throws ErreurSyntaxique, DoubleDeclaration {
+
+		TDS tab = TDS.getInstance();
+		String type = "entier";
+
+		analyseTerminal(type);
+		Idf i = analyseIDF();
 		analyseTerminal(";");
+
+		tab.ajouter(new Entree(i), new Symbole(type, 4));
 
 	}
 
@@ -160,8 +187,9 @@ public class AnalyseurSyntaxique {
 
 	}
 
-	private void analyseIDF() throws ErreurSyntaxique {
+	private Idf analyseIDF() throws ErreurSyntaxique {
 
+		Idf i;
 		Pattern pattern = Pattern.compile("[a-zA-Z]+");
 		Matcher matcher = pattern.matcher(this.uniteCourante);
 
@@ -169,7 +197,10 @@ public class AnalyseurSyntaxique {
 			throw new ErreurSyntaxique("Identifiant attendu");
 		}
 
+		i = new Idf(uniteCourante);
+
 		this.uniteCourante = this.aLex.next();
+		return i;
 	}
 
 	private void analyseProg() throws ErreurSyntaxique {

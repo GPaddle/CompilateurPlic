@@ -7,6 +7,6 @@ programme test {
 	entier d ;
 	entier e ;
 	
-	ecrire 1 ;
-	ecrire 1 ;
+	ecrire b ;
+	ecrire e ;
 }
