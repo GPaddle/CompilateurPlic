@@ -4,6 +4,11 @@ public class Entree {
 
 	private String idf;
 
+	public Entree(String idf) {
+		super();
+		this.idf = idf;
+	}
+
 	public String getIdf() {
 		return idf;
 	}

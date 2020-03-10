@@ -5,6 +5,12 @@ public class Symbole {
 	private String type;
 	private int deplacement;
 
+	public Symbole(String type, int deplacement) {
+		super();
+		this.type = type;
+		this.deplacement = deplacement;
+	}
+
 	public String getType() {
 		return type;
 	}
