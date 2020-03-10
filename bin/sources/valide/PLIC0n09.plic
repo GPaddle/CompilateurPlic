@@ -1,0 +1,12 @@
+programme test {
+	//OKOK
+	
+	entier a ;
+	entier b ;
+	entier c ;
+	entier d ;
+	entier e ;
+	
+	ecrire 1 ;
+	ecrire 1 ;
+}

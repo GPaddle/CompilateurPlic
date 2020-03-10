@@ -1,0 +1,5 @@
+programme PLIC0coucou {
+	entier a ;
+	a := 7 ; //Yo yo 
+	ecrire a ;
+}
