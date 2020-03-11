@@ -7,6 +7,7 @@ import analyse.AnalyseurSyntaxique;
 import exception.DoubleDeclaration;
 import exception.ErreurSyntaxique;
 import repint.Bloc;
+import repint.ErreurVerification;
 
 public class plic {
 
@@ -22,25 +23,34 @@ public class plic {
 				as = new AnalyseurSyntaxique(f);
 				try {
 					Bloc bloc = as.analyse();
-					System.out.println(bloc);
+					try {
+						bloc.verifier();
+
+						String code = bloc.toMips();
+
+						if (code.equals("")) {
+							System.out.println(code);
+						} else {
+							System.out.println("ERREUR: " + "Problème lors de la génération du code");
+						}
+
+					} catch (ErreurVerification e) {
+						System.out.println("ERREUR: " + "Erreur Verification : Problème avec " + e.getMessage());
+					}
 				} catch (ErreurSyntaxique e) {
-					// TODO Auto-generated catch block
-					System.out.println("ERREUR: " + e.getMessage());
+					System.out.println("ERREUR: " +"Erreur Syntaxique : "+ e.getMessage());
 
 				} catch (DoubleDeclaration e) {
-					// TODO Auto-generated catch block
-					System.out.println("ERREUR: " + e.getMessage());
+					System.out.println("ERREUR: " +"Double Declaration : "+ e.getMessage());
 				}
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				System.out.println("ERREUR: " + e.getMessage());
+				System.out.println("ERREUR: " +"File Not Found : "+ e.getMessage());
 
 			}
 		} else {
 			System.out.println("ERREUR: Suffixe incorrect");
 		}
 
-		// TODO Auto-generated constructor stub
 	}
 
 	public static void main(String[] args) throws ErreurSyntaxique {
@@ -49,7 +59,7 @@ public class plic {
 			try {
 				p = new plic(args[0]);
 			} catch (Exception e) {
-				System.out.println("ERREUR: " + e.getMessage());
+				System.out.println("ERREUR: Inconnue" + e.getMessage());
 			}
 		} else if (args.length == 0) {
 			System.out.println("ERREUR: Fichier source absent");

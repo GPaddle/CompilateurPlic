@@ -1,5 +1,4 @@
 programme test {
 	//OKOK
-	entier a ;
-	ecrire a ;
+	a := 5 ;
 }

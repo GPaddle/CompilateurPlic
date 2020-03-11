@@ -1,5 +1,5 @@
 programme PLICcoucou {
 	entier a ;
-	b := 7 ; //Yo yo 
-	ecrire c ; // Probleme sur cette ligne
+	a := 7 ; //Yo yo 
+	ecrire a ; // Probleme sur cette ligne
 }

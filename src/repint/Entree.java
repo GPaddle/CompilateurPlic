@@ -27,8 +27,12 @@ public class Entree {
 		return true;
 	}
 
+	
+	
 	private String idf;
 
+	
+	
 	public Entree(String idf) {
 		super();
 		this.idf = idf;

@@ -16,7 +16,23 @@ public class Affectation extends Instruction {
 		// TODO Auto-generated method stub
 		return i + " := " + e+" ;";
 	}
-	//Fonction vérifier
-	//Fonction toMips
+
+	@Override
+	protected void verifier() throws ErreurVerification {
+
+		TDS tSymbole = TDS.getInstance();
+		Symbole s = tSymbole.identifier(new Entree(i));
+		
+		if (s==null) {
+			throw new ErreurVerification("Affectation");
+		}
+		
+	}
+
+	@Override
+	protected String toMips() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

@@ -1,4 +1,5 @@
 programme test {
 	//OKOK
+	entier a ;
 	ecrire a ;
 }
