@@ -10,9 +10,9 @@ import java.util.Scanner;
 public class AnalyseurLexical {
 
 	Scanner sc;
-	int nbLignes=0;
+	int nbLignes = 0;
 	String newLine = System.lineSeparator();
-	
+
 	public AnalyseurLexical(File f) throws FileNotFoundException {
 		sc = new Scanner(f);
 	}
@@ -25,7 +25,7 @@ public class AnalyseurLexical {
 			while (s.equals("")) {
 				if (sc.hasNext()) {
 					s = sc.next();
-					
+
 					s = contientCommentaire(s);
 				} else {
 					s = "EOF";
@@ -42,7 +42,6 @@ public class AnalyseurLexical {
 			if (sc.hasNext()) {
 				sc.nextLine();
 
-				
 				this.nbLignes++;
 
 			}

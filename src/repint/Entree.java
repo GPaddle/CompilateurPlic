@@ -27,12 +27,8 @@ public class Entree {
 		return true;
 	}
 
-	
-	
 	private String idf;
 
-	
-	
 	public Entree(String idf) {
 		super();
 		this.idf = idf;
@@ -48,5 +44,10 @@ public class Entree {
 
 	public void setIdf(String idf) {
 		this.idf = idf;
+	}
+
+	@Override
+	public String toString() {
+		return idf;
 	}
 }

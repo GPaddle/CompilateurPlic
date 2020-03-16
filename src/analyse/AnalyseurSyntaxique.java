@@ -30,7 +30,7 @@ public class AnalyseurSyntaxique {
 		this.aLex = new AnalyseurLexical(f);
 	}
 
-	public Bloc analyse() throws ErreurSyntaxique, DoubleDeclaration {
+	public Bloc analyse() throws ErreurSyntaxique, DoubleDeclaration, Exception {
 		this.uniteCourante = this.aLex.next();
 
 		this.analyseProg();
@@ -43,7 +43,7 @@ public class AnalyseurSyntaxique {
 
 	}
 
-	private Bloc analyseBloc() throws ErreurSyntaxique, DoubleDeclaration {
+	private Bloc analyseBloc() throws ErreurSyntaxique, DoubleDeclaration, Exception {
 		Bloc b = new Bloc();
 		this.analyseTerminal("{");
 
@@ -80,7 +80,6 @@ public class AnalyseurSyntaxique {
 	private Instruction analyseInstruction() throws ErreurSyntaxique {
 
 		Instruction instruction = null;
-
 
 		try {
 			instruction = analyseES();
@@ -164,7 +163,7 @@ public class AnalyseurSyntaxique {
 		return new Ecrire(e);
 	}
 
-	private void analyseDeclaration() throws ErreurSyntaxique, DoubleDeclaration {
+	private void analyseDeclaration() throws ErreurSyntaxique, Exception, DoubleDeclaration {
 
 		TDS tab = TDS.getInstance();
 		String type = "entier";

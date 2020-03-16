@@ -1,4 +1,4 @@
-package plic;
+package exception;
 
 public class ErreurExtension extends Exception {
 

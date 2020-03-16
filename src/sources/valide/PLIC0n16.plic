@@ -1,5 +1,10 @@
 programme PLICcoucou {
 	entier a ;
+	entier b ;
+	
 	a := 7 ; //Yo yo 
+	b := 12 ;
+	
 	ecrire a ; // ko
+	ecrire b ; // ko
 }

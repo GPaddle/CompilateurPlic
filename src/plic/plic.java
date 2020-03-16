@@ -6,8 +6,8 @@ import java.io.FileNotFoundException;
 import analyse.AnalyseurSyntaxique;
 import exception.DoubleDeclaration;
 import exception.ErreurSyntaxique;
+import exception.ErreurVerification;
 import repint.Bloc;
-import repint.ErreurVerification;
 
 public class plic {
 
@@ -28,7 +28,7 @@ public class plic {
 
 						String code = bloc.toMips();
 
-						if (code.equals("")) {
+						if (!code.equals("")) {
 							System.out.println(code);
 						} else {
 							System.out.println("ERREUR: " + "Problème lors de la génération du code");
@@ -36,15 +36,21 @@ public class plic {
 
 					} catch (ErreurVerification e) {
 						System.out.println("ERREUR: " + "Erreur Verification : Problème avec " + e.getMessage());
+					} catch (Exception e) {
+						System.out.println("ERREUR: " + e.getMessage());
+						e.printStackTrace();
 					}
 				} catch (ErreurSyntaxique e) {
-					System.out.println("ERREUR: " +"Erreur Syntaxique : "+ e.getMessage());
+					System.out.println("ERREUR: " + "Erreur Syntaxique : " + e.getMessage());
 
 				} catch (DoubleDeclaration e) {
-					System.out.println("ERREUR: " +"Double Declaration : "+ e.getMessage());
+					System.out.println("ERREUR: " + "Double Declaration : " + e.getMessage());
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					System.out.println("ERREUR: " + e1.getMessage());
 				}
 			} catch (FileNotFoundException e) {
-				System.out.println("ERREUR: " +"File Not Found : "+ e.getMessage());
+				System.out.println("ERREUR: " + "File Not Found : " + e.getMessage());
 
 			}
 		} else {

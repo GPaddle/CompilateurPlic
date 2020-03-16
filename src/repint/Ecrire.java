@@ -1,6 +1,9 @@
 package repint;
 
-public class Ecrire extends Instruction{
+import exception.ErreurGenerationCode;
+import exception.ErreurVerification;
+
+public class Ecrire extends Instruction {
 	private Expression e;
 
 	public Ecrire(Expression e) {
@@ -11,7 +14,7 @@ public class Ecrire extends Instruction{
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "ecrire " + e+" ;";
+		return "ecrire " + e + " ;";
 	}
 
 	@Override
@@ -19,22 +22,31 @@ public class Ecrire extends Instruction{
 
 		if (e instanceof Idf) {
 			TDS tSymbole = TDS.getInstance();
-			Symbole s = null;
-			s= tSymbole.identifier(new Entree( ( (Idf)e).toString() ) );
-			if (s==null) {
+			Symbole s = tSymbole.identifier(new Entree(((Idf) e).toString()));
+			if (s == null) {
 				throw new ErreurVerification("ES");
 			}
 		}
-		
-		
 
-		
 	}
 
 	@Override
-	protected String toMips() {
-		return null;
-	}
+	protected String toMips() throws Exception {
+		String s = "\n\n# affichage de " + e + "\n" + "li $v0, 1 \t# on prépare l'affichage des variables";
 
+		if (e instanceof Idf) {
+			s += "\nlw $a0, " + TDS.getInstance().getDeplacementFromIDF((Idf) e) + "($s7)\t# on affiche " + e
+					+ "\nsyscall \t# ecrire";
+		} else if (e instanceof Nombre) {
+			throw new ErreurGenerationCode("ERREUR: On n'écrit pas de nombre en PLIC0");
+		} else {
+			throw new ErreurGenerationCode("ERREUR: cas inconnu");
+		}
+
+//		String newLine = System.getProperty("line.separator");
+
+		s += "\n\n#aff \\n" + "\nli $v0, 4" + "\nla $a0, newLine" + "\nsyscall";
+		return s;
+	}
 
 }

@@ -2,6 +2,8 @@ package repint;
 
 import java.util.ArrayList;
 
+import exception.ErreurVerification;
+
 public class Bloc {
 
 	ArrayList<Instruction> ali = new ArrayList<>();
@@ -31,11 +33,24 @@ public class Bloc {
 
 	}
 
-	public String toMips() {
+	public String toMips() throws Exception {
 		String s = "";
+
+		TDS tab = TDS.getInstance();
+		int reserve = tab.getCptDepl();
+
+//		String newLine = System.getProperty("line.separator");
+
+		s += ".data\n" + "\tnewLine: .asciiz \"\\n\"\n" + ".text\n" + "\tmain:";
+		s += tab + "";
+		s += "\n\n";
+
+		s += "# creation des entiers\n" + "move $s7, $sp\n" + "add $sp, $sp, " + reserve
+				+ " # on réserve 4 bits par entier présent dans la TDS";
+
 		for (Instruction instruction : ali) {
 			s += instruction.toMips();
 		}
-		return null;
+		return s;
 	}
 }

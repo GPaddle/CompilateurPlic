@@ -4,7 +4,7 @@ public class Token {
 
 	public String result;
 	public static int ligne;
-	
+
 	public Token(String result, int ligne) {
 		super();
 		this.result = result;
@@ -12,12 +12,8 @@ public class Token {
 	}
 
 	public void setResult(String s) {
-		this.result=s;
-		
+		this.result = s;
+
 	}
-	
-	
-	
-	
-	
+
 }

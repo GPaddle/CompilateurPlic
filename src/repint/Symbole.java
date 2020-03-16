@@ -11,6 +11,11 @@ public class Symbole {
 		this.deplacement = deplacement;
 	}
 
+	public Symbole(String type) {
+		super();
+		this.type = type;
+	}
+
 	public String getType() {
 		return type;
 	}

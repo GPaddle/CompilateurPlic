@@ -5,7 +5,7 @@ echo valide :
 for file in ./src/sources/valide/*; do
 	echo "$file"
 	java -jar "$1" "$file"
-	echo
+	echo ----------------------
 done
 
 echo 
@@ -15,5 +15,5 @@ echo
 for file in ./src/sources/invalide/*; do
 	echo "$file"
 	java -jar "$1" "$file"
-	echo
+	echo ----------------------
 done

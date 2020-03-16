@@ -1,4 +1,4 @@
-package repint;
+package exception;
 
 public class ErreurVerification extends Exception {
 
