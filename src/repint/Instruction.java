@@ -5,8 +5,8 @@ import exception.ErreurVerification;
 
 public abstract class Instruction {
 
-	protected abstract void verifier() throws ErreurVerification;
+	public abstract void verifier() throws ErreurVerification;
 
-	protected abstract String toMips() throws ErreurGenerationCode, Exception;
+	public abstract String toMips() throws ErreurGenerationCode, Exception;
 
 }

@@ -1,5 +1,9 @@
 package repint;
 
+import exception.ErreurCle;
+import exception.ErreurGenerationCode;
+import exception.ErreurVerification;
+
 public class Idf extends Expression {
 
 	private String nom;
@@ -38,6 +42,32 @@ public class Idf extends Expression {
 	public String toString() {
 		// TODO Auto-generated method stub
 		return nom;
+	}
+
+	@Override
+	public String toMips() throws ErreurCle {
+		
+		return ""+TDS.getInstance().getDeplacementFromIDF(this);
+		
+		/*
+		 * Convention : La fonction toMips des sous-classes de Expression génère du code
+		 * qui range dans le registre $v0 la valeur de l’expression.
+		 */
+	}
+
+	@Override
+	public void verifier() throws ErreurVerification {
+		try {
+			TDS.getInstance().getDeplacementFromIDF(this);
+		} catch (ErreurCle e) {
+			throw new ErreurVerification("IDF inconnu");
+		}
+		
+	}
+
+	@Override
+	public String getType() {
+		return "idf";
 	}
 
 }

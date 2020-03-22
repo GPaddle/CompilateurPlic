@@ -7,9 +7,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import exception.DoubleDeclaration;
+import exception.ErreurDoubleDeclaration;
 import repint.Entree;
 import repint.Symbole;
+import repint.SymboleEntier;
 import repint.TDS;
 
 public class TDSTest {
@@ -22,7 +23,7 @@ public class TDSTest {
 	public void before() {
 		tds = TDS.getInstance();
 		e = new Entree("a");
-		s = new Symbole("entier", 0);
+		s = new SymboleEntier(0);
 	}
 
 	@After
@@ -38,7 +39,7 @@ public class TDSTest {
 	}
 
 	@Test
-	public void testAjouter() throws DoubleDeclaration, Exception {
+	public void testAjouter() throws ErreurDoubleDeclaration, Exception {
 		assertTrue("La liste devrait être vide", tds.getListeSize() == 0);
 		tds.ajouter(e, s);
 		assertTrue("La liste devrait contenir un élément", tds.getListeSize() == 1);
@@ -46,9 +47,9 @@ public class TDSTest {
 	}
 
 	@Test
-	public void testAjouter2Var() throws DoubleDeclaration, Exception {
+	public void testAjouter2Var() throws ErreurDoubleDeclaration, Exception {
 		Entree e2 = new Entree("b");
-		Symbole s2 = new Symbole("entier", -4);
+		Symbole s2 = new SymboleEntier(-4);
 
 		tds.ajouter(e, s);
 		tds.ajouter(e2, s2);
@@ -57,8 +58,8 @@ public class TDSTest {
 		assertTrue("L'entrée " + e2 + " devrait être dans la liste", tds.identifier(e2) != null);
 	}
 
-	@Test(expected = DoubleDeclaration.class)
-	public void testAjouterPb() throws DoubleDeclaration, Exception {
+	@Test(expected = ErreurDoubleDeclaration.class)
+	public void testAjouterPb() throws ErreurDoubleDeclaration, Exception {
 
 		tds.ajouter(e, s);
 		tds.ajouter(e, s);

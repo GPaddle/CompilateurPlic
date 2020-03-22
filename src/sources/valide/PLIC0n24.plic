@@ -1,0 +1,7 @@
+programme PLICcoucou {
+	tableau [ 5 ] a ;
+	tableau [ 3 ] b ;
+	tableau [ 2 ] c ;
+	
+	a [ b [ c [ 1 ] ] ] := 0 ;
+}

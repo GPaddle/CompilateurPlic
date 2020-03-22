@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 import analyse.AnalyseurSyntaxique;
-import exception.DoubleDeclaration;
+import exception.ErreurDoubleDeclaration;
 import exception.ErreurSyntaxique;
 import exception.ErreurVerification;
 import repint.Bloc;
@@ -24,6 +24,7 @@ public class plic {
 				try {
 					Bloc bloc = as.analyse();
 					try {
+
 						bloc.verifier();
 
 						String code = bloc.toMips();
@@ -43,7 +44,7 @@ public class plic {
 				} catch (ErreurSyntaxique e) {
 					System.out.println("ERREUR: " + "Erreur Syntaxique : " + e.getMessage());
 
-				} catch (DoubleDeclaration e) {
+				} catch (ErreurDoubleDeclaration e) {
 					System.out.println("ERREUR: " + "Double Declaration : " + e.getMessage());
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block

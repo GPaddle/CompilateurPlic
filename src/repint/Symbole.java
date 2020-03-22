@@ -1,6 +1,6 @@
 package repint;
 
-public class Symbole {
+public abstract class Symbole {
 
 	private String type;
 	private int deplacement;
@@ -30,6 +30,11 @@ public class Symbole {
 
 	public void setDeplacement(int deplacement) {
 		this.deplacement = deplacement;
+	}
+
+	@Override
+	public String toString() {
+		return "type : " + type;
 	}
 
 }

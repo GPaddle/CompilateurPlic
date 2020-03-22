@@ -6,6 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import repint.Acces;
 import repint.Affectation;
 import repint.Bloc;
 import repint.Ecrire;
@@ -18,7 +19,7 @@ public class TestInstruction {
 	Instruction i;
 	Affectation a1, a2;
 	Ecrire e1, e2, e3, e4;
-	Idf id1, id2;
+	Acces id1, id2;
 	Nombre n1, n2;
 	Bloc b1, b2;
 
@@ -27,8 +28,8 @@ public class TestInstruction {
 		b1 = new Bloc();
 		b2 = new Bloc();
 
-		id1 = new Idf("a1");
-		id2 = new Idf("a2");
+		id1 = new Acces(new Idf("a1"));
+		id2 = new Acces(new Idf("a2"));
 
 		n1 = new Nombre(5);
 		n2 = new Nombre(10);

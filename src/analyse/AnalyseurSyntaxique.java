@@ -6,8 +6,12 @@ import java.io.FileNotFoundException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import exception.DoubleDeclaration;
+import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
+
+import exception.ErreurDoubleDeclaration;
+import exception.ErreurCle;
 import exception.ErreurSyntaxique;
+import repint.Acces;
 import repint.Affectation;
 import repint.Bloc;
 import repint.Ecrire;
@@ -17,6 +21,8 @@ import repint.Idf;
 import repint.Instruction;
 import repint.Nombre;
 import repint.Symbole;
+import repint.SymboleEntier;
+import repint.SymboleTableau;
 import repint.TDS;
 
 public class AnalyseurSyntaxique {
@@ -30,7 +36,7 @@ public class AnalyseurSyntaxique {
 		this.aLex = new AnalyseurLexical(f);
 	}
 
-	public Bloc analyse() throws ErreurSyntaxique, DoubleDeclaration, Exception {
+	public Bloc analyse() throws ErreurSyntaxique, ErreurDoubleDeclaration, Exception {
 		this.uniteCourante = this.aLex.next();
 
 		this.analyseProg();
@@ -43,7 +49,7 @@ public class AnalyseurSyntaxique {
 
 	}
 
-	private Bloc analyseBloc() throws ErreurSyntaxique, DoubleDeclaration, Exception {
+	private Bloc analyseBloc() throws ErreurSyntaxique, ErreurDoubleDeclaration, Exception {
 		Bloc b = new Bloc();
 		this.analyseTerminal("{");
 
@@ -84,11 +90,14 @@ public class AnalyseurSyntaxique {
 		try {
 			instruction = analyseES();
 		} catch (ErreurSyntaxique e) {
+
 		}
+
 		if (instruction == null) {
 			try {
 				instruction = analyseAffectation();
 			} catch (ErreurSyntaxique e) {
+
 			}
 		}
 
@@ -102,17 +111,47 @@ public class AnalyseurSyntaxique {
 
 	private Affectation analyseAffectation() throws ErreurSyntaxique {
 
-		Idf i = analyseAcces();
+		Acces a = analyseAcces();
+//		Idf i = analyseAcces();
+
+		if (TDS.getInstance().identifier(new Entree(a.getI())) instanceof SymboleTableau) {
+			analyseTerminal("[");
+			Expression expr = analyseExpression();
+			a.ajoutExpression(expr);
+			analyseTerminal("]");
+
+		}
+
 		analyseTerminal(":=");
 		Expression e = analyseExpression();
+
 		analyseTerminal(";");
 
-		return new Affectation(i, e);
+		return new Affectation(a, e);
 	}
 
 	private Expression analyseExpression() throws ErreurSyntaxique {
-		Nombre n = analyseOperande();
-		return n;
+		try {
+			Nombre n = analyseOperande();
+			return n;
+		} catch (ErreurSyntaxique e) {
+			try {
+				Acces a = analyseAcces();
+				return a;
+			} catch (ErreurSyntaxique e2) {
+				try {
+
+					Idf i = analyseIDF();
+					TDS.getInstance().getDeplacementFromIDF(i);
+					return i;
+				} catch (ErreurCle e1) {
+					throw new ErreurSyntaxique("Problème de sémantique : l'identifiant est inconnu");
+				}
+			} catch (Exception e3) {
+				throw new ErreurSyntaxique("Problème sur l'expression");
+			}
+
+		}
 	}
 
 	/*
@@ -148,9 +187,13 @@ public class AnalyseurSyntaxique {
 		}
 	}
 
-	private Idf analyseAcces() throws ErreurSyntaxique {
+	private Acces analyseAcces() throws ErreurSyntaxique {
 		Idf i = analyseIDF();
-		return i;
+		Acces a = new Acces(i);
+		return a;
+
+		// TODO
+		// Regarder ici si il faut renvoyer un IDF
 
 	}
 
@@ -163,16 +206,56 @@ public class AnalyseurSyntaxique {
 		return new Ecrire(e);
 	}
 
-	private void analyseDeclaration() throws ErreurSyntaxique, Exception, DoubleDeclaration {
+	private void analyseDeclaration() throws ErreurSyntaxique, Exception, ErreurDoubleDeclaration {
 
 		TDS tab = TDS.getInstance();
-		String type = "entier";
 
-		analyseTerminal(type);
+		String type = analyseType();
+
 		Idf i = analyseIDF();
+
 		analyseTerminal(";");
 
-		tab.ajouter(new Entree(i), new Symbole(type, 4));
+		if (type.equals("entier")) {
+			tab.ajouter(new Entree(i), new SymboleEntier(4));
+		} else if (type.startsWith("tableau")) {
+
+			int size = Integer.parseInt(type.split("tableau")[1]);
+			Symbole symTab = new SymboleTableau(4 * size, size);
+
+			System.out.println(symTab);
+
+			tab.ajouter(new Entree(i), symTab);
+		} else {
+			throw new Exception("Type inconnu");
+		}
+
+	}
+
+	private String analyseType() throws ErreurSyntaxique {
+
+		String type = "entier";
+		try {
+			analyseTerminal(type);
+		} catch (ErreurSyntaxique e) {
+
+			try {
+				type = "tableau";
+				analyseTerminal(type);
+				analyseTerminal("[");
+
+				estCsteEntiere(uniteCourante);
+				type += uniteCourante;
+				uniteCourante = aLex.next();
+
+				analyseTerminal("]");
+
+			} catch (ErreurSyntaxique e2) {
+				throw new ErreurSyntaxique("le type est mal défini");
+			}
+
+		}
+		return type;
 
 	}
 

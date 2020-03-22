@@ -18,7 +18,7 @@ public class Ecrire extends Instruction {
 	}
 
 	@Override
-	protected void verifier() throws ErreurVerification {
+	public void verifier() throws ErreurVerification {
 
 		if (e instanceof Idf) {
 			TDS tSymbole = TDS.getInstance();
@@ -31,8 +31,9 @@ public class Ecrire extends Instruction {
 	}
 
 	@Override
-	protected String toMips() throws Exception {
-		String s = "\n\n# affichage de " + e + "\n" + "li $v0, 1 \t# on prépare l'affichage des variables";
+	public String toMips() throws Exception {
+		String s = "\n\n# affichage de " + e + "\n\n"
+	+ "li $v0, 1 \t# on prépare l'affichage des variables";
 
 		if (e instanceof Idf) {
 			s += "\nlw $a0, " + TDS.getInstance().getDeplacementFromIDF((Idf) e) + "($s7)\t# on affiche " + e
@@ -45,7 +46,7 @@ public class Ecrire extends Instruction {
 
 //		String newLine = System.getProperty("line.separator");
 
-		s += "\n\n#aff \\n" + "\nli $v0, 4" + "\nla $a0, newLine" + "\nsyscall";
+		s += "\n\n#affichage du saut de ligne \n" + "\nli $v0, 4" + "\nla $a0, newLine" + "\nsyscall";
 		return s;
 	}
 

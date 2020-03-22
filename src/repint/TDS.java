@@ -1,9 +1,11 @@
 package repint;
 
+import java.io.Console;
 import java.util.HashMap;
 import java.util.Map;
 
-import exception.DoubleDeclaration;
+import exception.ErreurDoubleDeclaration;
+import exception.ErreurCle;
 
 public class TDS {
 
@@ -29,18 +31,30 @@ public class TDS {
 
 	}
 
-	public void ajouter(Entree e, Symbole s) throws DoubleDeclaration, Exception {
+	public void ajouter(Entree e, Symbole s) throws ErreurDoubleDeclaration, Exception {
 
 		if (liste.containsKey(e)) {
-			throw new DoubleDeclaration(e);
+			throw new ErreurDoubleDeclaration(e);
 		}
 
 		s.setDeplacement(cptDepl);
 
 		liste.put(e, s);
 
-		if (s.getType().equals("entier")) {
+		String s2 = s.getType();
+		
+		if (s2.equals("entier")) {
 			cptDepl -= 4;
+		} else if (s2.startsWith("tableau")) {
+			try {
+				int taille = ((SymboleTableau) s).getSize();
+				cptDepl -= 4 * taille;
+			} catch (NumberFormatException e2) {
+				throw new Exception("Problème dans la déclaration du tableau");
+			}
+
+//			throw new Exception("Not yet implemented TDS : tableau");
+
 		} else {
 			throw new Exception("Problème de typage");
 		}
@@ -80,7 +94,7 @@ public class TDS {
 		return s;
 	}
 
-	public int getDeplacementFromIDF(Idf i) throws Exception {
+	public int getDeplacementFromIDF(Idf i) throws ErreurCle {
 //		System.out.println(i);
 		for (Entree entree : liste.keySet()) {
 //			System.out.println(entree.getIdf());
@@ -89,7 +103,7 @@ public class TDS {
 				return liste.get(entree).getDeplacement();
 			}
 		}
-		throw new Exception("Clé introuvable");
+		throw new ErreurCle("Clé introuvable");
 	}
 
 	public void setListe(Map<Entree, Symbole> liste) {

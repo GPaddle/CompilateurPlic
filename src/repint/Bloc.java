@@ -45,8 +45,9 @@ public class Bloc {
 		s += tab + "";
 		s += "\n\n";
 
-		s += "# creation des entiers\n" + "move $s7, $sp\n" + "add $sp, $sp, " + reserve
-				+ " # on réserve 4 bits par entier présent dans la TDS";
+		s += "# creation des variables\n" + "move $s7, $sp\n" + "add $sp, $sp, " + reserve
+				+ "\n # on réserve 4 bits par entier présent dans la TDS"
+				+ "\n # on réserve 4* n bits par tableau de n cases dans la TDS";
 
 		for (Instruction instruction : ali) {
 			s += instruction.toMips();
