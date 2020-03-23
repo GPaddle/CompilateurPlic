@@ -1,5 +1,6 @@
 programme test {
 	//OKOK
+	entier a ;
 	a := 5 ;
 	tableau [ 4 ]b ;
 }

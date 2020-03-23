@@ -12,6 +12,8 @@ for file in ./src/sources/valide/*; do
 	echo "$file"
 	java -jar "$1" "$file"
 	echo ----------------------
+	echo
+	echo
 done
 
 echo 

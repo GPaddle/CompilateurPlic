@@ -20,13 +20,14 @@ public class AnalyseurLexical {
 	public String next() {
 
 		String s = "";
-
+		
 		if (sc.hasNext()) {
 			while (s.equals("")) {
 				if (sc.hasNext()) {
+					
 					s = sc.next();
-
 					s = contientCommentaire(s);
+
 				} else {
 					s = "EOF";
 				}
@@ -34,6 +35,7 @@ public class AnalyseurLexical {
 		} else {
 			s = "EOF";
 		}
+		
 		return s;
 	}
 

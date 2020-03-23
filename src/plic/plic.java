@@ -15,7 +15,8 @@ import repint.Bloc;
 
 public class plic {
 
-	File f;
+	public static int compteLigne = 0;
+	private File f;
 
 	public plic(String path) {
 
@@ -25,6 +26,7 @@ public class plic {
 			AnalyseurSyntaxique as;
 			try {
 				as = new AnalyseurSyntaxique(f);
+				compteLigne = 0;
 				try {
 					Bloc bloc = as.analyse();
 					try {
@@ -35,31 +37,37 @@ public class plic {
 //						String code = bloc.toString();
 
 						if (!code.equals("")) {
-							System.out.println("# "+path+"\n");
+							System.out.println("# " + path + "\n");
 							System.out.println(code);
+
+//								StringSelection selection = new StringSelection(code);
+//								java.awt.datatransfer.Clipboard clipboard = Toolkit.getDefaultToolkit()
+//										.getSystemClipboard();
+//								clipboard.setContents(selection, selection);
 							
-							StringSelection selection = new StringSelection(code);
-							java.awt.datatransfer.Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-							clipboard.setContents(selection, selection);
-							
+
 						} else {
-							System.out.println("ERREUR: " + "Problème lors de la génération du code");
+							System.out.println(
+									"ERREUR: " + "Problème lors de la génération du code" + "\tLigne : " + compteLigne);
 						}
 
 					} catch (ErreurVerification e) {
-						System.out.println("ERREUR: " + "Erreur Verification : Problème avec " + e.getMessage());
+						System.out.println(
+								"ERREUR: " + "Erreur Verification : " + e.getMessage() + "\tLigne : " + compteLigne);
 					} catch (Exception e) {
-						System.out.println("ERREUR: " + e.getMessage());
+						System.out.println("ERREUR: " + e.getMessage() + "\tLigne : " + compteLigne);
 						e.printStackTrace();
 					}
 				} catch (ErreurSyntaxique e) {
-					System.out.println("ERREUR: " + "Erreur Syntaxique : " + e.getMessage());
+					System.out
+							.println("ERREUR: " + "Erreur Syntaxique : " + e.getMessage() + "\tLigne : " + compteLigne);
 
 				} catch (ErreurDoubleDeclaration e) {
-					System.out.println("ERREUR: " + "Double Declaration : " + e.getMessage());
+					System.out.println(
+							"ERREUR: " + "Double Declaration : " + e.getMessage() + "\tLigne : " + compteLigne);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
-					System.out.println("ERREUR: " + e1.getMessage());
+					System.out.println("ERREUR: " + e1.getMessage() + "\tLigne : " + compteLigne);
 				}
 			} catch (FileNotFoundException e) {
 				System.out.println("ERREUR: " + "File Not Found : " + e.getMessage());

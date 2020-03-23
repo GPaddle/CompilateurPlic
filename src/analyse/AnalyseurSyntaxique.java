@@ -14,6 +14,7 @@ import exception.ErreurSemantique;
 import exception.ErreurCle;
 import exception.ErreurSyntaxique;
 import exception.ErreurVerification;
+import plic.plic;
 import repint.Acces;
 import repint.AccesTableau;
 import repint.Affectation;
@@ -205,8 +206,8 @@ public class AnalyseurSyntaxique {
 
 			} else if (expression.getType() == "idf") {
 
-				TDS.getInstance().identifier(new Entree((Idf)expression));
-				
+				TDS.getInstance().identifier(new Entree((Idf) expression));
+
 //				Expression expr2 = analyseAcces();
 //				throw new ErreurSyntaxique("Pas encore implémenté accès via IDF AnalyseAcces");
 
@@ -225,8 +226,8 @@ public class AnalyseurSyntaxique {
 
 				i = new AccesTableau(i.toString(), valeur);
 
-			}else {
-				i= new AccesTableau(i.toString(), expression);
+			} else {
+				i = new AccesTableau(i.toString(), expression);
 			}
 
 		} catch (ErreurSyntaxique e) {
@@ -236,7 +237,6 @@ public class AnalyseurSyntaxique {
 		i.verifier();
 		return i;
 
-
 	}
 
 	private Ecrire analyseES() throws ErreurSyntaxique, ErreurVerification {
@@ -245,16 +245,16 @@ public class AnalyseurSyntaxique {
 		Expression exp1 = analyseIDF();
 		try {
 			analyseTerminal("[");
-			
+
 			Expression exp2 = analyseExpression();
-			
+
 			analyseTerminal("]");
-			
+
 			exp1 = new AccesTableau(exp1.toString(), exp2);
-			
+
 		} catch (ErreurSyntaxique e2) {
-			//Ne rien faire, il s'agit d'un idf seul
-		}catch (ErreurVerification e) {
+			// Ne rien faire, il s'agit d'un idf seul
+		} catch (ErreurVerification e) {
 			throw e;
 		}
 		analyseTerminal(";");
@@ -333,10 +333,20 @@ public class AnalyseurSyntaxique {
 
 	}
 
+	int i = 0;
+
 	private void analyseTerminal(String string) throws ErreurSyntaxique {
 
 		if (!this.uniteCourante.equals(string)) {
-			throw new ErreurSyntaxique("Terminal " + string + " attendu");
+			throw new ErreurSyntaxique("Terminal " + string + " attendu, caractère obtenu : " + uniteCourante);
+		}
+
+		
+		
+
+
+		if (this.uniteCourante.equals(";")) {
+			plic.compteLigne++;
 		}
 
 		this.uniteCourante = this.aLex.next();
@@ -350,7 +360,8 @@ public class AnalyseurSyntaxique {
 		Matcher matcher = pattern.matcher(this.uniteCourante);
 
 		if (!matcher.matches()) {
-			throw new ErreurSyntaxique("Identifiant attendu caractère obtenu : "+uniteCourante+" : AnalyseurSyntaxique.class");
+			throw new ErreurSyntaxique(
+					"Identifiant attendu caractère obtenu : " + uniteCourante + " : AnalyseurSyntaxique.class");
 		}
 
 		i = new Idf(uniteCourante);
