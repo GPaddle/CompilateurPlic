@@ -28,8 +28,10 @@ public class plic {
 						bloc.verifier();
 
 						String code = bloc.toMips();
+//						String code = bloc.toString();
 
 						if (!code.equals("")) {
+							System.out.println("# "+path+"\n");
 							System.out.println(code);
 						} else {
 							System.out.println("ERREUR: " + "Problème lors de la génération du code");

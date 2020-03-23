@@ -109,4 +109,13 @@ public class TDS {
 	public void setListe(Map<Entree, Symbole> liste) {
 		this.liste = liste;
 	}
+
+	public boolean contientTableau() {
+		for (Entree entree : liste.keySet()) {
+			if(this.identifier(entree).getType().equals("tableau")) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

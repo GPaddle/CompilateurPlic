@@ -1,5 +1,7 @@
 package repint;
 
+import exception.ErreurSemantique;
+
 public class SymboleTableau extends Symbole {
 
 	private int size;
@@ -21,6 +23,14 @@ public class SymboleTableau extends Symbole {
 	@Override
 	public String toString() {
 		return super.toString() + "\nsize : " + size + "\n--------";
+	}
+
+	@Override
+	public void verifier() throws ErreurSemantique {
+		if (size <= 0) {
+			throw new ErreurSemantique("problème sur la taille de la liste");
+		}
+
 	}
 
 }

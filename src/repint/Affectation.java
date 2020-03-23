@@ -1,5 +1,6 @@
 package repint;
 
+import exception.ErreurCle;
 import exception.ErreurGenerationCode;
 import exception.ErreurVerification;
 
@@ -30,51 +31,88 @@ public class Affectation extends Instruction {
 			throw new ErreurVerification("Affectation");
 		}
 
+		if (membreDroite.getType().equals("idf")) {
+			Symbole s2 = TDS.getInstance().identifier(new Entree(((Idf) membreDroite)));
+			if (s2 instanceof SymboleTableau) {
+				throw new ErreurVerification("Les deux cotés de l'opération doivent être des entiers");
+			}
+		}
+
 	}
 
 	@Override
-	public String toMips() throws Exception {
+	public String toMips() throws ErreurGenerationCode, ErreurCle {
 		String s = "\n\n# Affectation de " + membreGauche + "\n";
 
-		Symbole sym = TDS.getInstance().identifier(new Entree(membreGauche.getI()));
+		Symbole symGauche = TDS.getInstance().identifier(new Entree(membreGauche.getI()));
 
-		if (sym instanceof SymboleEntier) {
+		String typeMembreDroite = membreDroite.getType();
+
+		if (symGauche instanceof SymboleEntier) {
 			// System.out.println("ENTIER");
 
-			if (membreDroite instanceof Nombre) {
-				s += "li $v0," + membreDroite + "\t" + "# on stocke " + membreDroite + " dans " + membreGauche + "\n" + "sw $v0, "
-						+ TDS.getInstance().getDeplacementFromIDF(membreGauche.getI()) + "($s7)";
-			} else if (membreDroite instanceof Acces) {
-				
-				s+="# Affectation de type x := y\n\n";
+			if (typeMembreDroite.equals("nombre")) {
+				s += "li $v0," + membreDroite + "\t" + "# on stocke " + membreDroite + " dans " + membreGauche + "\n"
+						+ "sw $v0, " + TDS.getInstance().getDeplacementFromIDF(membreGauche.getI()) + "($s7)";
+			} else if (typeMembreDroite.equals("idf")) {
+
+				s += "# Affectation de type x := y\n\n";
 				int deplacementVariableDestination = TDS.getInstance().getDeplacementFromIDF(membreGauche.getI());
 				String deplacementVariableSource = ((Acces) membreDroite).getAdresse();
 
-				s += "lw $v0, " + deplacementVariableSource + "($s7)\t# on stocke la valeur de "+membreGauche+" dans v0\n" +
-				"sw $v0, " + deplacementVariableDestination+ "($s7)\t# on met la valeur de " + membreDroite + " dans " + membreGauche + "";
+				s += "lw $v0, " + deplacementVariableSource + "($s7)\t# on stocke la valeur de " + membreGauche
+						+ " dans v0\n" + "sw $v0, " + deplacementVariableDestination + "($s7)\t# on met la valeur de "
+						+ membreDroite + " dans " + membreGauche + "";
 				// c := b --> on met la valeur de b dans c
 			} else {
-				throw new ErreurGenerationCode("ERREUR: erreur inconnue");
+				throw new ErreurGenerationCode("erreur inconnue");
 			}
 
-		} else if (sym instanceof SymboleTableau) {
+		} else if (symGauche instanceof SymboleTableau) {
 
-			throw new ErreurGenerationCode("ERREUR: Pas de tableaux pour le moment");
-			// System.out.println("TABLEAU");
-			/*
-			 * String adresse = new Acces(i.getI()).getAdresse();
-			 * 
-			 * System.out.println(i); System.out.println(i); System.out.println(i);
-			 * 
-			 * if (e instanceof Nombre) { s += "" + e + "\n" + "# on stocke " + e + " dans "
-			 * + i + "\n" + "sw $v0, " + TDS.getInstance().getDeplacementFromIDF(i.getI()) +
-			 * "($s7)"; } else if (e instanceof Acces) { throw new
-			 * ErreurGenerationCode("ERREUR: Pas d'affectation entre 2 variables pour le moment Acces"
-			 * ); } else if (e instanceof Idf) { //On calcul l'adresse à laquelle il faut
-			 * mettre la valeur stockée dans e throw new
-			 * ErreurGenerationCode("ERREUR: Pas d'affectation entre 2 variables pour le moment IDF"
-			 * ); } else { throw new ErreurGenerationCode("ERREUR: erreur inconnue"); }
-			 */
+//TODO
+//REVOIR CETTE PARTIE 
+
+			s += "\n\n#-------- Affectation dans un tableau --------\n\n";
+			if (typeMembreDroite.equals("nombre")) {
+				
+				s+= "#Affectation de type x [ y ] := int\n\n";
+
+//				int vDepartListe = (TDS.getInstance().getDeplacementFromIDF(membreGauche.getI()));
+
+				s += "li $v0," + membreDroite + "\t" + "# on stocke " + membreDroite + " dans " + membreGauche + "\n"
+						+ "sw $v0, " + Integer.parseInt(membreGauche.getAdresse()) + "($s7)";
+			
+			
+				
+			
+			} else if (typeMembreDroite.equals("idf")) {
+
+				s += "# Affectation de type x := y\n\n";
+				int deplacementVariableDestination = Integer.parseInt(membreGauche.getAdresse());
+				String deplacementVariableSource = ((Acces) membreDroite).getAdresse();
+
+				s += "lw $v0, " + deplacementVariableSource + "($s7)\t# on stocke la valeur de " + membreDroite
+						+ " dans v0\n" + "sw $v0, " + deplacementVariableDestination + "($s7)\t# on met la valeur de "
+						+ membreDroite + " dans " + membreGauche + "";
+				// c := b --> on met la valeur de b dans c
+			} else if (typeMembreDroite.equals("tableau")) {
+
+				s += "# Affectation de type x [ y ] := z [ i ]\n\n";
+				int deplacementVariableDestination = Integer.parseInt(membreGauche.getAdresse());
+				String deplacementVariableSource = ((Acces) membreDroite).getAdresse();
+
+//				s += membreDroite.toMips();
+
+				s += "lw $v0, " + deplacementVariableSource + "($s7)\t# on stocke la valeur de " + membreDroite + " dans v0\n" + 
+						"sw $v0, " + deplacementVariableDestination + "($s7)\t# on met la valeur de " + membreDroite + " dans " + membreGauche + "";
+				// c := b --> on met la valeur de b dans c
+
+//				throw new ErreurGenerationCode("assignation entre tableaux pas encore opérationelle");
+
+			} else {
+				throw new ErreurGenerationCode("erreur inconnue");
+			}
 
 		}
 

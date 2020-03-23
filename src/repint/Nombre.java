@@ -19,7 +19,7 @@ public class Nombre extends Expression {
 	@Override
 	public String toMips() throws ErreurGenerationCode {
 		
-		return String.valueOf(val);
+		return this.toString();
 		/*
 		 * Convention : La fonction toMips des sous-classes de Expression génère du code
 		 * qui range dans le registre $v0 la valeur de l’expression.

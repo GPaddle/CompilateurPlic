@@ -1,5 +1,7 @@
 package repint;
 
+import exception.ErreurSemantique;
+
 public abstract class Symbole {
 
 	private String type;
@@ -10,6 +12,7 @@ public abstract class Symbole {
 		this.type = type;
 		this.deplacement = deplacement;
 	}
+	public abstract void verifier() throws ErreurSemantique;
 
 	public Symbole(String type) {
 		super();

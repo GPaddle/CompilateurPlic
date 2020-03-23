@@ -4,13 +4,10 @@ import exception.ErreurCle;
 import exception.ErreurGenerationCode;
 import exception.ErreurVerification;
 
-public class Idf extends Expression {
-
-	private String nom;
+public class Idf extends Acces {
 
 	public Idf(String nom) {
-		super();
-		this.nom = nom;
+		super(nom);
 	}
 
 	@Override
@@ -45,14 +42,8 @@ public class Idf extends Expression {
 	}
 
 	@Override
-	public String toMips() throws ErreurCle {
-		
-		return ""+TDS.getInstance().getDeplacementFromIDF(this);
-		
-		/*
-		 * Convention : La fonction toMips des sous-classes de Expression génère du code
-		 * qui range dans le registre $v0 la valeur de l’expression.
-		 */
+	public String toMips() throws ErreurGenerationCode, ErreurCle {
+		return getAdresse();
 	}
 
 	@Override
@@ -68,6 +59,17 @@ public class Idf extends Expression {
 	@Override
 	public String getType() {
 		return "idf";
+	}
+
+	@Override
+	public String getAdresse() throws ErreurCle {
+		TDS table = TDS.getInstance();
+		return "" + table.getDeplacementFromIDF(this);
+	}
+
+	@Override
+	public Idf getI() {
+		return this;
 	}
 
 }

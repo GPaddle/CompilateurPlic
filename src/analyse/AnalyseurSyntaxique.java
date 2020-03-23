@@ -6,12 +6,16 @@ import java.io.FileNotFoundException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.sun.accessibility.internal.resources.accessibility;
 import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
 
 import exception.ErreurDoubleDeclaration;
+import exception.ErreurSemantique;
 import exception.ErreurCle;
 import exception.ErreurSyntaxique;
+import exception.ErreurVerification;
 import repint.Acces;
+import repint.AccesTableau;
 import repint.Affectation;
 import repint.Bloc;
 import repint.Ecrire;
@@ -66,9 +70,9 @@ public class AnalyseurSyntaxique {
 				i = this.analyseInstruction();
 				b.ajouter(i);
 				compte++;
-			} catch (ErreurSyntaxique e) {
 
-				if (compte == 0) {
+			} catch (ErreurSyntaxique e) {
+				if (compte == 0 || !uniteCourante.equals("}")) {
 					throw e;
 				}
 
@@ -83,7 +87,7 @@ public class AnalyseurSyntaxique {
 
 	}
 
-	private Instruction analyseInstruction() throws ErreurSyntaxique {
+	private Instruction analyseInstruction() throws ErreurSyntaxique, ErreurSemantique, ErreurVerification {
 
 		Instruction instruction = null;
 
@@ -97,7 +101,7 @@ public class AnalyseurSyntaxique {
 			try {
 				instruction = analyseAffectation();
 			} catch (ErreurSyntaxique e) {
-
+				throw e;
 			}
 		}
 
@@ -109,18 +113,9 @@ public class AnalyseurSyntaxique {
 
 	}
 
-	private Affectation analyseAffectation() throws ErreurSyntaxique {
+	private Affectation analyseAffectation() throws ErreurSyntaxique, ErreurSemantique, ErreurVerification {
 
 		Acces a = analyseAcces();
-//		Idf i = analyseAcces();
-
-		if (TDS.getInstance().identifier(new Entree(a.getI())) instanceof SymboleTableau) {
-			analyseTerminal("[");
-			Expression expr = analyseExpression();
-			a.ajoutExpression(expr);
-			analyseTerminal("]");
-
-		}
 
 		analyseTerminal(":=");
 		Expression e = analyseExpression();
@@ -187,23 +182,82 @@ public class AnalyseurSyntaxique {
 		}
 	}
 
-	private Acces analyseAcces() throws ErreurSyntaxique {
-		Idf i = analyseIDF();
-		Acces a = new Acces(i);
-		return a;
+	private Acces analyseAcces() throws ErreurSyntaxique, ErreurSemantique, ErreurVerification {
+		Acces i = analyseIDF();
+		try {
+// On vérifie la structure [ x ]
+			analyseTerminal("[");
+
+			Expression expression = analyseExpression();
+
+			int valeur = -1;
+
+			if (expression.getType() == "nombre") {
+
+				valeur = Integer.parseInt(expression.toString());
+
+				Symbole s = TDS.getInstance().identifier(new Entree((Idf) i));
+//				if (s instanceof SymboleTableau) {
+//					if (valeur < 0 || valeur > ((SymboleTableau) s).getSize()) {
+//						throw new ErreurSemantique("Valeur hors des bornes dans le tableau " + i);
+//					}
+//				}
+
+			} else if (expression.getType() == "idf") {
+
+				TDS.getInstance().identifier(new Entree((Idf)expression));
+				
+//				Expression expr2 = analyseAcces();
+//				throw new ErreurSyntaxique("Pas encore implémenté accès via IDF AnalyseAcces");
+
+			} else if (expression.getType() == "tableau") {
+
+				throw new ErreurSyntaxique("Pas encore implémenté accès via tableau AnalyseAcces");
+
+			} else {
+
+				throw new ErreurSyntaxique("Pas encore implémenté AnalyseAcces");
+
+			}
+			analyseTerminal("]");
+
+			if (valeur != -1) {
+
+				i = new AccesTableau(i.toString(), valeur);
+
+			}
+
+		} catch (ErreurSyntaxique e) {
+			// Ne rien faire sinon
+			// Car il s'agit donc d'un IDF
+		}
+		i.verifier();
+		return i;
 
 		// TODO
 		// Regarder ici si il faut renvoyer un IDF
 
 	}
 
-	private Ecrire analyseES() throws ErreurSyntaxique {
+	private Ecrire analyseES() throws ErreurSyntaxique, ErreurVerification {
 		analyseTerminal("ecrire");
 //		Expression e = analyseExpression();
-		Expression e = analyseIDF();
+		Expression exp1 = analyseIDF();
+		try {
+			analyseTerminal("[");
+			
+			Expression exp2 = analyseExpression();
+			
+			analyseTerminal("]");
+			
+			exp1 = new AccesTableau(exp1.toString(), exp2);
+			
+		} catch (ErreurVerification e) {
+			throw e;
+		}
 		analyseTerminal(";");
 
-		return new Ecrire(e);
+		return new Ecrire(exp1);
 	}
 
 	private void analyseDeclaration() throws ErreurSyntaxique, Exception, ErreurDoubleDeclaration {
@@ -223,7 +277,7 @@ public class AnalyseurSyntaxique {
 			int size = Integer.parseInt(type.split("tableau")[1]);
 			Symbole symTab = new SymboleTableau(4 * size, size);
 
-			System.out.println(symTab);
+//			System.out.println(symTab);
 
 			tab.ajouter(new Entree(i), symTab);
 		} else {
@@ -232,25 +286,43 @@ public class AnalyseurSyntaxique {
 
 	}
 
-	private String analyseType() throws ErreurSyntaxique {
+	private String analyseType() throws ErreurSyntaxique, ErreurSemantique {
 
+		// On vérifie si il s'agit d'un entier
 		String type = "entier";
 		try {
 			analyseTerminal(type);
 		} catch (ErreurSyntaxique e) {
 
 			try {
+				// Si ce n'est pas un entier on vérifie qu'il s'agit d'un tableau
 				type = "tableau";
+
+				// On vérifie la syntaxe "tableau [ int ]"
 				analyseTerminal(type);
 				analyseTerminal("[");
 
-				estCsteEntiere(uniteCourante);
-				type += uniteCourante;
-				uniteCourante = aLex.next();
+				if (estCsteEntiere(uniteCourante)) {
 
-				analyseTerminal("]");
+					int index = Integer.parseInt(uniteCourante);
+
+					// On vérifie si la valeur d'initialisation du tableau est positive et non nulle
+					if (index <= 0) {
+						throw new ErreurSemantique("Un tableau est initialisé avec la valeur : " + uniteCourante);
+					}
+
+					type += uniteCourante;
+
+					uniteCourante = aLex.next();
+
+					analyseTerminal("]");
+				} else {
+					throw new ErreurSyntaxique(
+							"Pour le moment on n'initialise un tableu qu'avec une constante entière");
+				}
 
 			} catch (ErreurSyntaxique e2) {
+				// Dans le cas ou ce n'est ni un entier, ni un tableau, on soulève une exception
 				throw new ErreurSyntaxique("le type est mal défini");
 			}
 

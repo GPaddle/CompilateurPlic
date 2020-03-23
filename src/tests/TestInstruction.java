@@ -28,8 +28,8 @@ public class TestInstruction {
 		b1 = new Bloc();
 		b2 = new Bloc();
 
-		id1 = new Acces(new Idf("a1"));
-		id2 = new Acces(new Idf("a2"));
+		id1 = new Idf("a1");
+		id2 = new Idf("a2");
 
 		n1 = new Nombre(5);
 		n2 = new Nombre(10);

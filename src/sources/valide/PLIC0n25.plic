@@ -1,8 +1,8 @@
 programme PLICcoucou {
-	tableau [ 5 ] a ;
 	entier b ;
+	tableau [ 5 ] a ;
 	
-	b := 12 ;
+	b := 5 ;
 	
-	ecrire b ; // ko
+	a [ 2 ] := b ;
 }
