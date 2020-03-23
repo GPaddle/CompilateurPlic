@@ -225,6 +225,8 @@ public class AnalyseurSyntaxique {
 
 				i = new AccesTableau(i.toString(), valeur);
 
+			}else {
+				i= new AccesTableau(i.toString(), expression);
 			}
 
 		} catch (ErreurSyntaxique e) {
@@ -234,8 +236,6 @@ public class AnalyseurSyntaxique {
 		i.verifier();
 		return i;
 
-		// TODO
-		// Regarder ici si il faut renvoyer un IDF
 
 	}
 
@@ -252,7 +252,9 @@ public class AnalyseurSyntaxique {
 			
 			exp1 = new AccesTableau(exp1.toString(), exp2);
 			
-		} catch (ErreurVerification e) {
+		} catch (ErreurSyntaxique e2) {
+			//Ne rien faire, il s'agit d'un idf seul
+		}catch (ErreurVerification e) {
 			throw e;
 		}
 		analyseTerminal(";");
@@ -348,7 +350,7 @@ public class AnalyseurSyntaxique {
 		Matcher matcher = pattern.matcher(this.uniteCourante);
 
 		if (!matcher.matches()) {
-			throw new ErreurSyntaxique("Identifiant attendu");
+			throw new ErreurSyntaxique("Identifiant attendu caractère obtenu : "+uniteCourante+" : AnalyseurSyntaxique.class");
 		}
 
 		i = new Idf(uniteCourante);

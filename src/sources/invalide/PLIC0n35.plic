@@ -1,0 +1,6 @@
+programme test {
+	//OKOK
+	tableau [ 4 ] b ;
+	entier c ;
+	c := b ;
+}

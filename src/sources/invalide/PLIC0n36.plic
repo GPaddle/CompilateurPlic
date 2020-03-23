@@ -1,0 +1,7 @@
+programme test {
+	//OKOK
+
+	entier c ;
+
+	b [ 1 ] := 2 ;
+}

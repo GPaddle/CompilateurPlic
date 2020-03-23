@@ -1,7 +1,11 @@
 package plic;
 
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
 import java.io.File;
 import java.io.FileNotFoundException;
+
+import com.sun.glass.ui.Clipboard;
 
 import analyse.AnalyseurSyntaxique;
 import exception.ErreurDoubleDeclaration;
@@ -33,6 +37,11 @@ public class plic {
 						if (!code.equals("")) {
 							System.out.println("# "+path+"\n");
 							System.out.println(code);
+							
+							StringSelection selection = new StringSelection(code);
+							java.awt.datatransfer.Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+							clipboard.setContents(selection, selection);
+							
 						} else {
 							System.out.println("ERREUR: " + "Problème lors de la génération du code");
 						}

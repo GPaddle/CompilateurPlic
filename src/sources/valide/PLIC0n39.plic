@@ -1,0 +1,11 @@
+programme x {
+    tableau [ 3 ] tab ;
+    entier x ;
+
+    tab [ 0 ] := 1 ;
+    tab [ 1 ] := 2 ;
+    tab [ 2 ] := 3 ;
+    x := tab [ tab [ 0 ] ] ;
+
+    ecrire tab [ x ] ;
+}

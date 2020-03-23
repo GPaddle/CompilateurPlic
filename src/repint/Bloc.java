@@ -42,9 +42,9 @@ public class Bloc {
 //		String newLine = System.getProperty("line.separator");
 
 		s += ".data\n" + "	newLine: .asciiz \"\\n\"\n" //
-				+ "	 messageIndex: .asciiz \"; index: \"\n" //
-				+ "	 messageHorsDomaine: .asciiz \"ERREUR: valeur recherchée hors domaine: \"\n" //
-				+ "	 messageTailleMax: .asciiz \"taille de la liste: \"\n" //
+				+ "	messageIndex: .asciiz \"; index: \"\n" //
+				+ "	messageHorsDomaine: .asciiz \"ERREUR: valeur recherchée hors domaine: \"\n" //
+				+ "	messageTailleMax: .asciiz \"taille de la liste: \"\n" //
 				+ ".text\n" //
 				+ "main:\n";
 		s += tab + "";
@@ -75,13 +75,13 @@ public class Bloc {
 					+ "exceptionValeurHorsDomaine:\n" //
 					+ "	 move $t1, $v0\n" //
 					+ "	 li $v0, 4\n" //
-					+ "	 # On apelle le message 'hors domaine'\n" //
+					+ "# On apelle le message 'hors domaine'\n" //
 					+ "	 la $a0, messageHorsDomaine\n" //
-					+ "	 # Puis on l'affiche\n" //
+					+ "# Puis on l'affiche\n" //
 					+ "	 syscall\n\n" //
 					//
 					//
-					+ "	 # On affiche la taille max du tableau\n" //
+					+ "# On affiche la taille max du tableau\n" //
 					+ "	 la $a0, messageTailleMax\n" //
 					+ "	 syscall\n\n" //
 					//
@@ -89,21 +89,21 @@ public class Bloc {
 					+ "	 move $a0, $t0\n" //
 					+ "	 li $v0, 1\n" //
 					+ "	 syscall\n\n" //
-					+ "	 # On affiche l'index désiré\n" //
+					+ "# On affiche l'index désiré\n" //
 					+ "	 la $a0, messageIndex\n" //
 					+ "	 li $v0, 4\n" //
 					+ "	 syscall\n\n" //
 					+ "	 move $v0, $t1\n\n" //
 					//
 					//
-					+ "	 # Saut de ligne\n" //
-					+ "	 # On affiche $a0\n"//
+					+ "# Saut de ligne\n" //
+					+ "# On affiche $a0\n"//
 					+ "	 move $a0, $v0\n" //
 					+ "	 li $v0, 1\n" //
 					+ "	 syscall\n\n" //
 					//
 					//
-					+ "	 # affichage du saut de ligne \"\\n\"\n" //
+					+ "# affichage du saut de ligne \"\\n\"\n" //
 					+ "	 li $v0, 4\n" //
 					+ "	 la $a0, newLine\n" //
 					+ "	 syscall\n" //

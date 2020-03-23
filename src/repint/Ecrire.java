@@ -21,22 +21,22 @@ public class Ecrire extends Instruction {
 	public void verifier() throws ErreurVerification {
 
 		String typeE = e.getType();
-		
+
 		if (typeE.equals("idf")) {
 			TDS tSymbole = TDS.getInstance();
 			Symbole s = tSymbole.identifier(new Entree(((Idf) e).toString()));
 			if (s == null) {
 				throw new ErreurVerification("ES");
 			}
-		} else if(typeE.equals("tableau")){
+		} else if (typeE.equals("tableau")) {
 
 			TDS tSymbole = TDS.getInstance();
 			Symbole s = tSymbole.identifier(new Entree(((AccesTableau) e).getI()));
 			if (s == null) {
 				throw new ErreurVerification("ES");
 			}
-			
-		}else {
+
+		} else {
 			throw new ErreurVerification("Type pas encore implémenté : Ecrire.class");
 		}
 
@@ -52,13 +52,47 @@ public class Ecrire extends Instruction {
 		} else if (e instanceof Nombre) {
 			throw new ErreurGenerationCode("On n'écrit pas de nombre en PLIC0");
 		} else if (e instanceof AccesTableau) {
-			
-			s= "\n\n# affichage de " + e + "\n\n" + "li $v0, 1 \t# on prépare l'affichage des variables";
-			
-			s += "\nlw $a0, " + ((AccesTableau) e).getAdresse() + "($s7)\t# on affiche " + e
-					+ "\nsyscall \t# ecrire";
-			
-			
+
+			AccesTableau aTab = (AccesTableau) e;
+
+			s = "\n\n# affichage de " + e + "\n\n";
+
+			if (aTab.getIndex() > -1) {
+				s += "li $v0, 1 \t# on prépare l'affichage des variables\n" + //
+						"lw $a0, " + aTab.getAdresse() + "($s7)\t# on affiche " + e + "\n" + //
+						"syscall \t# ecrire";
+			} else {
+				int adrTab = TDS.getInstance().getDeplacementFromIDF(aTab.getI());
+
+//				System.out.println(aTab.getExpr().getType());
+
+				if (!aTab.getExpr().getType().equals("idf")) {
+					throw new ErreurGenerationCode("On écrit à partir d'un idf uniquement : Ecrire.class");
+				}
+
+				int adresse = TDS.getInstance().getDeplacementFromIDF((Idf) aTab.getExpr());
+
+				s += "	lw $v0, " + adresse + "($s7) \n" + //
+						"	move $t0, $v0\n" + //
+						"	la $a0, " + adrTab + "($s7)		# " + adrTab + "($s7) c'est notre tableau\n" + //
+						"	mulu $t0, $t0, 4	# pour le 4*indice (parce que les entiers prennent 4 octets)\n" + //
+						"	subu $a0, $a0, $t0	# on décale l'addresse du tableau de base avec $t0;\n\n" + //
+						"	lw $v0, ($a0)		# on affiche " + e + "\n" + //
+
+						"	move $a0, $v0\n" + //
+						"	li $v0, 1\n" + //
+						"	syscall\n" + //
+
+						"# On saute une ligne\n" + //
+						"	li $v0, 4\n" + //
+						"	la $a0, newLine\n" + //
+						"	syscall\n" +
+//						"	li $v0, 4\n"+
+//						"	la $a0,($)\n"+
+//						"	syscall\n"+
+						"	li $a0, 0";
+			}
+
 //			throw new ErreurGenerationCode("On n'écrit pas de tableau en PLIC1");
 		} else {
 			throw new ErreurGenerationCode("cas inconnu");
@@ -66,10 +100,10 @@ public class Ecrire extends Instruction {
 
 //		String newLine = System.getProperty("line.separator");
 
-		s += "\n\n#affichage du saut de ligne \n" 
-				+ "\nli $v0, 4" 
-				+ "\nla $a0, newLine" 
-				+ "\nsyscall";
+		s += "\n\n# Affichage du saut de ligne \n" + //
+				"	li $v0, 4\n" + //
+				"	la $a0, newLine\n" + //
+				"	syscall\n";
 		return s;
 	}
 
