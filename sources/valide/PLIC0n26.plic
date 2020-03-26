@@ -3,7 +3,10 @@ programme PLICcoucou {
 	entier c ;
 	tableau [ 5 ] a ;
 	
-	c := 5 ;
+	c := 2 ;
 	
-	a [ 2 ] := c ;
+	a [ c ] := 5 ;
+	ecrire a [ c ] ;
+	//Attendu :
+	//5
 }

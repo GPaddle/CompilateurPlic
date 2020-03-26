@@ -1,17 +1,9 @@
 package analyse;
 
-import java.io.Console;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import com.sun.accessibility.internal.resources.accessibility;
-import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
-
 import exception.ErreurDoubleDeclaration;
 import exception.ErreurSemantique;
-import exception.ErreurCle;
 import exception.ErreurSyntaxique;
 import exception.ErreurVerification;
 import plic.plic;
@@ -235,8 +227,8 @@ public class AnalyseurSyntaxique {
 
 						expr = analyseAcces();
 
-					} catch ( ErreurSemantique | ErreurSyntaxique e3) {
-						
+					} catch (ErreurSemantique | ErreurSyntaxique e3) {
+
 						try {
 
 							analyseTerminal("(");
@@ -347,12 +339,10 @@ public class AnalyseurSyntaxique {
 			analyseTerminal("]");
 
 			if (valeur != -1) {
-
-				i = new AccesTableau(i.toString(), valeur);
-
-			} else {
-				i = new AccesTableau(i.toString(), expression);
+				expression = new Nombre(valeur);
 			}
+			
+			i = new AccesTableau(i.toString(), expression);
 
 		} catch (ErreurSyntaxique e) {
 			// Ne rien faire sinon

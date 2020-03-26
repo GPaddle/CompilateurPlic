@@ -49,118 +49,55 @@ public class Affectation extends Instruction {
 
 		String typeMembreDroite = membreDroite.getType();
 
-		if (symGauche instanceof SymboleEntier) {
+	/*	if (symGauche instanceof SymboleEntier) {
 			// System.out.println("ENTIER");
 
-			String adresseAffectation = membreGauche.getAdresse();
 
 			switch (typeMembreDroite) {
 
 			case "nombre":
-			case "somme":
 			case "idf":
-
-				s += membreDroite.toMips();
-
-				s += FonctionAffichage.stringInfos("On assigne " + membreGauche);
-
-				break;
-
+			case "somme":
 			case "soustraction":
 			case "multiplication":
-				throw new ErreurGenerationCode("Type pas encore pris en charge : " + typeMembreDroite);
+
+				s += membreDroite.toMips();
+				s += FonctionAffichage.stringInfos("On assigne " + membreGauche);
+				break;
 
 			default:
 				throw new ErreurGenerationCode("Type pas encore pris en charge : " + typeMembreDroite);
 			}
 
-			s += "	sw $v0, " + adresseAffectation + "($s7)	# on met la valeur de " + //
+			String adresseAffectation = membreGauche.toMips();
+
+			s += adresseAffectation + " # on met la valeur de " + //
 					membreDroite + " dans " + membreGauche + "";
 
 		} else if (symGauche instanceof SymboleTableau) {
+*/
+			
+			
+			/*
+			 * Acces := Expression /////////////////////////////////////////////////////////
+			 * 
+			 * Code qui calcule la valeur de l’expression dans $v0 /////////////////////////
+			 * Empiler $v0 /////////////////////////////////////////////////////////////////
+			 * Code qui calcule l’adresse de l’accès dans $a0 //////////////////////////////
+			 * Dépiler dans $v0 ////////////////////////////////////////////////////////////
+			 * Ranger $v0 à l’adresse contenue dans $a0 ////////////////////////////////////
+			 */
 
-//TODO
-//REVOIR CETTE PARTIE 
+			s += FonctionAffichage.stringInfos("Calcul de la valeur de l'expression dans $v0")+//
+					membreDroite.toMips() + //
+					Instruction.empiler() + "" + //
+					membreGauche.getAdresse() + "\n" + //
+					Instruction.depiler() + "" + //
+					FonctionAffichage.stringInfos("On range $v0 à $a0") + //
+					"	sw $v0, 0($a0)\n";
 
-			s += "\n\n#-------- Affectation dans un tableau --------\n\n";
-			if (typeMembreDroite.equals("nombre")) {
 
-				AccesTableau aTab = ((AccesTableau) membreGauche);
-
-				s += "#Affectation de type x [ y ] := int\n\n";
-
-				int sizeMax = ((SymboleTableau) symGauche).getSize();
-
-				if (aTab.getIndex() == -1 && aTab.getExpr() != null) {
-					// On fait une affectation de type tab [ acces ]
-
-//					String adrTab = aTab.getAdresse();
-
-					int adresseTableau = TDS.getInstance().getDeplacementFromIDF(aTab.getI());
-
-					int adresseIdentifiantInterne = TDS.getInstance().getDeplacementFromIDF((Idf) aTab.getExpr());
-
-					s += "	lw $v0, " + adresseIdentifiantInterne + "($s7) \n" + //
-							"	move $t0, $v0\n" + //
-							"	la $a0, " + adresseTableau + "($s7)		# " + adresseTableau
-							+ "($s7) c'est notre tableau\n" + //
-							"	mulu $t0, $t0, 4	# pour le 4*indice (parce que les entiers prennent 4 octets)\n" + //
-							"	subu $a0, $a0, $t0	# on décale l'addresse du tableau de base avec $t0;\n\n" + //
-
-							"	li $v0," + membreDroite + "\t" + "# on stocke " + membreDroite + " dans " + membreGauche
-							+ "\n" + //
-							"	sw $v0, ($a0)";
-
-				} else if (aTab.getIndex() >= 0 && aTab.getExpr() == null) {
-					// On fait une affectation de type tab [ int ]
-					/*
-					 * int indice = aTab.getIndex();
-					 * 
-					 * 
-					 * s += "# " + membreGauche + " := " + membreDroite + "\n" + // "	li $v0, " +
-					 * indice + "\n" + // "	li $t0, " + sizeMax + "\n" + //
-					 * "	bge $v0, $t0, exceptionValeurHorsDomaine\n" + //
-					 * "# si on dépasse l'indice max du tableau \n" + // "	li $t1, 0\n" + //
-					 * "	blt $v0, $t1, exceptionValeurHorsDomaine\n" + //
-					 * "# si on a un indice négatif\n";
-					 */
-					s += "	li $v0," + membreDroite + "\t" + "# on stocke " + membreDroite + " dans " + membreGauche
-							+ "\n" + //
-							"	sw $v0, " + Integer.parseInt(membreGauche.getAdresse()) + "($s7)";
-				} else {
-					throw new ErreurGenerationCode("Probleme sur l'intérieur des [ ] dans Affectation.class");
-				}
-
-			} else if (typeMembreDroite.equals("idf")) {
-
-				s += "# Affectation de type x := y\n\n";
-				int deplacementVariableDestination = Integer.parseInt(membreGauche.getAdresse());
-				String deplacementVariableSource = ((Acces) membreDroite).getAdresse();
-
-				s += "lw $v0, " + deplacementVariableSource + "($s7)\t# on stocke la valeur de " + membreDroite
-						+ " dans v0\n" + "sw $v0, " + deplacementVariableDestination + "($s7)\t# on met la valeur de "
-						+ membreDroite + " dans " + membreGauche + "";
-				// c := b --> on met la valeur de b dans c
-			} else if (typeMembreDroite.equals("tableau")) {
-
-				s += "# Affectation de type x [ y ] := z [ i ]\n\n";
-				int deplacementVariableDestination = Integer.parseInt(membreGauche.getAdresse());
-				String deplacementVariableSource = ((Acces) membreDroite).getAdresse();
-
-//				s += membreDroite.toMips();
-
-				s += "lw $v0, " + deplacementVariableSource + "($s7)\t# on stocke la valeur de " + membreDroite
-						+ " dans v0\n" + "sw $v0, " + deplacementVariableDestination + "($s7)\t# on met la valeur de "
-						+ membreDroite + " dans " + membreGauche + "";
-				// c := b --> on met la valeur de b dans c
-
-//				throw new ErreurGenerationCode("assignation entre tableaux pas encore opérationelle");
-
-			} else {
-				throw new ErreurGenerationCode("erreur inconnue");
-			}
-
-		}
+		//}
 
 		return s;
 	}

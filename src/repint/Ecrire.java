@@ -69,9 +69,10 @@ public class Ecrire extends Instruction {
 //			s = "\n\n# affichage de " + e + "\n\n";
 
 			if (aTab.getIndex() > -1) {
-				s += "li $v0, 1 	# on prépare l'affichage des variables\n" + //
-						"lw $a0, " + aTab.getAdresse() + "($s7)	# on affiche " + e + "\n" + //
-						"syscall 	# ecrire";
+				int deplacement = TDS.getInstance().getDeplacementFromIDF(aTab.getI())-4*aTab.getIndex();
+				s += "	li $v0, 1 	# on prépare l'affichage des variables\n" + //
+						"	lw $a0, " + deplacement + "($s7)	# on affiche " + e + "\n" + //
+						"	syscall 	# ecrire";
 			} else {
 				int adrTab = TDS.getInstance().getDeplacementFromIDF(aTab.getI());
 

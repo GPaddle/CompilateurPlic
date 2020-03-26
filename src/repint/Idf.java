@@ -49,7 +49,7 @@ public class Idf extends Acces {
 		// Récupérer la valeur à cette adresse
 		// Mettre cette valeur dans v0
 		String s = FonctionAffichage.stringInfos("On range la valeur de " + this + " dans $v0")+
-				"	lw $v0, " + getAdresse() + "($s7)\n";
+				"	lw $v0, " + TDS.getInstance().getDeplacementFromIDF(this) + "($s7)\n";
 
 //		throw new ErreurGenerationCode("Revoir to Mips de IDF");
 		return s;
@@ -73,12 +73,13 @@ public class Idf extends Acces {
 	@Override
 	public String getAdresse() throws ErreurCle {
 		TDS table = TDS.getInstance();
-		return "" + table.getDeplacementFromIDF(this);
+		return "	la $a0, " + table.getDeplacementFromIDF(this)+"($s7)\n";
 	}
 
 	@Override
 	public Idf getI() {
 		return this;
 	}
+
 
 }

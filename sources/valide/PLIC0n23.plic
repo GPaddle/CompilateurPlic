@@ -2,4 +2,9 @@ programme PLICcoucou {
 	tableau [ 5 ] a ;
 	
 	a [ 2 ] := 125 ;
+	
+	ecrire a [ 2 ] ;
+	
+	//Attendu :
+	//125
 }

@@ -20,7 +20,7 @@ public abstract class Acces extends Expression {
 
 	public abstract String toMips() throws ErreurGenerationCode, ErreurCle ;
 
-	public abstract String getAdresse() throws ErreurCle;
+	public abstract String getAdresse() throws ErreurCle, ErreurGenerationCode;
 
 	@Override
 	public abstract void verifier() throws ErreurVerification;
@@ -37,4 +37,5 @@ public abstract class Acces extends Expression {
 
 	@Override
 	public abstract String getType();
+
 }

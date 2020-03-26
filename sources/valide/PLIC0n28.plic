@@ -6,4 +6,9 @@ programme PLICcoucou {
 	c := 2 ;
 	
 	a [ c ] := 3 ;
+	a [ a [ c ] ] := 5 ;
+	
+	ecrire a [ a [ c ] ] ;
+	//Attendu :
+	// 5
 }

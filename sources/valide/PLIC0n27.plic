@@ -9,4 +9,11 @@ programme PLICcoucou {
 	
 	a [ 2 ] := 8 ;			//12
 	b [ 3 ] := a [ 2 ] ;	//36  & 12
+	
+	ecrire a [ 2 ] ;
+	ecrire b [ 3 ] ;
+	
+	//Attendu :
+	//8
+	//8
 }

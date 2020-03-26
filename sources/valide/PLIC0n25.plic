@@ -2,7 +2,10 @@ programme PLICcoucou {
 	entier b ;
 	tableau [ 5 ] a ;
 	
-	b := 5 ;
+	b := 10 ;
 	
 	a [ 2 ] := b ;
+	ecrire a [ 2 ] ;
+	//Attendu :
+	//10
 }

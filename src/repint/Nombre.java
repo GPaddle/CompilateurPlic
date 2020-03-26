@@ -20,7 +20,7 @@ public class Nombre extends Expression {
 	@Override
 	public String toMips() throws ErreurGenerationCode {
 
-		return FonctionAffichage.stringInfos("On mets " + this.toString() + " à $v0")+
+		return FonctionAffichage.stringInfos("On met " + this.toString() + " à $v0")+
 				"	li $v0 " + this.toString() + "\n";
 		/*
 		 * Convention : La fonction toMips des sous-classes de Expression génère du code
@@ -33,6 +33,7 @@ public class Nombre extends Expression {
 		// Rien à faire
 	}
 
+	
 	@Override
 	public String getType() {
 		return "nombre";

@@ -43,14 +43,12 @@ public abstract class Calcul extends Expression {
 		String s = FonctionAffichage.stringDetail("On récupère la valeur de " + expr1) + //
 
 				expr1.toMips() + "\n" + //
-				"	add $sp, $sp -4		# Pour laisser de la place dans la pile" + "\n" + //
-				"	sw  $v0, ($sp)		# Pour mettre la valeur de $v0 à $sp (le haut de la pile)" + "\n" + //
 
+				Instruction.empiler() +
 				FonctionAffichage.stringDetail("On récupère la valeur de " + expr2) + //
 
 				expr2.toMips() + "\n" + //
-				"	lw $v1, ($sp)		# Pour stocker la valeur à $sp dans $v1" + "\n" + //
-				"	add $sp, $sp 4		# On remet la pile au bon endroit" + "\n" + //
+				Instruction.depiler() + //
 				FonctionAffichage.stringInfos("On fait " + txtExplication + " de " + expr1 + " et " + expr2) + //
 				"	" + operateur + " $v0, $v0 $v1" + "\n";
 
@@ -79,7 +77,7 @@ public abstract class Calcul extends Expression {
 	public String getType() {
 
 		String typeRetour = null;
-		
+
 		switch (type) {
 		case '+':
 			typeRetour = "somme";
