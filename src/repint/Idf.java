@@ -1,5 +1,6 @@
 package repint;
 
+import Affichage.FonctionAffichage;
 import exception.ErreurCle;
 import exception.ErreurGenerationCode;
 import exception.ErreurVerification;
@@ -43,7 +44,15 @@ public class Idf extends Acces {
 
 	@Override
 	public String toMips() throws ErreurGenerationCode, ErreurCle {
-		return getAdresse();
+
+		// Récupérer l'adresse de l'IDF
+		// Récupérer la valeur à cette adresse
+		// Mettre cette valeur dans v0
+		String s = FonctionAffichage.stringInfos("On range la valeur de " + this + " dans $v0")+
+				"	lw $v0, " + getAdresse() + "($s7)\n";
+
+//		throw new ErreurGenerationCode("Revoir to Mips de IDF");
+		return s;
 	}
 
 	@Override
@@ -53,7 +62,7 @@ public class Idf extends Acces {
 		} catch (ErreurCle e) {
 			throw new ErreurVerification("IDF inconnu");
 		}
-		
+
 	}
 
 	@Override

@@ -1,0 +1,12 @@
+programme PLICcoucou {
+	entier b ;
+	entier c ;
+	tableau [ 5 ] a ;
+	
+	a [ 2 ] := 3 ;
+	
+	ecrire a [ 2 ] ;
+	
+	//Attendu :
+	//3
+}

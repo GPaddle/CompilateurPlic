@@ -25,6 +25,7 @@ import repint.Expression;
 import repint.Idf;
 import repint.Instruction;
 import repint.Nombre;
+import repint.Somme;
 import repint.Symbole;
 import repint.SymboleEntier;
 import repint.SymboleTableau;
@@ -119,6 +120,7 @@ public class AnalyseurSyntaxique {
 		Acces a = analyseAcces();
 
 		analyseTerminal(":=");
+
 		Expression e = analyseExpression();
 
 		analyseTerminal(";");
@@ -128,50 +130,172 @@ public class AnalyseurSyntaxique {
 
 	private Expression analyseExpression() throws ErreurSyntaxique {
 		try {
-			Nombre n = analyseOperande();
-			return n;
-		} catch (ErreurSyntaxique e) {
-			try {
-				Acces a = analyseAcces();
-				return a;
-			} catch (ErreurSyntaxique e2) {
-				try {
 
-					Idf i = analyseIDF();
-					TDS.getInstance().getDeplacementFromIDF(i);
-					return i;
-				} catch (ErreurCle e1) {
-					throw new ErreurSyntaxique("Problème de sémantique : l'identifiant est inconnu");
+			// Soit c'est un opérande
+			Expression n1 = analyseOperande();
+			try {
+				// Soit c'est un combo operande operateur operande
+
+				String operateur = analyseOperateur();
+				Expression n2 = analyseOperande();
+
+				if (operateur.equals("+")) {
+					// Si c'est une somme
+					return new Somme(n1, n2);
+				} else {
+					throw new ErreurSyntaxique("Pas encore implémenté");
 				}
-			} catch (Exception e3) {
-				throw new ErreurSyntaxique("Problème sur l'expression");
+
+			} catch (ErreurSyntaxique e) {
+				return n1;
 			}
 
+		} catch (ErreurSyntaxique e) {
+			throw new ErreurSyntaxique("Operande invalide");
+//			try {
+//				Acces a = analyseAcces();
+//				return a;
+//			} catch (ErreurSyntaxique e2) {
+//				try {
+//
+//					Idf i = analyseIDF();
+//					TDS.getInstance().getDeplacementFromIDF(i);
+//					return i;
+//				} catch (ErreurCle e1) {
+//					throw new ErreurSyntaxique("Problème de sémantique : l'identifiant est inconnu");
+//				}
+//			} catch (Exception e3) {
+//				throw new ErreurSyntaxique("Problème sur l'expression");
+//			}
 		}
 	}
 
-	/*
-	 * private void analyseOperateur() {
-	 * 
-	 * switch (uniteCourante) { case "+": case "-": case "*": case "et": case "ou":
-	 * case "<": case ">": case "=": case "#": case "<=": case ">=":
-	 * 
-	 * this.uniteCourante = this.aLex.next(); break;
-	 * 
-	 * default: break; }
-	 * 
-	 * throw new SyntaxException("Operateur attendu"); // throw new
-	 * SyntaxException("Caractère inconnu"); }
-	 */
+	private String analyseOperateur() throws ErreurSyntaxique {
 
-	private Nombre analyseOperande() throws ErreurSyntaxique {
-		if (!estCsteEntiere(uniteCourante)) {
-			throw new ErreurSyntaxique("Operande attendu");
+		switch (uniteCourante) {
+		case "+":
+		case "-":
+		case "*":
+		case "et":
+		case "ou":
+		case "<":
+		case ">":
+		case "=":
+		case "#":
+		case "<=":
+		case ">=":
+			String retour = uniteCourante;
+			this.uniteCourante = this.aLex.next();
+			return retour;
+
+		default:
+			throw new ErreurSyntaxique("Operateur attendu");
 		}
-		int uc = Integer.parseInt(this.uniteCourante);
-		uniteCourante = this.aLex.next();
-		return new Nombre(uc);
 
+	}
+
+	private Expression analyseOperande() throws ErreurSyntaxique {
+
+		String operateur;
+		Expression expr;
+
+		if (estCsteEntiere(uniteCourante)) {
+
+			String val = uniteCourante;
+			this.uniteCourante = aLex.next();
+			expr = new Nombre(Integer.parseInt(val));
+
+		} else {
+
+			try {
+
+				// Soit c'est un
+				// - Expression
+				analyseTerminal("-");
+				analyseTerminal("(");
+				expr = analyseExpression();
+				analyseTerminal(")");
+
+				operateur = "-";
+
+			} catch (ErreurSyntaxique e1) {
+				try {
+
+					// Soit c'est un
+					// non Expression
+
+					analyseTerminal("non");
+
+					expr = analyseExpression();
+					operateur = "non";
+
+				} catch (ErreurSyntaxique e2) {
+
+					try {
+
+						expr = analyseAcces();
+
+					} catch ( ErreurSemantique | ErreurSyntaxique e3) {
+						
+						try {
+
+							analyseTerminal("(");
+							expr = analyseExpression();
+							analyseTerminal(")");
+
+						} catch (ErreurSyntaxique e) {
+							throw new ErreurSyntaxique("Problème lors de l'analyse de l'opérande " + uniteCourante);
+						}
+					}
+				}
+			}
+		}
+		return expr;
+
+//		try {
+//			
+//			//On vérifie qu'il s'agit soit d'un -
+//			
+//			analyseTerminal("-");
+//			operateur = "-";
+//			Expression expr = analyseExpression();
+//			return expr;
+//		} catch (ErreurSyntaxique e) {
+//			try {
+//				try {
+//
+//					//On vérifie qu'il s'agit soit d'un non
+//					operateur = analyseOperateur();
+//					if (!operateur.equals("non")) {
+//						throw new ErreurSyntaxique("on n'a le droit d'utiliser que 'non' comme operateur, ici : "+operateur);
+//					}	
+//				} catch (ErreurSyntaxique e1) {					
+//				}
+//
+//				//On vérifie que l'expression se finisse par une expression, sinon c'est une cstEntiere ou un acces
+//				try {
+//					Expression expr = analyseExpression();
+//					return expr ;
+//				} catch (ErreurSyntaxique e2) {
+//
+//
+//					if (estCsteEntiere(uniteCourante)) {
+//						int uc = Integer.parseInt(this.uniteCourante);
+//						uniteCourante = this.aLex.next();
+//						return new Nombre(uc);					
+//					}else {
+//						try {
+//							Acces a = analyseAcces();
+//							return a;
+//						} catch (Exception e3) {
+//							throw new ErreurSyntaxique("");
+//						}
+//					}
+//				}
+//			} catch (ErreurSyntaxique e2) {
+//				throw new ErreurSyntaxique("Problème sur l'opérande");
+//			}
+//		}
 	}
 
 	private boolean estCsteEntiere(String uniteCourante2) {
@@ -183,7 +307,7 @@ public class AnalyseurSyntaxique {
 		}
 	}
 
-	private Acces analyseAcces() throws ErreurSyntaxique, ErreurSemantique, ErreurVerification {
+	private Acces analyseAcces() throws ErreurSyntaxique, ErreurSemantique {
 		Acces i = analyseIDF();
 		try {
 // On vérifie la structure [ x ]
@@ -234,7 +358,7 @@ public class AnalyseurSyntaxique {
 			// Ne rien faire sinon
 			// Car il s'agit donc d'un IDF
 		}
-		i.verifier();
+//		i.verifier();
 		return i;
 
 	}
@@ -254,8 +378,6 @@ public class AnalyseurSyntaxique {
 
 		} catch (ErreurSyntaxique e2) {
 			// Ne rien faire, il s'agit d'un idf seul
-		} catch (ErreurVerification e) {
-			throw e;
 		}
 		analyseTerminal(";");
 
@@ -341,10 +463,6 @@ public class AnalyseurSyntaxique {
 			throw new ErreurSyntaxique("Terminal " + string + " attendu, caractère obtenu : " + uniteCourante);
 		}
 
-		
-		
-
-
 		if (this.uniteCourante.equals(";")) {
 			plic.compteLigne++;
 		}
@@ -356,10 +474,18 @@ public class AnalyseurSyntaxique {
 	private Idf analyseIDF() throws ErreurSyntaxique {
 
 		Idf i;
-		Pattern pattern = Pattern.compile("[a-zA-Z]+");
-		Matcher matcher = pattern.matcher(this.uniteCourante);
+//		System.out.println(uniteCourante);
+		switch (this.uniteCourante) {
+		case ";":
 
-		if (!matcher.matches()) {
+			throw new ErreurSyntaxique("Il ne peut pas y avoir le caractère " + uniteCourante + " comme idf");
+		}
+
+//		Pattern pattern = Pattern.compile("[a-zA-Z]+");
+//		Matcher matcher = pattern.matcher(this.uniteCourante);
+//
+//		if (!matcher.matches()) {
+		if (!uniteCourante.matches("[a-zA-Z]+")) {
 			throw new ErreurSyntaxique(
 					"Identifiant attendu caractère obtenu : " + uniteCourante + " : AnalyseurSyntaxique.class");
 		}

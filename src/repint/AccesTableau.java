@@ -18,7 +18,7 @@ public class AccesTableau extends Acces {
 		// TODO Auto-generated constructor stub
 	}
 
-	public AccesTableau(String nom, Expression exp2) throws ErreurVerification {
+	public AccesTableau(String nom, Expression exp2)  {
 		super(nom);
 		this.idf = new Idf(nom);
 		this.exp2 = exp2;

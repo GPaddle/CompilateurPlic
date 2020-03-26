@@ -1,0 +1,8 @@
+programme test {
+	//OKOK
+	entier a ;
+	ecrire a ;
+	
+	//Attendu :
+	//0
+}

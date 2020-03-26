@@ -1,5 +1,6 @@
 package repint;
 
+import Affichage.FonctionAffichage;
 import exception.ErreurGenerationCode;
 
 public class Nombre extends Expression {
@@ -15,11 +16,12 @@ public class Nombre extends Expression {
 		// TODO Auto-generated method stub
 		return String.valueOf(val);
 	}
-	
+
 	@Override
 	public String toMips() throws ErreurGenerationCode {
-		
-		return this.toString();
+
+		return FonctionAffichage.stringInfos("On mets " + this.toString() + " à $v0")+
+				"	li $v0 " + this.toString() + "\n";
 		/*
 		 * Convention : La fonction toMips des sous-classes de Expression génère du code
 		 * qui range dans le registre $v0 la valeur de l’expression.
@@ -28,7 +30,7 @@ public class Nombre extends Expression {
 
 	@Override
 	public void verifier() {
-		//Rien à faire
+		// Rien à faire
 	}
 
 	@Override

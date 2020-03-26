@@ -1,8 +1,0 @@
-programme PLICcoucou {
-	entier b ;
-	tableau [ 5 ] a ;
-	
-	b := 5 ;
-	
-	a [ 2 ] := b ;
-}

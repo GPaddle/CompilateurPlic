@@ -1,11 +1,10 @@
 package plic;
 
 import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.io.File;
 import java.io.FileNotFoundException;
-
-import com.sun.glass.ui.Clipboard;
 
 import analyse.AnalyseurSyntaxique;
 import exception.ErreurDoubleDeclaration;
@@ -16,6 +15,8 @@ import repint.Bloc;
 public class plic {
 
 	public static int compteLigne = 0;
+	private static boolean perso;
+
 	private File f;
 
 	public plic(String path) {
@@ -40,11 +41,21 @@ public class plic {
 							System.out.println("# " + path + "\n");
 							System.out.println(code);
 
-//								StringSelection selection = new StringSelection(code);
-//								java.awt.datatransfer.Clipboard clipboard = Toolkit.getDefaultToolkit()
-//										.getSystemClipboard();
-//								clipboard.setContents(selection, selection);
-							
+							if (perso) {
+								try {
+
+									StringSelection selection = new StringSelection(code);
+									Clipboard clipboard = Toolkit.getDefaultToolkit()
+											.getSystemClipboard();
+									clipboard.setContents(selection, selection);
+
+									System.out.println("# Copié");
+								} catch (Exception e) {
+
+									System.out.println("# Erreur lors de la copie");
+
+								}
+							}
 
 						} else {
 							System.out.println(
@@ -56,7 +67,6 @@ public class plic {
 								"ERREUR: " + "Erreur Verification : " + e.getMessage() + "\tLigne : " + compteLigne);
 					} catch (Exception e) {
 						System.out.println("ERREUR: " + e.getMessage() + "\tLigne : " + compteLigne);
-						e.printStackTrace();
 					}
 				} catch (ErreurSyntaxique e) {
 					System.out
@@ -81,8 +91,11 @@ public class plic {
 
 	public static void main(String[] args) throws ErreurSyntaxique {
 		plic p;
-		if (args.length == 1) {
+		if (args.length == 1 || (args.length == 2 && args[1].equals("Eclipse"))) {
 			try {
+
+				perso = (args.length == 2 && args[1].equals("Eclipse"));
+
 				p = new plic(args[0]);
 			} catch (Exception e) {
 				System.out.println("ERREUR: Inconnue" + e.getMessage());

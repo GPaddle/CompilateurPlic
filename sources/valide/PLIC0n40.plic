@@ -1,0 +1,8 @@
+programme x {
+	entier x ;
+	x := 5 + 3 ;
+	ecrire x ;
+	
+	//Attendu :
+	//8
+}

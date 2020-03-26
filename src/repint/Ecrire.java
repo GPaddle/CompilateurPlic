@@ -1,5 +1,6 @@
 package repint;
 
+import Affichage.FonctionAffichage;
 import exception.ErreurGenerationCode;
 import exception.ErreurVerification;
 
@@ -44,23 +45,33 @@ public class Ecrire extends Instruction {
 
 	@Override
 	public String toMips() throws Exception {
-		String s = "\n\n# affichage de " + e + "\n\n" + "li $v0, 1 \t# on prépare l'affichage des variables";
+		String s = FonctionAffichage.stringInstruction("Ecrire " + e);
+//				"\n\n# ------------- ecrire " + e + "\n";
+		// +// " li $v0, 1 \t# on prépare l'affichage des variables";
 
 		if (e instanceof Idf) {
-			s += "\nlw $a0, " + TDS.getInstance().getDeplacementFromIDF((Idf) e) + "($s7)\t# on affiche " + e
-					+ "\nsyscall \t# ecrire";
+//			s += "\nlw $a0, " + TDS.getInstance().getDeplacementFromIDF((Idf) e) + "($s7)\t# on affiche " + e
+			int adresse = TDS.getInstance().getDeplacementFromIDF((Idf) e);
+			s += "\n" + //
+					e.toMips() + "\n" + //
+					// " move $a0, $v0\n" + //
+
+					"	li $v0, 1 	# on prépare l'affichage des variables\n" + //
+					"	lw $a0, " + adresse + "($s7)\n" + //
+					FonctionAffichage.stringInfos("on affiche " + e) + //
+					"	syscall 	# ecrire";
 		} else if (e instanceof Nombre) {
 			throw new ErreurGenerationCode("On n'écrit pas de nombre en PLIC0");
 		} else if (e instanceof AccesTableau) {
 
 			AccesTableau aTab = (AccesTableau) e;
 
-			s = "\n\n# affichage de " + e + "\n\n";
+//			s = "\n\n# affichage de " + e + "\n\n";
 
 			if (aTab.getIndex() > -1) {
-				s += "li $v0, 1 \t# on prépare l'affichage des variables\n" + //
-						"lw $a0, " + aTab.getAdresse() + "($s7)\t# on affiche " + e + "\n" + //
-						"syscall \t# ecrire";
+				s += "li $v0, 1 	# on prépare l'affichage des variables\n" + //
+						"lw $a0, " + aTab.getAdresse() + "($s7)	# on affiche " + e + "\n" + //
+						"syscall 	# ecrire";
 			} else {
 				int adrTab = TDS.getInstance().getDeplacementFromIDF(aTab.getI());
 

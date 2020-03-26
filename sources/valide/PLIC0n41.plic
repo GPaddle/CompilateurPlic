@@ -1,0 +1,18 @@
+programme x {
+	entier x ;
+	entier y ;
+	
+	y := 5 ; 
+	
+	ecrire y ;
+	
+	x := 1 + y ;
+	
+	ecrire x ;
+	ecrire y ;
+	
+	//Attendu :
+	//5
+	//6
+	//5
+}

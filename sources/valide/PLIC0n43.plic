@@ -1,0 +1,10 @@
+programme test {
+	//OKOK
+
+	entier a ;
+	entier b ;
+	a := b ;
+	
+	//Atendu :
+	//
+}

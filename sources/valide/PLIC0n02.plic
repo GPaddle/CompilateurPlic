@@ -1,0 +1,10 @@
+//Test test
+programme PLIC {
+	entier b ;
+	entier c ;
+	b := 6 ;
+	c := 7 ;
+	
+//	Attendu : 
+//
+}

@@ -1,5 +1,0 @@
-programme PLICcoucou {
-	tableau [ 5 ] a ;
-	
-	a [ 2 ] := 125 ;
-}

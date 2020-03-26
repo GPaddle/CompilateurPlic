@@ -1,0 +1,16 @@
+programme PLICcoucou {
+	entier a ;
+	entier b ;
+	entier c ; 
+	
+	a := 7 ; //Yo yo 
+	b := a ;
+	b := 9 ;
+	a := 8 ;
+	
+	ecrire a ; // ko
+	ecrire b ; // ko
+	//Attendu :
+	//8
+	//9
+}

@@ -42,7 +42,7 @@ public class TDS {
 		liste.put(e, s);
 
 		String s2 = s.getType();
-		
+
 		if (s2.equals("entier")) {
 			cptDepl -= 4;
 		} else if (s2.startsWith("tableau")) {
@@ -74,9 +74,18 @@ public class TDS {
 
 	@Override
 	public String toString() {
-		String s = "\n# variables";
+		String s = "\n# Variables\n" ;
+		String s2 = "#	Nom 	| Adresse ($s7) \n#";
+		s+=s2;
+		for (int i = 0; i < s2.length(); i++) {
+			s+='-';
+		}
+		s+="-----\n";
 		for (Entree entree : liste.keySet()) {
-			s += "\n#\t" + entree.toString() + " : s7 - " + liste.get(entree).getDeplacement();
+			int adresse = liste.get(entree).getDeplacement();
+			String adresseString = adresse > (-10) ? " " + adresse : "" + adresse;
+			adresseString = adresse == 0 ? " " + adresseString : adresseString;
+			s += "#	" + entree.toString() + " 	| " + adresseString + "\n";
 		}
 		return s;
 	}
@@ -112,7 +121,7 @@ public class TDS {
 
 	public boolean contientTableau() {
 		for (Entree entree : liste.keySet()) {
-			if(this.identifier(entree).getType().equals("tableau")) {
+			if (this.identifier(entree).getType().equals("tableau")) {
 				return true;
 			}
 		}

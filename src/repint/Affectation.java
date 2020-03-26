@@ -1,5 +1,6 @@
 package repint;
 
+import Affichage.FonctionAffichage;
 import exception.ErreurCle;
 import exception.ErreurGenerationCode;
 import exception.ErreurVerification;
@@ -42,7 +43,7 @@ public class Affectation extends Instruction {
 
 	@Override
 	public String toMips() throws ErreurGenerationCode, ErreurCle {
-		String s = "\n\n# Affectation de " + membreGauche + "\n";
+		String s = FonctionAffichage.stringInstruction(membreGauche + " := " + membreDroite);
 
 		Symbole symGauche = TDS.getInstance().identifier(new Entree(membreGauche.getI()));
 
@@ -51,24 +52,30 @@ public class Affectation extends Instruction {
 		if (symGauche instanceof SymboleEntier) {
 			// System.out.println("ENTIER");
 
-			if (typeMembreDroite.equals("nombre")) {
-				s += "	li $v0," + membreDroite + "\t" + "# on stocke " + membreDroite + " dans " + //
-						membreGauche + "\n" + //
-						"	sw $v0, " + TDS.getInstance().getDeplacementFromIDF(membreGauche.getI()) + "($s7)";
-			} else if (typeMembreDroite.equals("idf")) {
+			String adresseAffectation = membreGauche.getAdresse();
 
-				s += "# Affectation de type x := y\n\n";
-				int deplacementVariableDestination = TDS.getInstance().getDeplacementFromIDF(membreGauche.getI());
-				String deplacementVariableSource = ((Acces) membreDroite).getAdresse();
+			switch (typeMembreDroite) {
 
-				s += "	lw $v0, " + deplacementVariableSource + "($s7)\t# on stocke la valeur de " + //
-						membreGauche + " dans v0\n" + //
-						"	sw $v0, " + deplacementVariableDestination + "($s7)\t# on met la valeur de " + //
-						membreDroite + " dans " + membreGauche + "";
-				// c := b --> on met la valeur de b dans c
-			} else {
-				throw new ErreurGenerationCode("erreur inconnue");
+			case "nombre":
+			case "somme":
+			case "idf":
+
+				s += membreDroite.toMips();
+
+				s += FonctionAffichage.stringInfos("On assigne " + membreGauche);
+
+				break;
+
+			case "soustraction":
+			case "multiplication":
+				throw new ErreurGenerationCode("Type pas encore pris en charge : " + typeMembreDroite);
+
+			default:
+				throw new ErreurGenerationCode("Type pas encore pris en charge : " + typeMembreDroite);
 			}
+
+			s += "	sw $v0, " + adresseAffectation + "($s7)	# on met la valeur de " + //
+					membreDroite + " dans " + membreGauche + "";
 
 		} else if (symGauche instanceof SymboleTableau) {
 
@@ -83,7 +90,6 @@ public class Affectation extends Instruction {
 				s += "#Affectation de type x [ y ] := int\n\n";
 
 				int sizeMax = ((SymboleTableau) symGauche).getSize();
-				
 
 				if (aTab.getIndex() == -1 && aTab.getExpr() != null) {
 					// On fait une affectation de type tab [ acces ]
@@ -105,22 +111,19 @@ public class Affectation extends Instruction {
 							+ "\n" + //
 							"	sw $v0, ($a0)";
 
-
 				} else if (aTab.getIndex() >= 0 && aTab.getExpr() == null) {
 					// On fait une affectation de type tab [ int ]
-	/*				
-int indice = aTab.getIndex();
-
-
-					s += "# " + membreGauche + " := " + membreDroite + "\n" + //
-							"	li $v0, " + indice + "\n" + //
-							"	li $t0, " + sizeMax + "\n" + //
-							"	bge $v0, $t0, exceptionValeurHorsDomaine\n" + //
-							"# si on dépasse l'indice max du tableau \n" + //
-							"	li $t1, 0\n" + //
-							"	blt $v0, $t1, exceptionValeurHorsDomaine\n" + //
-							"# si on a un indice négatif\n";
-*/					
+					/*
+					 * int indice = aTab.getIndex();
+					 * 
+					 * 
+					 * s += "# " + membreGauche + " := " + membreDroite + "\n" + // "	li $v0, " +
+					 * indice + "\n" + // "	li $t0, " + sizeMax + "\n" + //
+					 * "	bge $v0, $t0, exceptionValeurHorsDomaine\n" + //
+					 * "# si on dépasse l'indice max du tableau \n" + // "	li $t1, 0\n" + //
+					 * "	blt $v0, $t1, exceptionValeurHorsDomaine\n" + //
+					 * "# si on a un indice négatif\n";
+					 */
 					s += "	li $v0," + membreDroite + "\t" + "# on stocke " + membreDroite + " dans " + membreGauche
 							+ "\n" + //
 							"	sw $v0, " + Integer.parseInt(membreGauche.getAdresse()) + "($s7)";

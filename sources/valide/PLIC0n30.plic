@@ -1,0 +1,17 @@
+programme PLICcoucou {
+
+	tableau [ 5 ] a ;
+	
+	a [ 0 ] := 5 ;
+	a [ 1 ] := 4 ;
+	a [ 2 ] := 3 ;
+
+	
+	ecrire a [ 0 ] ;
+	ecrire a [ 1 ] ;
+	ecrire a [ 2 ] ;
+	//Attendu :
+	//5
+	//4
+	//3
+}
