@@ -1,0 +1,20 @@
+//Declaration de 2 tableaux / 1 entier, assignation de l'entier et du tableau, ecriture de comparaisons avec le tableau
+programme x {
+
+	entier x ;
+	entier y ;
+	tableau [ 5 ] z ;
+	
+	x := 1 ; 
+	y := 2 ;
+	z [ 2 ] := 2 ;
+	
+	ecrire z [ 2 ] = y ;
+	ecrire z [ 2 ] = z [ 2 ] ;
+	ecrire z [ 2 ] # z [ 2 ] ;
+		
+	//Attendu :
+	// 1
+	// 1
+	// 0
+}

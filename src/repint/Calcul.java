@@ -5,16 +5,10 @@ import exception.ErreurCle;
 import exception.ErreurGenerationCode;
 import exception.ErreurVerification;
 
-public abstract class Calcul extends Expression {
+public abstract class Calcul extends Operateur {
 
-	Expression expr1;
-	Expression expr2;
-	char type;
-
-	public Calcul(Expression n1, Expression n2, char type) {
-		this.expr1 = n1;
-		this.expr2 = n2;
-		this.type = type;
+	public Calcul(Expression n1, Expression n2, String type) {
+		super(n1, n2, type);
 	}
 
 	@Override
@@ -23,15 +17,15 @@ public abstract class Calcul extends Expression {
 		String operateur = "";
 		String txtExplication = "";
 		switch (type) {
-		case '+':
+		case "+":
 			operateur = "add";
 			txtExplication = "l'addition";
 			break;
-		case '-':
+		case "-":
 			operateur = "sub";
 			txtExplication = "la soustraction";
 			break;
-		case '*':
+		case "*":
 			operateur = "mul";
 			txtExplication = "la multiplication";
 			break;
@@ -42,10 +36,8 @@ public abstract class Calcul extends Expression {
 
 		String s = FonctionAffichage.stringDetail("On récupère la valeur de " + expr1) + //
 
-
 				expr1.toMips() + "\n" + //
-				Instruction.empiler() +
-				FonctionAffichage.stringDetail("On récupère la valeur de " + expr2) + //
+				Instruction.empiler() + FonctionAffichage.stringDetail("On récupère la valeur de " + expr2) + //
 
 				expr2.toMips() + "\n" + //
 				Instruction.depilerDansV1() + //
@@ -71,11 +63,11 @@ public abstract class Calcul extends Expression {
 				throw new ErreurVerification("L'expression " + expr2 + " n'est pas encore déclarée");
 			}
 		}
-		
-		if (!expr1.getType().equals("entier") || !expr1.getType().equals("entier")) {			
+
+		if (!expr1.getType().equals("entier") || !expr1.getType().equals("entier")) {
 			throw new ErreurVerification("Les calculs sont fait sur des entiers");
 		}
-		
+
 	}
 
 	@Override
@@ -87,7 +79,7 @@ public abstract class Calcul extends Expression {
 
 	@Override
 	public String toString() {
-		return expr1 + "" + type + expr2;
+		return super.toString();
 	}
 
 }

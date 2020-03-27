@@ -1,16 +1,15 @@
-//Declaration de 1 entier, assignation de l'entier avec une multiplication, ecriture de l'entier, probleme d'overflow a gerer
+//Declaration de 2 tableaux / 1 entier, assignation de l'entier avec une multiplication, ecriture de l'entier
 programme x {
-	entier y ;
+
+	tableau [ 2 ] x ;
+	tableau [ 2 ] y ;
+	entier z ;
 	
-	y := 1000000 ; 
-	
-	ecrire y ;
-	
-	y := y * y  ;
-	
-	ecrire y ;
-	
+	x [ 0 ] := 1 ; 
+	y [ 0 ] := 1 ; 
+	z := x [ 0 ] + y [ 0 ] ;
+	ecrire z ; 
+		
 	//Attendu :
-	//1000000
-	//1000000000000
+	// 2
 }

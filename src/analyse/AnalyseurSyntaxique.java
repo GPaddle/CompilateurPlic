@@ -11,15 +11,21 @@ import repint.Acces;
 import repint.AccesTableau;
 import repint.Affectation;
 import repint.Bloc;
+import repint.Different;
 import repint.Ecrire;
+import repint.Egale;
 import repint.Entree;
 import repint.Expression;
 import repint.Idf;
+import repint.Inf;
+import repint.InfEgale;
 import repint.Instruction;
 import repint.Multiplication;
 import repint.Nombre;
 import repint.Somme;
 import repint.Soustraction;
+import repint.Sup;
+import repint.SupEgale;
 import repint.Symbole;
 import repint.SymboleEntier;
 import repint.SymboleTableau;
@@ -135,14 +141,23 @@ public class AnalyseurSyntaxique {
 
 				switch (operateur) {
 				case "+":
-					// Si c'est une somme
 					return new Somme(n1, n2);
 				case "-":
-					// Si c'est une soustraction
 					return new Soustraction(n1, n2);
 				case "*":
-					// Si c'est une multiplication
 					return new Multiplication(n1, n2);
+				case "<=":
+					return new InfEgale(n1, n2);
+				case "<":
+					return new Inf(n1, n2);
+				case ">=":
+					return new SupEgale(n1, n2);
+				case ">":
+					return new Sup(n1, n2);
+				case "=":
+					return new Egale(n1, n2);
+				case "#":
+					return new Different(n1, n2);
 
 				default:
 					throw new ErreurSyntaxique("Pas encore implémenté");

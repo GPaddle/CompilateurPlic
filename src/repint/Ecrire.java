@@ -21,8 +21,6 @@ public class Ecrire extends Instruction {
 	@Override
 	public void verifier() throws ErreurVerification {
 
-		String typeE = e.getType();
-
 		if (e instanceof Idf) {
 			TDS tSymbole = TDS.getInstance();
 			Symbole s = tSymbole.identifier(new Entree(((Idf) e).toString()));
@@ -37,7 +35,7 @@ public class Ecrire extends Instruction {
 				throw new ErreurVerification("ES");
 			}
 
-		} else if (typeE.equals("nombre")) {
+		} else if (e instanceof Nombre || e instanceof Operateur) {
 			// Ne rien tester
 		} else {
 			throw new ErreurVerification("Type pas encore implémenté : Ecrire.class");
@@ -52,24 +50,23 @@ public class Ecrire extends Instruction {
 
 //		s += "	li $v0, 1\n"; //
 
-
-		if (e instanceof Nombre) {
-			s += "	li $v0, " + e.toString() + "\n" + //
-					"	la $a0, 0($v0)\n";
-		}else if (e instanceof Idf) {
+		if (e instanceof Idf) {
 			Idf e2 = (Idf) e;
 			int adresse = TDS.getInstance().getDeplacementFromIDF(e2);
 			s += "	lw $a0, " + adresse + "($s7)\n";
 
-		}else if (e instanceof AccesTableau) {
+		} else if (e instanceof AccesTableau) {
 			AccesTableau e3 = (AccesTableau) e;
 			s += e3.getAdresse() + "\n" + //
 					"	la $v0, 0($a0)\n" + //
 					"	lw $a0, 0($v0)\n";
-		}else if (e instanceof Calcul) {
-			throw new ErreurGenerationCode("les calculs ne sont pas encore pris en charge");
+		} else if (e instanceof Operateur || e instanceof Nombre) {
+			s += e.toMips();
+			s += "	la $a0, 0($v0)\n";
+		} else {
+			throw new ErreurGenerationCode("Type pas encore pris en charge");
 		}
-		
+
 		s += "	li $v0, 1\n"; //
 
 		s += "	syscall\n\n"; //
