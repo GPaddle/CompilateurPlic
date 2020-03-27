@@ -1,3 +1,6 @@
+*.zip
+tmpMars.asm
+
 /bin/
 
 # Compiled class file

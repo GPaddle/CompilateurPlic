@@ -21,7 +21,7 @@ do
 	then
 		echo
 		echo ------------------------------------------
-		echo problème avec le fichier $fichier
+		echo Problème avec le fichier $fichier
 		diff $tmp3 $input/sources/attendusValide/$fichier
 		head -1 $input/sources/valide/$fichier
 		echo ------------------------------------------
