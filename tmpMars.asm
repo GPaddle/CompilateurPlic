@@ -121,24 +121,46 @@ main:
 # On range $v0 à $a0 
 	sw $v0, 0($a0)
 	
-
-#----------------------- Ecrire a [ 2 ] 
-	li $v0, 1 	# on prépare l'affichage des variables
-	lw $a0, -12($s7)	# on affiche a [ 2 ]
-	syscall 	# ecrire
-
 # Affichage du saut de ligne 
+
+# On met 2 à $v0 
+	li $v0 2
+	bltz $v0, exceptionValeurHorsDomaine
+#-------- On fait le test pour savoir si la valeur de 2 est < 0 
+	bge $v0, 5, exceptionValeurHorsDomaine
+#-------- On fait le test pour savoir si la valeur de 2 est >= len(a) = 5 
+	li $t0, -4
+	mult $v0, $t0
+	mflo $v0
+	la $a0, -4($s7)
+	add $a0, $a0 $v0
+	la $v0, 0($a0)
+	lw $a0, 0($v0)
+	li $v0, 1
+	syscall
+
 	li $v0, 4
 	la $a0, newLine
 	syscall
 	
-
-#----------------------- Ecrire b [ 3 ] 
-	li $v0, 1 	# on prépare l'affichage des variables
-	lw $a0, -36($s7)	# on affiche b [ 3 ]
-	syscall 	# ecrire
-
 # Affichage du saut de ligne 
+
+# On met 3 à $v0 
+	li $v0 3
+	bltz $v0, exceptionValeurHorsDomaine
+#-------- On fait le test pour savoir si la valeur de 3 est < 0 
+	bge $v0, 5, exceptionValeurHorsDomaine
+#-------- On fait le test pour savoir si la valeur de 3 est >= len(b) = 5 
+	li $t0, -4
+	mult $v0, $t0
+	mflo $v0
+	la $a0, -24($s7)
+	add $a0, $a0 $v0
+	la $v0, 0($a0)
+	lw $a0, 0($v0)
+	li $v0, 1
+	syscall
+
 	li $v0, 4
 	la $a0, newLine
 	syscall

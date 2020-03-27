@@ -144,21 +144,6 @@ public class AnalyseurSyntaxique {
 
 		} catch (ErreurSyntaxique e) {
 			throw new ErreurSyntaxique("Operande invalide");
-//			try {
-//				Acces a = analyseAcces();
-//				return a;
-//			} catch (ErreurSyntaxique e2) {
-//				try {
-//
-//					Idf i = analyseIDF();
-//					TDS.getInstance().getDeplacementFromIDF(i);
-//					return i;
-//				} catch (ErreurCle e1) {
-//					throw new ErreurSyntaxique("Problème de sémantique : l'identifiant est inconnu");
-//				}
-//			} catch (Exception e3) {
-//				throw new ErreurSyntaxique("Problème sur l'expression");
-//			}
 		}
 	}
 
@@ -244,50 +229,6 @@ public class AnalyseurSyntaxique {
 		}
 		return expr;
 
-//		try {
-//			
-//			//On vérifie qu'il s'agit soit d'un -
-//			
-//			analyseTerminal("-");
-//			operateur = "-";
-//			Expression expr = analyseExpression();
-//			return expr;
-//		} catch (ErreurSyntaxique e) {
-//			try {
-//				try {
-//
-//					//On vérifie qu'il s'agit soit d'un non
-//					operateur = analyseOperateur();
-//					if (!operateur.equals("non")) {
-//						throw new ErreurSyntaxique("on n'a le droit d'utiliser que 'non' comme operateur, ici : "+operateur);
-//					}	
-//				} catch (ErreurSyntaxique e1) {					
-//				}
-//
-//				//On vérifie que l'expression se finisse par une expression, sinon c'est une cstEntiere ou un acces
-//				try {
-//					Expression expr = analyseExpression();
-//					return expr ;
-//				} catch (ErreurSyntaxique e2) {
-//
-//
-//					if (estCsteEntiere(uniteCourante)) {
-//						int uc = Integer.parseInt(this.uniteCourante);
-//						uniteCourante = this.aLex.next();
-//						return new Nombre(uc);					
-//					}else {
-//						try {
-//							Acces a = analyseAcces();
-//							return a;
-//						} catch (Exception e3) {
-//							throw new ErreurSyntaxique("");
-//						}
-//					}
-//				}
-//			} catch (ErreurSyntaxique e2) {
-//				throw new ErreurSyntaxique("Problème sur l'opérande");
-//			}
-//		}
 	}
 
 	private boolean estCsteEntiere(String uniteCourante2) {
@@ -314,18 +255,11 @@ public class AnalyseurSyntaxique {
 				valeur = Integer.parseInt(expression.toString());
 
 				Symbole s = TDS.getInstance().identifier(new Entree((Idf) i));
-//				if (s instanceof SymboleTableau) {
-//					if (valeur < 0 || valeur > ((SymboleTableau) s).getSize()) {
-//						throw new ErreurSemantique("Valeur hors des bornes dans le tableau " + i);
-//					}
-//				}
 
 			} else if (expression.getType() == "idf") {
 
 				TDS.getInstance().identifier(new Entree((Idf) expression));
 
-//				Expression expr2 = analyseAcces();
-//				throw new ErreurSyntaxique("Pas encore implémenté accès via IDF AnalyseAcces");
 
 			} else if (expression.getType() == "tableau") {
 
@@ -356,7 +290,7 @@ public class AnalyseurSyntaxique {
 	private Ecrire analyseES() throws ErreurSyntaxique, ErreurVerification {
 		analyseTerminal("ecrire");
 //		Expression e = analyseExpression();
-		Expression exp1 = analyseIDF();
+		Expression exp1 = analyseExpression();
 		try {
 			analyseTerminal("[");
 

@@ -37,6 +37,8 @@ public class Ecrire extends Instruction {
 				throw new ErreurVerification("ES");
 			}
 
+		} else if (typeE.equals("nombre")) {
+			// Ne rien tester
 		} else {
 			throw new ErreurVerification("Type pas encore implémenté : Ecrire.class");
 		}
@@ -45,75 +47,51 @@ public class Ecrire extends Instruction {
 
 	@Override
 	public String toMips() throws Exception {
-		String s = FonctionAffichage.stringInstruction("Ecrire " + e);
-//				"\n\n# ------------- ecrire " + e + "\n";
-		// +// " li $v0, 1 \t# on prépare l'affichage des variables";
 
-		if (e instanceof Idf) {
-//			s += "\nlw $a0, " + TDS.getInstance().getDeplacementFromIDF((Idf) e) + "($s7)\t# on affiche " + e
-			int adresse = TDS.getInstance().getDeplacementFromIDF((Idf) e);
-			s += "\n" + //
-					e.toMips() + "\n" + //
-					// " move $a0, $v0\n" + //
+		String s = FonctionAffichage.stringInfos("Affichage du saut de ligne");
 
-					"	li $v0, 1 	# on prépare l'affichage des variables\n" + //
-					"	lw $a0, " + adresse + "($s7)\n" + //
-					FonctionAffichage.stringInfos("on affiche " + e) + //
-					"	syscall 	# ecrire";
-		} else if (e instanceof Nombre) {
-			throw new ErreurGenerationCode("On n'écrit pas de nombre en PLIC0");
-		} else if (e instanceof AccesTableau) {
+//		s += "	li $v0, 1\n"; //
 
-			AccesTableau aTab = (AccesTableau) e;
+		String type = e.getType();
 
-//			s = "\n\n# affichage de " + e + "\n\n";
+		switch (type) {
+		case "nombre":
 
-			if (aTab.getIndex() > -1) {
-				int deplacement = TDS.getInstance().getDeplacementFromIDF(aTab.getI())-4*aTab.getIndex();
-				s += "	li $v0, 1 	# on prépare l'affichage des variables\n" + //
-						"	lw $a0, " + deplacement + "($s7)	# on affiche " + e + "\n" + //
-						"	syscall 	# ecrire";
-			} else {
-				int adrTab = TDS.getInstance().getDeplacementFromIDF(aTab.getI());
+			s += "	li $v0, " + e.toString() + "\n" + //
+					"	la $a0, 0($v0)\n";
 
-//				System.out.println(aTab.getExpr().getType());
+			break;
 
-				if (!aTab.getExpr().getType().equals("idf")) {
-					throw new ErreurGenerationCode("On écrit à partir d'un idf uniquement : Ecrire.class");
-				}
+		case "idf":
 
-				int adresse = TDS.getInstance().getDeplacementFromIDF((Idf) aTab.getExpr());
+			Idf e2 = (Idf) e;
+			int adresse = TDS.getInstance().getDeplacementFromIDF(e2);
+			s += "	lw $a0, " + adresse + "($s7)\n";
+			break;
 
-				s += "	lw $v0, " + adresse + "($s7) \n" + //
-						"	move $t0, $v0\n" + //
-						"	la $a0, " + adrTab + "($s7)		# " + adrTab + "($s7) c'est notre tableau\n" + //
-						"	mulu $t0, $t0, 4	# pour le 4*indice (parce que les entiers prennent 4 octets)\n" + //
-						"	subu $a0, $a0, $t0	# on décale l'addresse du tableau de base avec $t0;\n\n" + //
-						"	lw $v0, ($a0)		# on affiche " + e + "\n" + //
+		case "tableau":
 
-						"	move $a0, $v0\n" + //
-						"	li $v0, 1\n" + //
-						"	syscall\n" + //
+			AccesTableau e3 = (AccesTableau) e;
+			s += e3.getAdresse() + "\n" + //
+			
+					"	la $v0, 0($a0)\n"+//
+					"	lw $a0, 0($v0)\n";
+			break;
 
-						"# On saute une ligne\n" + //
-						"	li $v0, 4\n" + //
-						"	la $a0, newLine\n" + //
-						"	syscall\n" +
-//						"	li $v0, 4\n"+
-//						"	la $a0,($)\n"+
-//						"	syscall\n"+
-						"	li $a0, 0";
-			}
+		case "somme":
+		case "soustraction":
+		case "multiplication":
 
-//			throw new ErreurGenerationCode("On n'écrit pas de tableau en PLIC1");
-		} else {
-			throw new ErreurGenerationCode("cas inconnu");
+			throw new ErreurGenerationCode("les calculs ne sont pas encore pris en charge");
+
+		default:
+			break;
 		}
+		s += "	li $v0, 1\n"; //
 
-//		String newLine = System.getProperty("line.separator");
+		s += "	syscall\n\n"; //
 
-		s += "\n\n# Affichage du saut de ligne \n" + //
-				"	li $v0, 4\n" + //
+		s += "	li $v0, 4\n" + //
 				"	la $a0, newLine\n" + //
 				"	syscall\n";
 		return s;
