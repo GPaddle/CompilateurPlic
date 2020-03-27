@@ -16,11 +16,18 @@ public abstract class Instruction {
 				"	add $sp, $sp, -4	# Pour laisser de la place dans la pile\n"; //
 	}
 
-	public static String depiler() {
+	public static String depilerDansV0() {
 
 		return FonctionAffichage.stringInfos("On depile") + //
 				"	add $sp, $sp 4	# On remet la pile au bon endroit\n" + //
 				"	lw $v0, 0($sp)	# Pour stocker la valeur à $sp dans $v1\n";//
+	}
+
+	public static String depilerDansV1() {
+		
+		return FonctionAffichage.stringInfos("On depile") + //
+				"	add $sp, $sp 4	# On remet la pile au bon endroit\n" + //
+				"	lw $v1, 0($sp)	# Pour stocker la valeur à $sp dans $v1\n";//
 	}
 
 }
