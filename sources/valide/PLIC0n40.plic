@@ -1,3 +1,4 @@
+//Declaration de 1 entier, assignation de l'entier avec une somme, ecriture de l'entier
 programme x {
 	entier x ;
 	x := 5 + 3 ;

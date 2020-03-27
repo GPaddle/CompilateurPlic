@@ -1,3 +1,4 @@
+//Declaration de 1 tableau, assignation de 1 tableau, ecriture de la variable 3x
 programme PLICcoucou {
 
 	tableau [ 5 ] a ;

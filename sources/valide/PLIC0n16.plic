@@ -1,3 +1,4 @@
+//Déclaration de 2 entiers, 2 assignations, �criture des deux entiers
 programme PLICcoucou {
 	entier a ;
 	entier b ;

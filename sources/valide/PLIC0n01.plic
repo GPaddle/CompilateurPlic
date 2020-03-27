@@ -1,3 +1,5 @@
+// Assignation et ecrire d'entier
+
 programme PLICcoucou {
 	entier a ;
 	a := 7 ; //Yo yo 

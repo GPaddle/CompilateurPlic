@@ -1,3 +1,4 @@
+//Declaration de 1 tableau & 1 entier, assignation du tableau & de l'entier (avec valeur venant du tableau(avec indice venant du tableau)), ecriture du tableau avec indice variable
 programme x {
     tableau [ 3 ] tab ;
     entier x ;

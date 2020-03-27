@@ -1,3 +1,4 @@
+//Declaration de 2 entiers 1 tableau, ecriture d'entier, assignation de 1 variable & 1 tableau avec indice defini par variable, ecriture du tableau
 programme PLICcoucou {
 	entier b ;
 	entier c ;

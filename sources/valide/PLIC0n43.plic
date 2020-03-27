@@ -1,10 +1,19 @@
-programme test {
-	//OKOK
-
-	entier a ;
-	entier b ;
-	a := b ;
+//Declaration de 1 entier, assignation de l'entier avec une soustraction, ecriture de l'entier
+programme x {
+	entier x ;
+	entier y ;
 	
-	//Atendu :
-	//
+	y := 5 ; 
+	
+	ecrire y ;
+	
+	x := 1 - y ;
+	
+	ecrire x ;
+	ecrire y ;
+	
+	//Attendu :
+	//5
+	//6
+	//5
 }

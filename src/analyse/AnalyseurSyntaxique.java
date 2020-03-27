@@ -16,8 +16,10 @@ import repint.Entree;
 import repint.Expression;
 import repint.Idf;
 import repint.Instruction;
+import repint.Multiplication;
 import repint.Nombre;
 import repint.Somme;
+import repint.Soustraction;
 import repint.Symbole;
 import repint.SymboleEntier;
 import repint.SymboleTableau;
@@ -131,10 +133,18 @@ public class AnalyseurSyntaxique {
 				String operateur = analyseOperateur();
 				Expression n2 = analyseOperande();
 
-				if (operateur.equals("+")) {
+				switch (operateur) {
+				case "+":
 					// Si c'est une somme
 					return new Somme(n1, n2);
-				} else {
+				case "-":
+					// Si c'est une soustraction
+					return new Soustraction(n1, n2);
+				case "*":
+					// Si c'est une multiplication
+					return new Multiplication(n1, n2);
+
+				default:
 					throw new ErreurSyntaxique("Pas encore implémenté");
 				}
 
@@ -161,6 +171,7 @@ public class AnalyseurSyntaxique {
 		case "#":
 		case "<=":
 		case ">=":
+
 			String retour = uniteCourante;
 			this.uniteCourante = this.aLex.next();
 			return retour;
@@ -242,49 +253,16 @@ public class AnalyseurSyntaxique {
 
 	private Acces analyseAcces() throws ErreurSyntaxique, ErreurSemantique {
 		Acces i = analyseIDF();
-		try {
-// On vérifie la structure [ x ]
-			analyseTerminal("[");
 
-			Expression expression = analyseExpression();
+		if (uniteCourante.equals("[")) {
+			uniteCourante = aLex.next();
 
-			int valeur = -1;
+			Expression e = analyseExpression();
 
-			if (expression.getType() == "nombre") {
-
-				valeur = Integer.parseInt(expression.toString());
-
-				Symbole s = TDS.getInstance().identifier(new Entree((Idf) i));
-
-			} else if (expression.getType() == "idf") {
-
-				TDS.getInstance().identifier(new Entree((Idf) expression));
-
-
-			} else if (expression.getType() == "tableau") {
-
-				throw new ErreurSyntaxique("Pas encore implémenté accès via tableau AnalyseAcces");
-
-			} else {
-
-				throw new ErreurSyntaxique("Pas encore implémenté AnalyseAcces");
-
-			}
 			analyseTerminal("]");
-
-			if (valeur != -1) {
-				expression = new Nombre(valeur);
-			}
-			
-			i = new AccesTableau(i.toString(), expression);
-
-		} catch (ErreurSyntaxique e) {
-			// Ne rien faire sinon
-			// Car il s'agit donc d'un IDF
+			return new AccesTableau(i.toString(), e);
 		}
-//		i.verifier();
 		return i;
-
 	}
 
 	private Ecrire analyseES() throws ErreurSyntaxique, ErreurVerification {

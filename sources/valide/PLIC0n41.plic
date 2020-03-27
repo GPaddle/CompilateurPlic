@@ -1,3 +1,4 @@
+//Declaration de 2 entiers, assignation des 2 entiers (entier & avec une somme), ecriture des entiers 3x
 programme x {
 	entier x ;
 	entier y ;

@@ -1,3 +1,4 @@
+//Declaration de 1entier & 1 tableau, assignation de 1 tableau (avec valeur=var), ecriture de la variable
 programme PLICcoucou {
 	entier b ;
 	tableau [ 5 ] a ;

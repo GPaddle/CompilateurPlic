@@ -1,3 +1,4 @@
+//D�claration de 3 entier, assignation de 2 entiers (entier, intervariable, entier), �criture des 2 variables
 programme PLICcoucou {
 	entier a ;
 	entier b ;
