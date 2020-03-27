@@ -17,9 +17,8 @@ public class AccesTableau extends Acces {
 		this.idf = new Idf(nom);
 		this.expr2 = exp2;
 
-		String type = exp2.getType();
 
-		if (type.equals("nombre")) {
+		if (exp2 instanceof Nombre) {
 			this.index = Integer.parseInt("" + exp2);
 		}
 
@@ -55,7 +54,7 @@ public class AccesTableau extends Acces {
 		Symbole s = TDS.getInstance().identifier(new Entree(idf));
 
 		if (expr2 != null) {
-			if (!expr2.getType().equals("nombre")) {
+			if (!(expr2 instanceof Nombre)) {
 				try {
 					TDS.getInstance().getDeplacementFromIDF(((Acces) expr2).getI());
 				} catch (ErreurCle e) {
@@ -105,7 +104,7 @@ public class AccesTableau extends Acces {
 
 	@Override
 	public String getType() {
-		return "tableau";
+		return super.getType();
 	}
 
 	public void setIndex(int idx) {

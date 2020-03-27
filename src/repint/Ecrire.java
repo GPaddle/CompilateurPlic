@@ -23,13 +23,13 @@ public class Ecrire extends Instruction {
 
 		String typeE = e.getType();
 
-		if (typeE.equals("idf")) {
+		if (e instanceof Idf) {
 			TDS tSymbole = TDS.getInstance();
 			Symbole s = tSymbole.identifier(new Entree(((Idf) e).toString()));
 			if (s == null) {
 				throw new ErreurVerification("ES");
 			}
-		} else if (typeE.equals("tableau")) {
+		} else if (e instanceof AccesTableau) {
 
 			TDS tSymbole = TDS.getInstance();
 			Symbole s = tSymbole.identifier(new Entree(((AccesTableau) e).getI()));
@@ -48,45 +48,28 @@ public class Ecrire extends Instruction {
 	@Override
 	public String toMips() throws Exception {
 
-		String s = FonctionAffichage.stringInfos("Affichage du saut de ligne");
+		String s = FonctionAffichage.stringInstruction("Ecrire " + e);
 
 //		s += "	li $v0, 1\n"; //
 
-		String type = e.getType();
 
-		switch (type) {
-		case "nombre":
-
+		if (e instanceof Nombre) {
 			s += "	li $v0, " + e.toString() + "\n" + //
 					"	la $a0, 0($v0)\n";
-
-			break;
-
-		case "idf":
-
+		}else if (e instanceof Idf) {
 			Idf e2 = (Idf) e;
 			int adresse = TDS.getInstance().getDeplacementFromIDF(e2);
 			s += "	lw $a0, " + adresse + "($s7)\n";
-			break;
 
-		case "tableau":
-
+		}else if (e instanceof AccesTableau) {
 			AccesTableau e3 = (AccesTableau) e;
 			s += e3.getAdresse() + "\n" + //
-			
-					"	la $v0, 0($a0)\n"+//
+					"	la $v0, 0($a0)\n" + //
 					"	lw $a0, 0($v0)\n";
-			break;
-
-		case "somme":
-		case "soustraction":
-		case "multiplication":
-
+		}else if (e instanceof Calcul) {
 			throw new ErreurGenerationCode("les calculs ne sont pas encore pris en charge");
-
-		default:
-			break;
 		}
+		
 		s += "	li $v0, 1\n"; //
 
 		s += "	syscall\n\n"; //

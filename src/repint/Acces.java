@@ -36,6 +36,8 @@ public abstract class Acces extends Expression {
 	public abstract Idf getI();
 
 	@Override
-	public abstract String getType();
+	public String getType() {
+		return "entier";
+	}
 
 }

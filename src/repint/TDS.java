@@ -120,8 +120,8 @@ public class TDS {
 	}
 
 	public boolean contientTableau() {
-		for (Entree entree : liste.keySet()) {
-			if (this.identifier(entree).getType().equals("tableau")) {
+		for (Entree entree : liste.keySet()) {			
+			if (this.identifier(entree) instanceof SymboleTableau) {
 				return true;
 			}
 		}

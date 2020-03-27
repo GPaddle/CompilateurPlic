@@ -36,7 +36,7 @@ public class Nombre extends Expression {
 	
 	@Override
 	public String getType() {
-		return "nombre";
+		return "entier";
 	}
 
 }

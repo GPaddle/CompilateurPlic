@@ -42,15 +42,15 @@ public abstract class Calcul extends Expression {
 
 		String s = FonctionAffichage.stringDetail("On récupère la valeur de " + expr1) + //
 
-				expr1.toMips() + "\n" + //
 
+				expr1.toMips() + "\n" + //
 				Instruction.empiler() +
 				FonctionAffichage.stringDetail("On récupère la valeur de " + expr2) + //
 
 				expr2.toMips() + "\n" + //
-				Instruction.depiler() + //
+				Instruction.depilerDansV1() + //
 				FonctionAffichage.stringInfos("On fait " + txtExplication + " de " + expr1 + " et " + expr2) + //
-				"	" + operateur + " $v0, $v0 $v1" + "\n";
+				"	" + operateur + " $v0, $v1 $v0" + "\n";
 
 		return s;
 	}
@@ -58,42 +58,30 @@ public abstract class Calcul extends Expression {
 	@Override
 	public void verifier() throws ErreurVerification {
 
-		if (!expr1.getType().equals("nombre")) {
+		if (!(expr1 instanceof Nombre)) {
 			Entree entreeExpr1 = new Entree(((Acces) expr1).getI());
 			if (TDS.getInstance().identifier(entreeExpr1) == null) {
 				throw new ErreurVerification("L'expression " + expr1 + " n'est pas encore déclarée");
 			}
 		}
 
-		if (!expr2.getType().equals("nombre")) {
+		if (!(expr2 instanceof Nombre)) {
 			Entree entreeExpr2 = new Entree(((Acces) expr2).getI());
 			if (TDS.getInstance().identifier(entreeExpr2) == null) {
 				throw new ErreurVerification("L'expression " + expr2 + " n'est pas encore déclarée");
 			}
 		}
+		
+		if (!expr1.getType().equals("entier") || !expr1.getType().equals("entier")) {			
+			throw new ErreurVerification("Les calculs sont fait sur des entiers");
+		}
+		
 	}
 
 	@Override
 	public String getType() {
 
-		String typeRetour = null;
-
-		switch (type) {
-		case '+':
-			typeRetour = "somme";
-			break;
-		case '-':
-			typeRetour = "soustraction";
-			break;
-		case '*':
-			typeRetour = "multiplication";
-			break;
-
-		default:
-			break;
-		}
-
-		return typeRetour;
+		return "entier";
 
 	}
 

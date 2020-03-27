@@ -67,7 +67,7 @@ public class Idf extends Acces {
 
 	@Override
 	public String getType() {
-		return "idf";
+		return super.getType();
 	}
 
 	@Override
