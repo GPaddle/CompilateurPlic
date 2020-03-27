@@ -1,0 +1,21 @@
+//Declaration de 2 entiers, assignation de l'entier avec une multiplication, ecriture de l'entier
+programme x {
+	entier x ;
+	entier y ;
+	
+	y := 5 ; 
+	
+	ecrire y ;
+	
+	x := y * 10  ;
+	
+	ecrire x ;
+	
+	y := y - 2 ;
+	ecrire y ;
+	
+	//Attendu :
+	//5
+	//50
+	//3
+}

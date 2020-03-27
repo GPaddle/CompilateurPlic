@@ -1,0 +1,16 @@
+//Declaration de 1 entier, assignation de l'entier avec une multiplication, ecriture de l'entier, probleme d'overflow a gerer
+programme x {
+	entier y ;
+	
+	y := 10000 ; 
+	
+	ecrire y ;
+	
+	y := y * y  ;
+	
+	ecrire y ;
+	
+	//Attendu :
+	//10000
+	//100000000
+}
