@@ -1,0 +1,13 @@
+//Declaration de 1 entier, assignation de l'entier et ecriture de non (comparaison)
+programme x {
+
+	entier x ;
+	
+	x := 2 ; 
+	
+	ecrire non ( x = 4 ) ;
+	
+		
+	//Attendu :
+	// 1
+}

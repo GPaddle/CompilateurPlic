@@ -1,0 +1,15 @@
+//Declaration de 1 entier, assignation de l'entier et ecriture de conditions et composees
+programme x {
+
+	entier x ;
+	
+	x := 2 ; 
+	
+	ecrire ( ( x = 2 ) et ( x # 4 ) ) ;
+	ecrire ( ( non ( x = 2 ) ) ou ( x # 4 ) ) ;
+	
+		
+	//Attendu :
+	// 1
+	// 1
+}

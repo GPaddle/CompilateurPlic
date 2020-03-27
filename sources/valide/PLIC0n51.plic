@@ -1,0 +1,12 @@
+//Declaration de 1 entier, assignation de l'entier ecriture de l'oppose de l'entier
+programme x {
+
+	entier y ;
+	
+	y := 2 ;
+	
+	ecrire - y ;
+		
+	//Attendu :
+	// -2
+}

@@ -7,8 +7,6 @@ import exception.ErreurVerification;
 
 public abstract class Comparaison extends Operateur {
 
-	static int nbCondition = 0;
-
 	public Comparaison(Expression n1, Expression n2, String type) {
 		super(n1, n2, type);
 		// TODO Auto-generated constructor stub
@@ -39,7 +37,7 @@ public abstract class Comparaison extends Operateur {
 			break;
 
 		default:
-			throw new ErreurGenerationCode("Operateur pas encore connu");
+			throw new ErreurGenerationCode("Operateur inconnu");
 		}
 
 		String s = expr2.toMips() + //

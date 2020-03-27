@@ -15,6 +15,7 @@ import repint.Different;
 import repint.Ecrire;
 import repint.Egale;
 import repint.Entree;
+import repint.Et;
 import repint.Expression;
 import repint.Idf;
 import repint.Inf;
@@ -22,6 +23,8 @@ import repint.InfEgale;
 import repint.Instruction;
 import repint.Multiplication;
 import repint.Nombre;
+import repint.Non;
+import repint.Ou;
 import repint.Somme;
 import repint.Soustraction;
 import repint.Sup;
@@ -158,6 +161,10 @@ public class AnalyseurSyntaxique {
 					return new Egale(n1, n2);
 				case "#":
 					return new Different(n1, n2);
+				case "et":
+					return new Et(n1, n2);
+				case "ou":
+					return new Ou(n1, n2);
 
 				default:
 					throw new ErreurSyntaxique("Pas encore implémenté");
@@ -199,7 +206,7 @@ public class AnalyseurSyntaxique {
 
 	private Expression analyseOperande() throws ErreurSyntaxique {
 
-		String operateur;
+//		String operateur;
 		Expression expr;
 
 		if (estCsteEntiere(uniteCourante)) {
@@ -215,11 +222,9 @@ public class AnalyseurSyntaxique {
 				// Soit c'est un
 				// - Expression
 				analyseTerminal("-");
-				analyseTerminal("(");
 				expr = analyseExpression();
-				analyseTerminal(")");
 
-				operateur = "-";
+				expr = new Soustraction(new Nombre(0), expr);
 
 			} catch (ErreurSyntaxique e1) {
 				try {
@@ -230,7 +235,7 @@ public class AnalyseurSyntaxique {
 					analyseTerminal("non");
 
 					expr = analyseExpression();
-					operateur = "non";
+					expr = new Non(expr);
 
 				} catch (ErreurSyntaxique e2) {
 
@@ -318,8 +323,6 @@ public class AnalyseurSyntaxique {
 			int size = Integer.parseInt(type.split("tableau")[1]);
 			Symbole symTab = new SymboleTableau(4 * size, size);
 
-//			System.out.println(symTab);
-
 			tab.ajouter(new Entree(i), symTab);
 		} else {
 			throw new Exception("Type inconnu");
@@ -391,7 +394,6 @@ public class AnalyseurSyntaxique {
 	private Idf analyseIDF() throws ErreurSyntaxique {
 
 		Idf i;
-//		System.out.println(uniteCourante);
 		switch (this.uniteCourante) {
 		case ";":
 

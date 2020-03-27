@@ -66,7 +66,7 @@
   </class>  
   <class id="8" language="java" name="repint.Symbole" project="EclipseCompilateur" 
     file="/EclipseCompilateur/src/repint/Symbole.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="989" y="558"/>    
+    <position height="-1" width="-1" x="1006" y="451"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -93,7 +93,7 @@
   </class>  
   <class id="11" language="java" name="repint.TDS" project="EclipseCompilateur" 
     file="/EclipseCompilateur/src/repint/TDS.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1265" y="422"/>    
+    <position height="-1" width="-1" x="1261" y="284"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -102,7 +102,7 @@
   </class>  
   <class id="12" language="java" name="repint.SymboleEntier" project="EclipseCompilateur" 
     file="/EclipseCompilateur/src/repint/SymboleEntier.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1200" y="687"/>    
+    <position height="-1" width="-1" x="1310" y="516"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -129,7 +129,7 @@
   </class>  
   <class id="15" language="java" name="repint.Somme" project="EclipseCompilateur" 
     file="/EclipseCompilateur/src/repint/Somme.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="381" y="1283"/>    
+    <position height="-1" width="-1" x="447" y="1060"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -138,7 +138,7 @@
   </class>  
   <class id="16" language="java" name="repint.Soustraction" project="EclipseCompilateur" 
     file="/EclipseCompilateur/src/repint/Soustraction.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="610" y="1297"/>    
+    <position height="-1" width="-1" x="449" y="1267"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -147,7 +147,7 @@
   </class>  
   <class id="17" language="java" name="repint.Multiplication" project="EclipseCompilateur" 
     file="/EclipseCompilateur/src/repint/Multiplication.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="844" y="1308"/>    
+    <position height="-1" width="-1" x="617" y="1157"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -174,7 +174,7 @@
   </class>  
   <class id="20" language="java" name="repint.Comparaison" project="EclipseCompilateur" 
     file="/EclipseCompilateur/src/repint/Comparaison.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="844" y="832"/>    
+    <position height="-1" width="-1" x="840" y="875"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -183,7 +183,7 @@
   </class>  
   <class id="21" language="java" name="repint.InfEgale" project="EclipseCompilateur" 
     file="/EclipseCompilateur/src/repint/InfEgale.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="877" y="1086"/>    
+    <position height="-1" width="-1" x="883" y="1122"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -192,7 +192,7 @@
   </class>  
   <class id="22" language="java" name="repint.Inf" project="EclipseCompilateur" 
     file="/EclipseCompilateur/src/repint/Inf.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="974" y="995"/>    
+    <position height="-1" width="-1" x="980" y="1031"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -201,7 +201,7 @@
   </class>  
   <class id="23" language="java" name="repint.Egale" project="EclipseCompilateur" 
     file="/EclipseCompilateur/src/repint/Egale.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1115" y="1093"/>    
+    <position height="-1" width="-1" x="1115" y="1131"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -210,7 +210,7 @@
   </class>  
   <class id="24" language="java" name="repint.Sup" project="EclipseCompilateur" 
     file="/EclipseCompilateur/src/repint/Sup.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1175" y="994"/>    
+    <position height="-1" width="-1" x="1193" y="974"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -219,7 +219,7 @@
   </class>  
   <class id="25" language="java" name="repint.SupEgale" project="EclipseCompilateur" 
     file="/EclipseCompilateur/src/repint/SupEgale.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="751" y="994"/>    
+    <position height="-1" width="-1" x="757" y="1030"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -235,165 +235,217 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <generalization id="27">    
+  <class id="27" language="java" name="repint.OperationsBooleennes" project="EclipseCompilateur" 
+    file="/EclipseCompilateur/src/repint/OperationsBooleennes.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="950" y="700"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="28" language="java" name="repint.Et" project="EclipseCompilateur" 
+    file="/EclipseCompilateur/src/repint/Et.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1265" y="852"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="29" language="java" name="repint.Ou" project="EclipseCompilateur" 
+    file="/EclipseCompilateur/src/repint/Ou.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1287" y="743"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="30" language="java" name="repint.Non" project="EclipseCompilateur" 
+    file="/EclipseCompilateur/src/repint/Non.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1293" y="629"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <generalization id="31">    
     <end type="SOURCE" refId="14"/>    
     <end type="TARGET" refId="10"/>  
   </generalization>  
-  <generalization id="28">    
+  <generalization id="32">    
     <end type="SOURCE" refId="15"/>    
     <end type="TARGET" refId="19"/>  
   </generalization>  
-  <generalization id="29">    
+  <generalization id="33">    
     <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="6"/>  
   </generalization>  
-  <association id="30">    
+  <association id="34">    
     <end type="SOURCE" refId="13" navigable="false">      
-      <attribute id="31" name="idf">        
+      <attribute id="35" name="idf">        
         <position height="0" width="0" x="-543" y="-2"/>      
       </attribute>      
-      <multiplicity id="32" minimum="0" maximum="1">        
+      <multiplicity id="36" minimum="0" maximum="1">        
         <position height="0" width="0" x="-543" y="-2"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="14" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="33">    
+  <association id="37">    
     <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="34" name="tds">        
-        <position height="0" width="0" x="53" y="28"/>      
+      <attribute id="38" name="tds">        
+        <position height="0" width="0" x="49" y="-110"/>      
       </attribute>      
-      <multiplicity id="35" minimum="0" maximum="1">        
-        <position height="0" width="0" x="53" y="28"/>      
+      <multiplicity id="39" minimum="0" maximum="1">        
+        <position height="0" width="0" x="49" y="-110"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="11" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="36">    
+  <generalization id="40">    
     <bendpoint x="1136" y="925"/>    
     <end type="SOURCE" refId="24"/>    
     <end type="TARGET" refId="20"/>  
   </generalization>  
-  <generalization id="37">    
+  <generalization id="41">    
     <end type="SOURCE" refId="12"/>    
     <end type="TARGET" refId="8"/>  
   </generalization>  
-  <generalization id="38">    
+  <generalization id="42">    
     <end type="SOURCE" refId="25"/>    
     <end type="TARGET" refId="20"/>  
   </generalization>  
-  <association id="39">    
+  <association id="43">    
     <end type="SOURCE" refId="18" navigable="false">      
-      <attribute id="40" name="expr1"/>      
-      <multiplicity id="41" minimum="0" maximum="1"/>    
+      <attribute id="44" name="expr1"/>      
+      <multiplicity id="45" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="42">    
+  <generalization id="46">    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="27"/>  
+  </generalization>  
+  <association id="47">    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="43" name="ali">        
+      <attribute id="48" name="ali">        
         <position height="0" width="0" x="91" y="-552"/>      
       </attribute>      
-      <multiplicity id="44" minimum="0" maximum="2147483647">        
+      <multiplicity id="49" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="91" y="-552"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="1" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="45">    
+  <generalization id="50">    
     <end type="SOURCE" refId="18"/>    
     <end type="TARGET" refId="6"/>  
   </generalization>  
-  <generalization id="46">    
+  <generalization id="51">    
     <end type="SOURCE" refId="20"/>    
     <end type="TARGET" refId="18"/>  
   </generalization>  
-  <generalization id="47">    
+  <generalization id="52">    
     <bendpoint x="1285" y="917"/>    
     <end type="SOURCE" refId="26"/>    
     <end type="TARGET" refId="20"/>  
   </generalization>  
-  <association id="48">    
+  <association id="53">    
     <end type="SOURCE" refId="18" navigable="false">      
-      <attribute id="49" name="expr2"/>      
-      <multiplicity id="50" minimum="0" maximum="1"/>    
+      <attribute id="54" name="expr2"/>      
+      <multiplicity id="55" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="51">    
+  <generalization id="56">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="1"/>  
   </generalization>  
-  <generalization id="52">    
+  <generalization id="57">    
     <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="8"/>  
   </generalization>  
-  <generalization id="53">    
+  <generalization id="58">    
     <end type="SOURCE" refId="13"/>    
     <end type="TARGET" refId="10"/>  
   </generalization>  
-  <generalization id="54">    
+  <generalization id="59">    
     <end type="SOURCE" refId="10"/>    
     <end type="TARGET" refId="6"/>  
   </generalization>  
-  <association id="55">    
+  <association id="60">    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="56" name="e">        
+      <attribute id="61" name="e">        
         <position height="0" width="0" x="5" y="-550"/>      
       </attribute>      
-      <multiplicity id="57" minimum="0" maximum="1">        
+      <multiplicity id="62" minimum="0" maximum="1">        
         <position height="0" width="0" x="5" y="-550"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="58">    
+  <generalization id="63">    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="18"/>  
+  </generalization>  
+  <generalization id="64">    
     <bendpoint x="1070" y="951"/>    
     <end type="SOURCE" refId="23"/>    
     <end type="TARGET" refId="20"/>  
   </generalization>  
-  <association id="59">    
+  <association id="65">    
     <end type="SOURCE" refId="11" navigable="false">      
-      <attribute id="60" name="liste">        
-        <position height="0" width="0" x="0" y="0"/>      
+      <attribute id="66" name="liste">        
+        <position height="0" width="0" x="17" y="-107"/>      
       </attribute>      
-      <multiplicity id="61" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
+      <multiplicity id="67" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="17" y="-107"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="62">    
+  <generalization id="68">    
     <end type="SOURCE" refId="17"/>    
     <end type="TARGET" refId="19"/>  
   </generalization>  
-  <generalization id="63">    
+  <generalization id="69">    
     <end type="SOURCE" refId="19"/>    
     <end type="TARGET" refId="18"/>  
   </generalization>  
-  <generalization id="64">    
+  <generalization id="70">    
     <end type="SOURCE" refId="16"/>    
     <end type="TARGET" refId="19"/>  
   </generalization>  
-  <generalization id="65">    
+  <generalization id="71">    
     <end type="SOURCE" refId="22"/>    
     <end type="TARGET" refId="20"/>  
   </generalization>  
-  <generalization id="66">    
+  <generalization id="72">    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="27"/>  
+  </generalization>  
+  <generalization id="73">    
     <bendpoint x="872" y="946"/>    
     <end type="SOURCE" refId="21"/>    
     <end type="TARGET" refId="20"/>  
   </generalization>  
-  <generalization id="67">    
+  <generalization id="74">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <generalization id="75">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="27"/>  
   </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
