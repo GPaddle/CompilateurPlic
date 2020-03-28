@@ -8,7 +8,7 @@ fi
 
 echo valide :
 
-for file in ./sources/valide/*; do
+for file in ./sources/valide/*.plic; do
 	echo "$file"
 	java -jar "$1" "$file"
 	echo ----------------------
@@ -20,7 +20,7 @@ echo
 echo invalides :
 echo
 
-for file in ./sources/invalide/*; do
+for file in ./sources/invalide/*.plic; do
 	echo "$file"
 	java -jar "$1" "$file"
 	echo ----------------------

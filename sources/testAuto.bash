@@ -9,10 +9,12 @@ tmp3=$input/sources/tmp3.txt
 echo 'Si il y a des différences, le résultat du haut est celui obtenu, celui du bas, le résultat attendu'
 
 liste="ls $input/sources/valide/*.plic -1"
+listeInvalide="ls $input/sources/invalide/*.plic -1"
 
 nbTests=$($liste | wc -l)
+nbTestsInvalides=$($listeInvalide | wc -l)
 
-echo 'Nombre de tests : ' $nbTests
+echo 'Nombre de tests valides: ' $nbTests
 
 
 for nbFichier in $($liste)
@@ -30,14 +32,6 @@ do
 
 	tail +2 $tmp2 > $tmp3
 
-#	cat $tmp1
-#	cat $tmp2
-#	echo ----------
-#	cat $tmp3
-#	echo -------
-
-#	echo $fichier
-
 	if ! diff $tmp3 $fichier.attente >& /dev/null
 	then
 		printf "."
@@ -54,9 +48,40 @@ do
 
 done
 
+echo
+echo
+
+echo "Nombre de tests invalides: " $nbTestsInvalides
+
+for nbfichier in $($listeInvalide)
+do
+	printf _
+done
+
+echo
+
+for fichier in $($listeInvalide)
+do
+	java -jar $input/plic.jar $fichier > $tmp1
+	if ! grep "ERREUR:" $tmp1 >& /dev/null
+	then
+		java -jar $input/Mars4.5.jar $tmp1 > $tmp2
+		if ! grep "ERREUR:" $tmp2 >& /dev/null
+		then
+			printf "."
+			echo
+                        echo------------------------------------
+                        echo 'Problème avec le fichier' $fichier
+			head -1 $fichier
+                        echo------------------------------------
+		fi
+	else
+		printf \#
+	fi
+done
+
+
 rm $tmp1
 rm $tmp2
 rm $tmp3
 echo
-
-
