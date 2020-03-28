@@ -62,6 +62,9 @@ public abstract class Comparaison extends Operateur {
 
 	@Override
 	public void verifier() throws ErreurVerification {
+		
+		super.verifier();
+		
 		if (!expr1.getType().equals("entier")) {
 			throw new ErreurVerification(expr1 + " doit être de type entier");
 		}

@@ -3,7 +3,6 @@ package repint;
 import Affichage.FonctionAffichage;
 import exception.ErreurCle;
 import exception.ErreurGenerationCode;
-import exception.ErreurSemantique;
 import exception.ErreurVerification;
 
 public class AccesTableau extends Acces {
@@ -27,7 +26,6 @@ public class AccesTableau extends Acces {
 
 	@Override
 	public String getAdresse() throws ErreurCle, ErreurGenerationCode {
-		Symbole s = TDS.getInstance().identifier(new Entree(idf));
 		String adresse;
 
 		int sizeMax = getSizeMax();
@@ -72,6 +70,19 @@ public class AccesTableau extends Acces {
 
 		} else {
 			throw new ErreurVerification("Problème de typage");
+		}
+		
+		if (expr2 instanceof Nombre) {
+			try {
+				int index = Integer.parseInt(((Nombre)expr2).toString());
+				if (index<0) {					
+					throw new ErreurVerification("Acces dans un tableau avec valeur négative impossible : AccesTableau");
+				}else if (index>=this.getSizeMax()) {					
+					throw new ErreurVerification("Acces dans un tableau avec index >= taille max impossible: AccesTableau");
+				}
+			} catch (NumberFormatException e) {
+				throw new ErreurVerification("Probleme de typage, le nombre n'en est pas un ... : AccesTableau");
+			}
 		}
 
 	}

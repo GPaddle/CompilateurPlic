@@ -21,7 +21,10 @@ public abstract class Operateur extends Expression {
 	public abstract String toMips() throws ErreurGenerationCode, ErreurCle;
 
 	@Override
-	public abstract void verifier() throws ErreurVerification;
+	public void verifier() throws ErreurVerification{
+		expr1.verifier();
+		expr2.verifier();
+	}
 
 	@Override
 	public abstract String getType();

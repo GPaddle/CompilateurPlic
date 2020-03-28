@@ -90,6 +90,7 @@ public class plic {
 	}
 
 	public static void main(String[] args) throws ErreurSyntaxique {
+		@SuppressWarnings("unused")
 		plic p;
 		if (args.length == 1 || (args.length == 2 && args[1].equals("Eclipse"))) {
 			try {

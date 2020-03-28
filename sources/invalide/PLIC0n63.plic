@@ -1,0 +1,7 @@
+programme test {
+	entier a ;
+	tableau [ 5 ] b ;
+
+	a := 5 ;
+	ecrire b [ a ] ;
+}

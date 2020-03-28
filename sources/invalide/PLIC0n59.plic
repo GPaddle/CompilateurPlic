@@ -1,0 +1,4 @@
+programme test {
+	tableau [ 4 ] a ;
+	ecrire a [ 5 ] ;
+}

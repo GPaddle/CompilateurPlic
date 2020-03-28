@@ -1,6 +1,5 @@
 package repint;
 
-import java.io.Console;
 import java.util.HashMap;
 import java.util.Map;
 

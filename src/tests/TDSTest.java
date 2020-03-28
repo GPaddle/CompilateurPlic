@@ -5,8 +5,6 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
-
 import exception.ErreurDoubleDeclaration;
 import repint.Acces;
 import repint.AccesTableau;

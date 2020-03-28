@@ -57,6 +57,7 @@ public class Idf extends Acces {
 
 	@Override
 	public void verifier() throws ErreurVerification {
+		
 		try {
 			TDS.getInstance().getDeplacementFromIDF(this);
 		} catch (ErreurCle e) {

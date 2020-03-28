@@ -50,6 +50,8 @@ public abstract class Calcul extends Operateur {
 	@Override
 	public void verifier() throws ErreurVerification {
 
+		super.verifier();
+		
 		if (!(expr1 instanceof Nombre)) {
 			Entree entreeExpr1 = new Entree(((Acces) expr1).getI());
 			if (TDS.getInstance().identifier(entreeExpr1) == null) {

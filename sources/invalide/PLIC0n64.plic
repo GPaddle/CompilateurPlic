@@ -1,0 +1,7 @@
+programme test {
+	tableau [ 5 ] a ;
+	tableau [ 5 ] b ;
+
+	a := 5 ;
+
+}

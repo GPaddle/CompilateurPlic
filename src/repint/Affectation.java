@@ -43,16 +43,15 @@ public class Affectation extends Instruction {
 				throw new ErreurVerification("Les deux cotés de l'opération doivent être des entiers");
 			}
 		}
+		
+		membreDroite.verifier();
+		membreGauche.verifier();
 
 	}
 
 	@Override
 	public String toMips() throws ErreurGenerationCode, ErreurCle {
 		String s = FonctionAffichage.stringInstruction(membreGauche + " := " + membreDroite);
-
-		Symbole symGauche = TDS.getInstance().identifier(new Entree(membreGauche.getI()));
-
-		String typeMembreDroite = membreDroite.getType();
 
 		s += FonctionAffichage.stringInfos("Calcul de la valeur de l'expression dans $v0") + //
 				membreDroite.toMips() + //

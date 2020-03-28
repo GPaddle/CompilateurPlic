@@ -21,6 +21,8 @@ public class Ecrire extends Instruction {
 	@Override
 	public void verifier() throws ErreurVerification {
 
+		e.verifier();
+		
 		if (e instanceof Idf) {
 			TDS tSymbole = TDS.getInstance();
 			Symbole s = tSymbole.identifier(new Entree(((Idf) e).toString()));
@@ -36,7 +38,7 @@ public class Ecrire extends Instruction {
 			}
 
 		} else if (e instanceof Nombre || e instanceof Operateur) {
-			// Ne rien tester
+			e.verifier();
 		} else {
 			throw new ErreurVerification("Type pas encore implémenté : Ecrire.class");
 		}

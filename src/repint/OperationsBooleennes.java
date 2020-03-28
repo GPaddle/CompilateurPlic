@@ -47,6 +47,9 @@ public abstract class OperationsBooleennes extends Operateur {
 
 	@Override
 	public void verifier() throws ErreurVerification {
+		
+		super.verifier();
+		
 		if (!expr1.getType().equals("booleen")) {
 			throw new ErreurVerification(expr1 + " doit être de type booleen");
 		}
@@ -54,6 +57,7 @@ public abstract class OperationsBooleennes extends Operateur {
 		if (!expr2.getType().equals("booleen")) {
 			throw new ErreurVerification(expr2 + " doit être de type booleen");
 		}
+		
 
 	}
 

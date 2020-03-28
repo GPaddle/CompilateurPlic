@@ -1,3 +1,4 @@
+//Ecriture d'un entier
 programme test {
 	//OKOK
 	ecrire 1 ;
