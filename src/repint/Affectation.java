@@ -3,6 +3,7 @@ package repint;
 import Affichage.FonctionAffichage;
 import exception.ErreurCle;
 import exception.ErreurGenerationCode;
+import exception.ErreurSemantique;
 import exception.ErreurVerification;
 
 public class Affectation extends Instruction {
@@ -23,7 +24,7 @@ public class Affectation extends Instruction {
 	}
 
 	@Override
-	public void verifier() throws ErreurVerification {
+	public void verifier() throws ErreurVerification, ErreurSemantique {
 
 		TDS tSymbole = TDS.getInstance();
 		Symbole s = tSymbole.identifier(new Entree(membreGauche.getI()));
@@ -32,6 +33,10 @@ public class Affectation extends Instruction {
 			throw new ErreurVerification("Affectation");
 		}
 
+		if (!membreDroite.getType().equals(membreGauche.getType())) {
+			throw new ErreurSemantique("Les deux cotés d'une affectation doivent être de même type : ici G = "+membreGauche.getType()+" / D = "+membreDroite.getType());
+		}
+		
 		if (membreDroite instanceof Idf) {
 			Symbole s2 = TDS.getInstance().identifier(new Entree(((Idf) membreDroite)));
 			if (s2 instanceof SymboleTableau) {

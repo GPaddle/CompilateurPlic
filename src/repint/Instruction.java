@@ -2,11 +2,12 @@ package repint;
 
 import Affichage.FonctionAffichage;
 import exception.ErreurGenerationCode;
+import exception.ErreurSemantique;
 import exception.ErreurVerification;
 
 public abstract class Instruction {
 
-	public abstract void verifier() throws ErreurVerification;
+	public abstract void verifier() throws ErreurVerification, ErreurSemantique;
 
 	public abstract String toMips() throws ErreurGenerationCode, Exception;
 

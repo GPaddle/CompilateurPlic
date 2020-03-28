@@ -112,6 +112,8 @@ public class AnalyseurSyntaxique {
 
 		if (instruction == null) {
 			throw new ErreurSyntaxique("Pas d'instruction");
+		}else {			
+			instruction.verifier();
 		}
 
 		return instruction;
@@ -278,6 +280,10 @@ public class AnalyseurSyntaxique {
 			uniteCourante = aLex.next();
 
 			Expression e = analyseExpression();
+			
+			if (!e.getType().equals("entier")) {
+				throw new ErreurSemantique("l'expression doit être de type entier");
+			}
 
 			analyseTerminal("]");
 			return new AccesTableau(i.toString(), e);
