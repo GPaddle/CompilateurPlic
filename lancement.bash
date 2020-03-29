@@ -1,5 +1,7 @@
 #!/bin/bash
 
+input="/mnt/d/Scolarité/2019-2020_DUT_Informatique_2A/S4/Compilation/Eclipse"
+
 if [ $# -ne 1 ]
 then
 	echo usage $0 '<file.jar>'
@@ -8,7 +10,7 @@ fi
 
 echo valide :
 
-for file in ./sources/valide/*.plic; do
+for file in $input/sources/valide/*.plic; do
 	echo "$file"
 	java -jar "$1" "$file"
 	echo ----------------------
@@ -20,7 +22,7 @@ echo
 echo invalides :
 echo
 
-for file in ./sources/invalide/*.plic; do
+for file in $input/sources/invalide/*.plic; do
 	echo "$file"
 	java -jar "$1" "$file"
 	echo ----------------------
