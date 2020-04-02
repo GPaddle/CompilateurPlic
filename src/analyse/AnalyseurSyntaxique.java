@@ -305,7 +305,6 @@ public class AnalyseurSyntaxique {
 				// Soit c'est un
 				// - Expression
 				analyseTerminal("-");
-				System.out.println(uniteCourante);
 				analyseTerminal("(");
 				expr = analyseExpression();
 				analyseTerminal(")");

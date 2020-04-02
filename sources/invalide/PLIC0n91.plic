@@ -1,0 +1,6 @@
+programme bug {
+	entier a ;
+	    tableau  [ 10 ] tt ;
+	    a := a - tt ;
+	 
+}

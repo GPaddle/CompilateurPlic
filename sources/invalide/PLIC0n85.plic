@@ -1,0 +1,5 @@
+//ecriture fausse
+programme x {
+
+	ecrire - 2 ;
+}

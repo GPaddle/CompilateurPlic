@@ -1,0 +1,12 @@
+//
+programme ok {
+	
+	entier a ; entier b ;
+	entier x ;
+	x := 10 ;
+	a := 6 ; b := 12 ;
+	ecrire ( x = a ) ou ( ( x > a ) et ( b < ( x * 2 ) ) ) ;
+
+	//Attendu :
+	// 1
+}

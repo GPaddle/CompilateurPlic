@@ -1,0 +1,14 @@
+//Calculs et tableaux
+programme x {
+
+	entier a ; tableau [ 5 ] t ;
+	entier x ; entier  y ; 
+	x := 2 ; y := x + 1 ; 
+	    
+	t [ x + 1 ] := y ; 	t [ 4 ] := 100 ; 
+	a := t [ t [ x + 1 ] + 1  ]  ; 
+	ecrire a ;			// 100
+	
+	//Attendu :
+	// 100
+}

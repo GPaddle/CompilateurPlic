@@ -1,0 +1,12 @@
+// assignation de 3 entier et calculs
+programme ok {
+	
+	entier a ;
+	entier x ; entier  y ; 
+	x := 10 ; y := x + 1 ;
+	a := y + ( x + 1 ) ; 
+	ecrire a ;			// 22
+	
+	//Attendu :
+	//22
+}
