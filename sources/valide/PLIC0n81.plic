@@ -1,0 +1,22 @@
+//Declaration de 3 entiers, assignation de l'entier, double boucle, ecriture
+programme x {
+
+	entier x ;
+	entier y ;
+	entier z ;
+	
+	y := 2 ;
+	
+	pour x dans 1 .. 2 repeter {
+		pour z dans 1 .. 2 repeter {
+			si ( z = 2 ) alors {
+				y := y * 2 ;
+			}
+		}
+	}
+	
+	ecrire y ;
+	
+	//Attendu :
+	//8
+}

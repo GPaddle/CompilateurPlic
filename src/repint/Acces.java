@@ -37,7 +37,7 @@ public abstract class Acces extends Expression {
 
 	@Override
 	public String getType() {
-		return "entier";
+		return Expression.typeEntier;
 	}
 
 }

@@ -8,7 +8,21 @@ import exception.ErreurVerification;
 
 public class Bloc {
 
-	ArrayList<Instruction> ali = new ArrayList<>();
+	private ArrayList<Instruction> ali = new ArrayList<>();
+
+	public ArrayList<Instruction> getAli() {
+		return ali;
+	}
+
+	public void setAli(ArrayList<Instruction> ali) {
+		this.ali = ali;
+	}
+
+	public static int nbBloc = 0;
+
+	public Bloc() {
+		nbBloc++;
+	}
 
 	public void ajouter(Instruction i) {
 		this.ali.add(i);
@@ -19,9 +33,12 @@ public class Bloc {
 		String s = "{\n";
 
 		for (Instruction instruction : ali) {
-			s += "	" + instruction + "\n";
+
+			s += "	";
+			s += instruction + "\n";
 		}
 
+//		nbBloc--;
 		s += "}";
 
 		return s;
@@ -124,4 +141,6 @@ public class Bloc {
 		}
 		return s;
 	}
+	
+	
 }

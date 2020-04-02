@@ -1,0 +1,10 @@
+//Declaration de 2 entiers, assignation de 1 entier par lecture
+programme x {
+
+	entier x ;
+	
+	lire x ;
+			
+	//Attendu :
+	// 
+}

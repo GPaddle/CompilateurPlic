@@ -42,7 +42,7 @@ public class TDS {
 
 		String s2 = s.getType();
 
-		if (s2.equals("entier")) {
+		if (s2.equals(Expression.typeEntier)) {
 			cptDepl -= 4;
 		} else if (s2.startsWith("tableau")) {
 			try {

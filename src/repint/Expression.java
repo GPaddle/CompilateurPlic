@@ -5,6 +5,9 @@ import exception.ErreurGenerationCode;
 import exception.ErreurVerification;
 
 public abstract class Expression {
+	
+	public static String typeBooleen = "booleen";
+	public static String typeEntier = "entier";
 
 	@Override
 	public String toString() {

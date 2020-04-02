@@ -1,0 +1,17 @@
+//Declaration de 1 entier, boucle, ecriture de la valeur de la boucle
+programme x {
+
+	entier x ;
+
+	x := 5 ;
+
+	pour x dans 1 .. 2 repeter {
+		ecrire x ;
+	}	
+	
+	
+	//Attendu :
+	// 1
+	// 2
+	
+}

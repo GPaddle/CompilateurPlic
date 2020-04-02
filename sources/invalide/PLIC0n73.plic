@@ -1,0 +1,14 @@
+//Declaration de 2 entiers, assignation de 2 entier, condition si sinon
+programme x {
+
+	entier x ;
+	entier y ;
+	
+	x := 2 ; 
+	y := 1 ; 
+	
+	pour x dans ( x = 2 ) .. 3 repeter {
+		ecrire x ;
+	}
+	
+}

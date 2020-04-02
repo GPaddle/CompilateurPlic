@@ -51,9 +51,9 @@ public abstract class Comparaison extends Operateur {
 				"	" + typeBranche + " $v0, $v1, alors" + nbCondition + "\n" + //
 				"	li $v0, 0 \n" + //
 				"	b finsi" + nbCondition + " \n" + //
-				"alors" + nbCondition + " :\n" + //
+				"	alors" + nbCondition + " :\n" + //
 				"	li $v0, 1 \n" + //
-				"finsi" + nbCondition + " :\n" ;
+				"	finsi" + nbCondition + " :\n" ;
 
 		nbCondition++;
 
@@ -65,11 +65,11 @@ public abstract class Comparaison extends Operateur {
 		
 		super.verifier();
 		
-		if (!expr1.getType().equals("entier")) {
+		if (!expr1.getType().equals(Expression.typeEntier)) {
 			throw new ErreurVerification(expr1 + " doit être de type entier");
 		}
 
-		if (!expr2.getType().equals("entier")) {
+		if (!expr2.getType().equals(Expression.typeEntier)) {
 			throw new ErreurVerification(expr2 + " doit être de type entier");
 		}
 
@@ -77,7 +77,7 @@ public abstract class Comparaison extends Operateur {
 
 	@Override
 	public String getType() {
-		return "booleen";
+		return Expression.typeBooleen;
 	}
 
 	@Override

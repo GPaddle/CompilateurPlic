@@ -1,0 +1,18 @@
+//Declaration de 2 entiers, assignation de 2 entiers, condition si sinon
+programme x {
+
+	entier x ;
+	entier y ;
+	
+	x := 2 ; 
+	y := 1 ; 
+	
+	si ( x < y ) alors {
+		ecrire x ;
+	} sinon {
+		ecrire y ;
+	}
+			
+	//Attendu :
+	// 1
+}

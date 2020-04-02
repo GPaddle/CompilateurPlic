@@ -50,11 +50,11 @@ public abstract class OperationsBooleennes extends Operateur {
 		
 		super.verifier();
 		
-		if (!expr1.getType().equals("booleen")) {
+		if (!expr1.getType().equals(Expression.typeBooleen)) {
 			throw new ErreurVerification(expr1 + " doit être de type booleen");
 		}
 
-		if (!expr2.getType().equals("booleen")) {
+		if (!expr2.getType().equals(Expression.typeBooleen)) {
 			throw new ErreurVerification(expr2 + " doit être de type booleen");
 		}
 		
@@ -63,7 +63,7 @@ public abstract class OperationsBooleennes extends Operateur {
 
 	@Override
 	public String getType() {
-		return "booleen";
+		return Expression.typeBooleen;
 	}
 
 	@Override

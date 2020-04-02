@@ -1,0 +1,18 @@
+//Declaration de 2 entiers, assignation de 2 entiers, condition si avec test vrai
+programme x {
+
+	entier x ;
+	entier y ;
+	entier somme ;
+		
+	pour x dans 1 .. 2 repeter {
+		pour y dans 1 .. 2 repeter {
+			somme := somme + 1 ;
+		}
+	}
+	
+	ecrire somme ;
+			
+	//Attendu :
+	// 4
+}

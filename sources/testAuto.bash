@@ -5,6 +5,7 @@ input='/mnt/d/Scolarité/2019-2020_DUT_Informatique_2A/S4/Compilation/Eclipse'
 tmp1=$input/sources/tmp1.asm
 tmp2=$input/sources/tmp2.txt
 tmp3=$input/sources/tmp3.txt
+tmp4=$input/sources/input
 
 echo 'Si il y a des différences, le résultat du haut est celui obtenu, celui du bas, le résultat attendu'
 
@@ -14,8 +15,14 @@ listeInvalide="ls $input/sources/invalide/*.plic -1"
 nbTests=$($liste | wc -l)
 nbTestsInvalides=$($listeInvalide | wc -l)
 
-echo 'Nombre de tests valides: ' $nbTests
 
+echo
+
+bash $input/sources/lecture/test.bash
+
+echo
+
+echo 'Nombre de tests valides: ' $nbTests
 
 for nbFichier in $($liste)
 do
@@ -24,11 +31,20 @@ done
 
 echo
 
+
 for fichier in $($liste)
 do
 
+	chercheLire="grep 'lire' $fichier"
+
 	java -jar $input/plic.jar $fichier > $tmp1
-	java -jar $input/Mars4_5.jar $tmp1 > $tmp2
+
+	if $($chercheLire)
+	then
+		java -jar $input/Mars4_5.jar $tmp1 < $tmp4 >& $tmp2
+	else
+		java -jar $input/Mars4_5.jar $tmp1 > $tmp2
+	fi
 
 	tail +2 $tmp2 > $tmp3
 
@@ -84,4 +100,5 @@ done
 rm $tmp1
 rm $tmp2
 rm $tmp3
+
 echo

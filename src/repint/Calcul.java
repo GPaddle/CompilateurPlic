@@ -66,7 +66,7 @@ public abstract class Calcul extends Operateur {
 			}
 		}
 
-		if (!expr1.getType().equals("entier") || !expr1.getType().equals("entier")) {
+		if (!expr1.getType().equals(Expression.typeEntier) || !expr1.getType().equals(Expression.typeEntier)) {
 			throw new ErreurVerification("Les calculs sont fait sur des entiers");
 		}
 
@@ -75,7 +75,7 @@ public abstract class Calcul extends Operateur {
 	@Override
 	public String getType() {
 
-		return "entier";
+		return Expression.typeEntier;
 
 	}
 

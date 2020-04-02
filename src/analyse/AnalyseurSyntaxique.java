@@ -11,6 +11,7 @@ import repint.Acces;
 import repint.AccesTableau;
 import repint.Affectation;
 import repint.Bloc;
+import repint.Condition;
 import repint.Different;
 import repint.Ecrire;
 import repint.Egale;
@@ -21,10 +22,12 @@ import repint.Idf;
 import repint.Inf;
 import repint.InfEgale;
 import repint.Instruction;
+import repint.Lire;
 import repint.Multiplication;
 import repint.Nombre;
 import repint.Non;
 import repint.Ou;
+import repint.Pour;
 import repint.Somme;
 import repint.Soustraction;
 import repint.Sup;
@@ -33,6 +36,7 @@ import repint.Symbole;
 import repint.SymboleEntier;
 import repint.SymboleTableau;
 import repint.TDS;
+import repint.TantQue;
 
 public class AnalyseurSyntaxique {
 
@@ -63,7 +67,7 @@ public class AnalyseurSyntaxique {
 		this.analyseTerminal("{");
 
 		// Iterer :
-		while (uniteCourante.equals("entier") || uniteCourante.equals("tableau")) {
+		while (uniteCourante.equals(Expression.typeEntier) || uniteCourante.equals("tableau")) {
 			this.analyseDeclaration();
 		}
 
@@ -92,32 +96,109 @@ public class AnalyseurSyntaxique {
 
 	}
 
-	private Instruction analyseInstruction() throws ErreurSyntaxique, ErreurSemantique, ErreurVerification {
+	private Instruction analyseInstruction() throws ErreurDoubleDeclaration, Exception {
 
 		Instruction instruction = null;
-
 		try {
 			instruction = analyseES();
-		} catch (ErreurSyntaxique e) {
-
-		}
-
-		if (instruction == null) {
+		} catch (ErreurSyntaxique e0) {
 			try {
-				instruction = analyseAffectation();
-			} catch (ErreurSyntaxique e) {
-				throw e;
+				instruction = analyseIteration();
+			} catch (ErreurSyntaxique e1) {
+				try {
+					instruction = analyseCondition();
+				} catch (ErreurSyntaxique e2) {
+					try {
+						instruction = analyseAffectation();
+					} catch (ErreurSyntaxique e3) {
+						throw e3;
+					}
+				}
 			}
 		}
 
 		if (instruction == null) {
 			throw new ErreurSyntaxique("Pas d'instruction");
-		}else {			
+		} else {
 			instruction.verifier();
 		}
 
 		return instruction;
 
+	}
+
+	private Instruction analyseIteration() throws ErreurDoubleDeclaration, Exception {
+		Instruction i = null;
+
+		if (uniteCourante.equals("pour")) {
+			analyseTerminal("pour");
+			try {
+
+				Idf idf = analyseIDF();
+				analyseTerminal("dans");
+				Expression e1 = analyseExpression();
+				analyseTerminal("..");
+				Expression e2 = analyseExpression();
+				analyseTerminal("repeter");
+				Bloc b = analyseBloc();
+				i = new Pour(idf, e1, e2, b);
+			} catch (ErreurSyntaxique e1) {
+				throw new ErreurSyntaxique("Une boucle pour a été débutée");
+			}
+		} else if (uniteCourante.equals("tantque")) {
+			analyseTerminal("tantque");
+			try {
+				analyseTerminal("(");
+				Expression e1 = analyseExpression();
+				analyseTerminal(")");
+				analyseTerminal("repeter");
+				Bloc b = analyseBloc();
+
+				i = new TantQue(e1, b);
+
+			} catch (ErreurSyntaxique e1) {
+				throw new ErreurSyntaxique("Une boucle tant que a été débutée");
+			}
+		} else {
+			throw new ErreurSyntaxique("Pas de déclaration de boucle");
+		}
+
+		return i;
+	}
+
+	private Instruction analyseCondition() throws ErreurDoubleDeclaration, Exception {
+		Instruction i = null;
+		if (uniteCourante.equals("si")) {
+			analyseTerminal("si");
+		} else {
+			throw new ErreurSyntaxique("Il n'y a pas de condition");
+		}
+
+		try {
+
+			analyseTerminal("(");
+			Expression e = analyseExpression();
+			analyseTerminal(")");
+			analyseTerminal("alors");
+			Bloc b = analyseBloc();
+
+			i = new Condition(e, b);
+			try {
+				analyseTerminal("sinon");
+				try {
+					Bloc b2 = analyseBloc();
+					i = new Condition(e, b, b2);
+				} catch (Exception e2) {
+					throw new ErreurSyntaxique("Un bloc SINON a été ouvert mais jamais terminé");
+				}
+			} catch (ErreurSyntaxique e2) {
+				// Il s'agit d'un simple bloc SI
+			}
+		} catch (Exception e) {
+			throw new ErreurSyntaxique("Une condition si a débuté");
+		}
+
+		return i;
 	}
 
 	private Affectation analyseAffectation() throws ErreurSyntaxique, ErreurSemantique, ErreurVerification {
@@ -280,8 +361,8 @@ public class AnalyseurSyntaxique {
 			uniteCourante = aLex.next();
 
 			Expression e = analyseExpression();
-			
-			if (!e.getType().equals("entier")) {
+
+			if (!e.getType().equals(Expression.typeEntier)) {
 				throw new ErreurSemantique("l'expression doit être de type entier");
 			}
 
@@ -291,25 +372,40 @@ public class AnalyseurSyntaxique {
 		return i;
 	}
 
-	private Ecrire analyseES() throws ErreurSyntaxique, ErreurVerification {
-		analyseTerminal("ecrire");
-//		Expression e = analyseExpression();
-		Expression exp1 = analyseExpression();
-		try {
-			analyseTerminal("[");
+	private Instruction analyseES() throws ErreurSyntaxique, ErreurVerification {
 
-			Expression exp2 = analyseExpression();
+		if (uniteCourante.equals("ecrire")) {
+			Expression exp1 = null;
+			analyseTerminal("ecrire");
+			exp1 = analyseExpression();
+			try {
+				analyseTerminal("[");
 
-			analyseTerminal("]");
+				Expression exp2 = analyseExpression();
 
-			exp1 = new AccesTableau(exp1.toString(), exp2);
+				analyseTerminal("]");
 
-		} catch (ErreurSyntaxique e2) {
-			// Ne rien faire, il s'agit d'un idf seul
+				exp1 = new AccesTableau(exp1.toString(), exp2);
+
+			} catch (ErreurSyntaxique e2) {
+				// Ne rien faire, il s'agit d'un idf seul
+			}
+			analyseTerminal(";");
+			return new Ecrire(exp1);
+		} else if (uniteCourante.equals("lire")) {
+			try {
+				Idf exp1;
+				analyseTerminal("lire");
+				exp1 = analyseIDF();
+				analyseTerminal(";");
+				return new Lire(exp1);
+			} catch (ErreurSyntaxique e2) {
+				throw new ErreurSyntaxique("Il y a un problème dans la lecture");
+			}
+		} else {
+			throw new ErreurSyntaxique("Il n'y a pas eu de lecture ou d'écriture");
 		}
-		analyseTerminal(";");
 
-		return new Ecrire(exp1);
 	}
 
 	private void analyseDeclaration() throws ErreurSyntaxique, Exception, ErreurDoubleDeclaration {
@@ -322,7 +418,7 @@ public class AnalyseurSyntaxique {
 
 		analyseTerminal(";");
 
-		if (type.equals("entier")) {
+		if (type.equals(Expression.typeEntier)) {
 			tab.ajouter(new Entree(i), new SymboleEntier(4));
 		} else if (type.startsWith("tableau")) {
 
@@ -339,7 +435,7 @@ public class AnalyseurSyntaxique {
 	private String analyseType() throws ErreurSyntaxique, ErreurSemantique {
 
 		// On vérifie si il s'agit d'un entier
-		String type = "entier";
+		String type = Expression.typeEntier;
 		try {
 			analyseTerminal(type);
 		} catch (ErreurSyntaxique e) {
@@ -385,16 +481,24 @@ public class AnalyseurSyntaxique {
 
 	private void analyseTerminal(String string) throws ErreurSyntaxique {
 
+		String s1 = uniteCourante;
+
 		if (!this.uniteCourante.equals(string)) {
 			throw new ErreurSyntaxique("Terminal " + string + " attendu, caractère obtenu : " + uniteCourante);
 		}
+		
+		switch (uniteCourante) {
+		case ";":
+		case "{":
+		case "}":
 
-		if (this.uniteCourante.equals(";")) {
 			plic.compteLigne++;
+			break;
+
 		}
 
 		this.uniteCourante = this.aLex.next();
-
+//		System.out.println(s1 + " | " + uniteCourante);
 	}
 
 	private Idf analyseIDF() throws ErreurSyntaxique {

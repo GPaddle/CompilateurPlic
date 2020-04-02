@@ -1,0 +1,15 @@
+//Declaration de 2 entiers, assignation de 1 entier par lecture
+programme x {
+
+	entier x ;
+	
+	x := 2 ; 
+	
+	lire x ;
+	
+	ecrire x + 2 ;
+			
+	//Entree : 5
+	//Attendu :
+	// 7
+}

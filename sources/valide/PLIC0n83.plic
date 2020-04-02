@@ -1,0 +1,20 @@
+//Declaration de 1 entier, assignation de l'entier, boucle tant que, ecriture
+programme x {
+
+	entier x ;
+	entier y ;
+	
+	y := 2 ;
+	
+	tantque ( y > -1 ) repeter {
+		x := y ;
+		y := y - 1 ;
+	}
+	
+	ecrire y ; //-1
+	ecrire x ; //0
+	
+	//Attendu :
+	// -1
+	// 0
+}
