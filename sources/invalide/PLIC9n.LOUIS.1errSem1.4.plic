@@ -1,0 +1,5 @@
+programme assignmentError {
+	tableau [ 1 ] t ;
+	tableau [ 1 ] tt ;
+	t := tt ; 
+}

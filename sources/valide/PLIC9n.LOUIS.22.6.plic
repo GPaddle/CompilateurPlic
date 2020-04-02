@@ -1,0 +1,15 @@
+programme multSimple {
+    entier x ;
+    tableau [ 3 ] tab ;
+    
+    x := 2 * 3 ;
+    tab [ 0 ] := 2 * 0 ;
+    tab [ 1 ] := x * tab [ 0 ] ;
+    tab [ 2 ] := 10 ;
+
+    ecrire 1 * 2 ;
+    ecrire x ;
+    ecrire tab [ 0 ] ;
+    ecrire tab [ 1 ] ;
+    ecrire tab [ 2 * 1 ] ;
+}

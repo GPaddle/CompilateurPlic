@@ -1,0 +1,4 @@
+programme oppositeBadType {
+	tableau [ 1 ] t ;
+	ecrire - ( t ) ;
+}

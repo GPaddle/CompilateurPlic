@@ -1,0 +1,6 @@
+programme OR {
+    ecrire ( 1 = 0 ) ou ( 1 = 0 ) ;
+    ecrire ( 1 = 0 ) ou ( 1 = 1 ) ;
+    ecrire ( 1 = 1 ) ou ( 1 = 0 ) ;
+    ecrire ( 1 = 1 ) ou ( 1 = 1 ) ;
+}

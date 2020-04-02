@@ -1,0 +1,18 @@
+programme a {
+    //ce programme doit ecrire:
+    //6
+    //0
+    //-6
+
+    entier a ;
+	tableau [ 3 ] tab ;
+
+	a := 3 ;
+	tab [ 0 ] := a * 2 ;
+	tab [ 1 ] := tab [ 0 ] > 6 ;
+	ecrire tab [ 0 ] ;
+	ecrire tab [ 1 ] ;
+	tab [ 2 ] := - tab [ 0 ] ;
+	ecrire tab [ 2 ] ;
+
+}

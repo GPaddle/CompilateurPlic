@@ -1,0 +1,14 @@
+programme array {
+    tableau [ 3 ] tab ;
+    tableau [ 1 ] t ;
+
+    t [ 0 ] := 20 ;
+
+    tab [ 0 ] := 10 ;
+    tab [ 1 ] := t [ 0 ] ;
+    tab [ 2 ] := 30 ;
+
+    ecrire tab [ 0 ] ;
+    ecrire tab [ 1 ] ;
+    ecrire tab [ 2 ] ;
+}

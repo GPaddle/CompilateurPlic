@@ -1,0 +1,8 @@
+programme prog {
+entier test ;
+
+test := 1; // pas d'espace
+
+ecrire test // pas de ;
+
+}

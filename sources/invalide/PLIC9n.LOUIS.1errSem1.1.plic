@@ -1,0 +1,4 @@
+programme arrayNull {
+    tableau [ 0 ] tab ; // size 0
+    ecrire tab [ 0 ] ;
+}

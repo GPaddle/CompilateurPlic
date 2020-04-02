@@ -1,0 +1,5 @@
+programme subOpposite {
+    ecrire - ( 1 ) - ( 2 ) ;
+    ecrire - ( 2 ) - ( 1 ) ;
+    ecrire - ( 10 - ( 5 - 4 ) ) ;
+}

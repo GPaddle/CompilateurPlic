@@ -1,0 +1,5 @@
+programme arrayOutOfBounds {
+	entier x ;
+	tableau [ 5 ] t ;
+	x := t [ 5 ] ; // array out of bounds
+}

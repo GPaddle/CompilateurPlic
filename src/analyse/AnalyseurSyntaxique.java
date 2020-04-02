@@ -305,7 +305,10 @@ public class AnalyseurSyntaxique {
 				// Soit c'est un
 				// - Expression
 				analyseTerminal("-");
+				System.out.println(uniteCourante);
+				analyseTerminal("(");
 				expr = analyseExpression();
+				analyseTerminal(")");
 
 				expr = new Soustraction(new Nombre(0), expr);
 

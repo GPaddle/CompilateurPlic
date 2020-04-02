@@ -1,0 +1,5 @@
+programme err {
+    entier a ;
+    entier a ; // déjà declaré
+    a := 2 ;
+}

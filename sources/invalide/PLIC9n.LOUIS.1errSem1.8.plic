@@ -1,0 +1,5 @@
+programme undeclaredArray {
+	entier x ;
+	tableau [ 5 ] tab ;
+	x := tab [ t [ 0 ] ] ; // undeclared array
+}

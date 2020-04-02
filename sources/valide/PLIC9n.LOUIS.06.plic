@@ -1,0 +1,11 @@
+// Commentaire
+//aaa
+programme test { entier x ; // inutile // bonjour
+// ahahah
+x := 8 ;
+// a // b
+ecrire x ;
+}
+// ne sert à rien
+//aaa
+//a a

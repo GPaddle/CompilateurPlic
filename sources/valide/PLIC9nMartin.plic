@@ -1,0 +1,35 @@
+programme monProgramme {
+	// ce programme doit écrire :
+	// 13
+	// 28
+	// 2
+	// 94
+	// 98
+
+	entier rio ;
+
+	entier   foo	 ;
+
+	tableau [ 10 ] aah ;
+
+	rio := 6 + 7 ;
+	ecrire rio ;
+
+	foo := rio + 15 ;
+	ecrire foo ;
+
+	ecrire 2 ;
+
+	aah [ 2 ] := 41 ;
+	aah [ 6 ] := 53 ;
+
+	ecrire aah [ 2 ] + aah [ 6 ] ;
+
+	aah [ 7 ] := 2 ;
+	aah [ 9 ] := 6 ;
+
+	foo := aah [ aah [ 7 ] ] + aah [ aah [ 9 ] ] ;
+	foo := foo + 4 ;
+
+	ecrire foo ;
+}

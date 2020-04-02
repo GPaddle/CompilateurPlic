@@ -1,0 +1,14 @@
+programme array {
+    entier x ;
+    tableau [ 3 ] tab ;
+
+    x := 1 ;
+    tab [ 0 ] := x ;
+    tab [ 1 ] := 2 ;
+    tab [ 2 ] := 3 ;
+
+    ecrire tab [ 0 ] ;
+    ecrire tab [ x ] ;
+    ecrire tab [ 2 ] ;
+    ecrire x ;
+}

@@ -1,0 +1,7 @@
+programme arrayOutOfBounds {
+	entier x ;
+	entier y ;
+	tableau [ 5 ] t ;
+	x := 10 ;
+	y := t [ x ] ; // array out of bounds (maybe only throw at execution)
+}

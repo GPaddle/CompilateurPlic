@@ -1,0 +1,7 @@
+// PLIC0
+programme source {
+	entier x ; entier y ;
+	x := 10 ;
+	ecrire x ;
+	y := 20 ; ecrire y ;
+}

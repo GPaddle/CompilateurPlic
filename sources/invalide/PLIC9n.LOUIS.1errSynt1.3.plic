@@ -1,0 +1,4 @@
+programme undefinedArraySize {
+	entier a ;
+	tableau [ a ] t ;
+}

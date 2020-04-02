@@ -1,0 +1,5 @@
+programme sommeIncorrecte {
+    entier x ;
+    tableau [ 1 ] tab ;
+    x := x + tab ;
+}

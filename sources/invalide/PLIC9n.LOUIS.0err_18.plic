@@ -1,0 +1,9 @@
+programme un {
+    entier x ;
+    ecrire x ;
+}
+
+programme deux {
+    entier y ;
+    ecrire y ;
+}

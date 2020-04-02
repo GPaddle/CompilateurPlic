@@ -1,0 +1,19 @@
+programme egale {
+    entier x ;
+    entier y ;
+    tableau [ 2 ] tab ;
+    x := 8 ;
+    y := 8 ;
+    tab [ 0 ] := 0 ;
+    tab [ 1 ] := 8 ;
+    
+    ecrire 8 = x ;
+    ecrire x = y ;
+    ecrire ( 1 = 1 ) ;
+    ecrire x = tab [ 1 ] ;
+    y := 3 ;
+    ecrire 6 = x ;
+    ecrire x = y ;
+    ecrire ( 1 = 0 ) ;
+    ecrire x = tab [ 0 ] ;
+}

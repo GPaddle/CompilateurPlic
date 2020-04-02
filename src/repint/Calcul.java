@@ -52,19 +52,27 @@ public abstract class Calcul extends Operateur {
 
 		super.verifier();
 		
-		if (!(expr1 instanceof Nombre)) {
-			Entree entreeExpr1 = new Entree(((Acces) expr1).getI());
-			if (TDS.getInstance().identifier(entreeExpr1) == null) {
-				throw new ErreurVerification("L'expression " + expr1 + " n'est pas encore déclarée");
-			}
-		}
-
-		if (!(expr2 instanceof Nombre)) {
-			Entree entreeExpr2 = new Entree(((Acces) expr2).getI());
-			if (TDS.getInstance().identifier(entreeExpr2) == null) {
-				throw new ErreurVerification("L'expression " + expr2 + " n'est pas encore déclarée");
-			}
-		}
+//		if (!expr1.getType().equals(typeEntier)) {
+//			throw new ErreurVerification("Entier attendu");
+//		}
+//
+//		if (!expr2.getType().equals(typeEntier)) {
+//			throw new ErreurVerification("Entier attendu");
+//		}
+//		
+//		if (!(expr1 instanceof Nombre)) {
+//			Entree entreeExpr1 = new Entree(((Acces) expr1).getI());
+//			if (TDS.getInstance().identifier(entreeExpr1) == null) {
+//				throw new ErreurVerification("L'expression " + expr1 + " n'est pas encore déclarée");
+//			}
+//		}
+//
+//		if (!(expr2 instanceof Nombre)) {
+//			Entree entreeExpr2 = new Entree(((Acces) expr2).getI());
+//			if (TDS.getInstance().identifier(entreeExpr2) == null) {
+//				throw new ErreurVerification("L'expression " + expr2 + " n'est pas encore déclarée");
+//			}
+//		}
 
 		if (!expr1.getType().equals(Expression.typeEntier) || !expr1.getType().equals(Expression.typeEntier)) {
 			throw new ErreurVerification("Les calculs sont fait sur des entiers");

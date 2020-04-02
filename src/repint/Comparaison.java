@@ -48,12 +48,12 @@ public abstract class Comparaison extends Operateur {
 				
 				FonctionAffichage.stringInfos("On effectue " + this) + //
 
-				"	" + typeBranche + " $v0, $v1, alors" + nbCondition + "\n" + //
+				"	" + typeBranche + " $v0, $v1, comparaisonAlors" + nbCondition + "\n" + //
 				"	li $v0, 0 \n" + //
-				"	b finsi" + nbCondition + " \n" + //
-				"	alors" + nbCondition + " :\n" + //
+				"	b comparaisonFinsi" + nbCondition + " \n" + //
+				"	comparaisonAlors" + nbCondition + " :\n" + //
 				"	li $v0, 1 \n" + //
-				"	finsi" + nbCondition + " :\n" ;
+				"	comparaisonFinsi" + nbCondition + " :\n" ;
 
 		nbCondition++;
 

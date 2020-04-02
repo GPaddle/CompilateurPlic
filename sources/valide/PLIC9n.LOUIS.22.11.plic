@@ -1,0 +1,6 @@
+programme AND {
+    ecrire ( 1 = 0 ) et ( 1 = 0 ) ;
+    ecrire ( 1 = 0 ) et ( 1 = 1 ) ;
+    ecrire ( 1 = 1 ) et ( 1 = 0 ) ;
+    ecrire ( 1 = 1 ) et ( 1 = 1 ) ;
+}

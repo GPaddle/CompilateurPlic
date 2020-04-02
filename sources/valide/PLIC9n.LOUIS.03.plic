@@ -1,0 +1,12 @@
+programme PliC {
+entier
+x
+;
+x
+:=
+4
+;
+ecrire
+x
+;
+}

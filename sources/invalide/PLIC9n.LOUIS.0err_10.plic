@@ -1,0 +1,7 @@
+programme plic {
+    entier x ;
+    ecrire x ;
+    {
+        ecrire x ;
+    }
+}

@@ -1,0 +1,4 @@
+programme comparisonBadType {
+	tableau [ 1 ] t ;
+	ecrire 0 = t ;
+}

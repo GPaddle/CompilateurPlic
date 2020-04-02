@@ -51,15 +51,12 @@ public class AccesTableau extends Acces {
 	public void verifier() throws ErreurVerification {
 		Symbole s = TDS.getInstance().identifier(new Entree(idf));
 
+		expr2.verifier();
+		
 		if (expr2 != null) {
-			if (!(expr2 instanceof Nombre)) {
-				try {
-					TDS.getInstance().getDeplacementFromIDF(((Acces) expr2).getI());
-				} catch (ErreurCle e) {
-					throw new ErreurVerification("Clé introuvable");
-				}
-
-			}
+		if (!expr2.getType().equals(typeEntier)) {
+			throw new ErreurVerification("L'accès doit être de type entier");
+		}			
 		}
 
 		if (s instanceof SymboleTableau) {

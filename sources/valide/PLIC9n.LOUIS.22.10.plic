@@ -1,0 +1,10 @@
+programme opposite {
+    entier x ;
+    tableau [ 1 ] tab ;
+    x := 3 ;
+    tab [ 0 ] := - ( 5 ) ;
+    
+    ecrire - ( 1 ) ;
+    ecrire - ( x ) ;
+    ecrire - ( tab [ 0 ] ) ;
+}

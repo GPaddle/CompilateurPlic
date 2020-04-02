@@ -1,0 +1,18 @@
+programme comparaison {
+    ecrire 1 = 1 ;
+    ecrire 1 = 0 ;
+    ecrire 0 # 1 ;
+    ecrire 1 # 1 ;
+    ecrire 1 > 0 ;
+    ecrire 0 > 1 ;
+    ecrire 1 > 1 ;
+    ecrire 0 < 1 ;
+    ecrire 1 < 0 ;
+    ecrire 1 < 1 ;
+    ecrire 1 >= 0 ;
+    ecrire 1 >= 1 ;
+    ecrire 0 >= 1 ;
+    ecrire 0 <= 1 ;
+    ecrire 1 <= 1 ;
+    ecrire 1 <= 0 ;
+}

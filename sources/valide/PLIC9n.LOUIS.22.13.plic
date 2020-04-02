@@ -1,0 +1,6 @@
+programme NOT {
+    ecrire non ( 1 = 0 ) ;
+    ecrire non ( 1 = 1 ) ;
+    ecrire non 1 = 0 ;
+    ecrire non 1 = 1 ;
+}

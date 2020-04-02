@@ -28,7 +28,12 @@ do
 
 	if ! diff $tmp3 $file.attente >& /dev/null
 	then
-		printf "\nPas encore bon : "$file
+		echo
+		echo "-------------------------------------------"
+		echo "\nPas encore bon : "$file
+		diff $tmp3 $file.attente
+		echo "-------------------------------------------"
+		echo
 	else
 		printf "#"
 	fi

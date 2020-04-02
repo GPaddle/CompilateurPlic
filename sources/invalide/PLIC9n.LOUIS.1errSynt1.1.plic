@@ -1,0 +1,4 @@
+programme wrongArraySize {
+    tableau [ -1 ] tab ;
+    ecrire tab [ 0 ] ;
+}

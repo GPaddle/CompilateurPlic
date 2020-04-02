@@ -1,0 +1,6 @@
+programme assignmentTypeError {
+	entier x ;
+	tableau [ 1 ] t ;
+	t [ 0 ] := 5 ;
+	x := t ; 
+}

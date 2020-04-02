@@ -1,0 +1,4 @@
+programme idf0 {
+    entier x ;
+    ecrire x ;
+}

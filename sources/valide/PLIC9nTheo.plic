@@ -1,0 +1,22 @@
+programme d     {
+	// ce programme doit écrire :
+	// 2
+	// 0
+	// 2
+
+	tableau [ 4 ] cc ;
+	entier x ;
+	entier m ;
+	//
+	m := 1 + 2 ;
+	cc [ 2 ] := 2 ;
+	cc [ 1 ] := 0 ;
+	cc [ 1 + 2 ] := 2 ;
+	ecrire cc [ cc [ m ] ] ;
+	cc [ m ] := 12 ;
+	cc [ 3 ] := 2 ;
+	x := 2 ;
+	m := cc [ cc [ 3 ] + 1 ] ;
+	ecrire cc [ 1 ] ;
+	ecrire m ;
+}

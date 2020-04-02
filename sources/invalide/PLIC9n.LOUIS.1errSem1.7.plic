@@ -1,0 +1,5 @@
+programme undeclaredIndex {
+	entier x ;
+	tableau [ 5 ] t ;
+	x := t [ y ] ; // undeclared index
+}

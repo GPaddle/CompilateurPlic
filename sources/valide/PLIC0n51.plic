@@ -5,7 +5,7 @@ programme x {
 	
 	y := 2 ;
 	
-	ecrire - y ;
+	ecrire - ( y ) ;
 		
 	//Attendu :
 	// -2

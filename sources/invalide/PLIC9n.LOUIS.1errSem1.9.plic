@@ -1,0 +1,5 @@
+programme arrayPrinting {
+	tableau [ 1 ] tab ;
+	tab [ 0 ] := 5 ;
+	ecrire tab ; // not allow
+}

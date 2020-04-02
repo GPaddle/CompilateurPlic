@@ -5,7 +5,7 @@ programme x {
 	
 	x := 2 ; 
 	
-	ecrire ( ( ( - x ) = -2 ) et ( x # 4 ) ) ;
+	ecrire ( ( ( - ( x ) ) = -2 ) et ( x # 4 ) ) ;
 			
 	//Attendu :
 	// 1

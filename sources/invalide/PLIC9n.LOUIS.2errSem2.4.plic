@@ -1,0 +1,4 @@
+programme additionBadType {
+	tableau [ 1 ] t ;
+	ecrire 1 + t ;
+}
