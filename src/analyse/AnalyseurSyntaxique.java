@@ -3,6 +3,7 @@ package analyse;
 import java.io.File;
 import java.io.FileNotFoundException;
 import exception.ErreurDoubleDeclaration;
+import exception.ErreurLexicale;
 import exception.ErreurSemantique;
 import exception.ErreurSyntaxique;
 import exception.ErreurVerification;
@@ -201,7 +202,7 @@ public class AnalyseurSyntaxique {
 		return i;
 	}
 
-	private Affectation analyseAffectation() throws ErreurSyntaxique, ErreurSemantique, ErreurVerification {
+	private Affectation analyseAffectation() throws ErreurSyntaxique, ErreurSemantique, ErreurVerification, ErreurLexicale {
 
 		Acces a = analyseAcces();
 
@@ -214,7 +215,7 @@ public class AnalyseurSyntaxique {
 		return new Affectation(a, e);
 	}
 
-	private Expression analyseExpression() throws ErreurSyntaxique {
+	private Expression analyseExpression() throws ErreurSyntaxique, ErreurLexicale {
 		try {
 
 			// Soit c'est un opérande
@@ -287,7 +288,7 @@ public class AnalyseurSyntaxique {
 
 	}
 
-	private Expression analyseOperande() throws ErreurSyntaxique {
+	private Expression analyseOperande() throws ErreurSyntaxique, ErreurLexicale {
 
 //		String operateur;
 		Expression expr;
@@ -356,7 +357,7 @@ public class AnalyseurSyntaxique {
 		}
 	}
 
-	private Acces analyseAcces() throws ErreurSyntaxique, ErreurSemantique {
+	private Acces analyseAcces() throws ErreurSyntaxique, ErreurSemantique, ErreurLexicale {
 		Acces i = analyseIDF();
 
 		if (uniteCourante.equals("[")) {
@@ -374,7 +375,7 @@ public class AnalyseurSyntaxique {
 		return i;
 	}
 
-	private Instruction analyseES() throws ErreurSyntaxique, ErreurVerification {
+	private Instruction analyseES() throws ErreurSyntaxique, ErreurVerification, ErreurLexicale {
 
 		if (uniteCourante.equals("ecrire")) {
 			Expression exp1 = null;
@@ -503,13 +504,22 @@ public class AnalyseurSyntaxique {
 //		System.out.println(s1 + " | " + uniteCourante);
 	}
 
-	private Idf analyseIDF() throws ErreurSyntaxique {
+	private String[] listeMotsCles = {"EOF","lire","ecrire","non","si","sinon","tantque","pour","dans","-","entier","tableau","alors","..","repeter"};
+
+	private Idf analyseIDF() throws ErreurSyntaxique, ErreurLexicale {
 
 		Idf i;
 		switch (this.uniteCourante) {
 		case ";":
 
 			throw new ErreurSyntaxique("Il ne peut pas y avoir le caractère " + uniteCourante + " comme idf");
+		}
+
+
+		for (String string : listeMotsCles) {
+			if (string.equals(this.uniteCourante)) {				
+				throw new ErreurLexicale("Il ne peut pas y avoir " + uniteCourante + " comme idf, il s'agit d'un mot clé");
+			}
 		}
 
 //		Pattern pattern = Pattern.compile("[a-zA-Z]+");
