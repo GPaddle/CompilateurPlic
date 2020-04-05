@@ -1,0 +1,8 @@
+programme forEmpty {
+    entier x ;
+    x := 5 ;
+    pour x dans 2 .. 1 repeter {
+        ecrire x ;
+    }
+    ecrire x ; // 5
+}

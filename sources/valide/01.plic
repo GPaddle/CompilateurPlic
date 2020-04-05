@@ -1,0 +1,25 @@
+programme ifNested {
+    entier x ;
+    entier y ;
+    x := 4 ;
+    y := 3 ;
+    si ( ( x > y ) et ( x > 0 ) ) alors {
+        si ( x > y ) alors {
+            ecrire 1 ;
+        } sinon {
+            ecrire 0 ;
+        }
+    } sinon {
+        ecrire 0 ;
+    }
+
+    si ( x < y ) alors {
+        ecrire 1 ;
+    } sinon {
+        si ( non x < y ) alors {
+            ecrire 2 ;
+        } sinon {
+            ecrire 0 ;
+        }
+    }
+}

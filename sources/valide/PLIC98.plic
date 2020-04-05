@@ -1,0 +1,15 @@
+programme forfor {
+    entier x ;
+    entier y ;
+
+    pour x dans 1 .. 2 repeter {
+        ecrire x ;
+    }
+
+    pour y dans 1 .. 2 repeter {
+        pour x dans 1 .. 2 repeter {
+	        ecrire y ;
+	    }
+    }
+
+}

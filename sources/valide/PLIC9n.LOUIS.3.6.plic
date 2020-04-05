@@ -1,0 +1,10 @@
+programme while {
+    entier x ;
+    entier y ;
+    x := 0 ;
+    y := 5 ;
+    tantque ( x < y ) repeter {
+        ecrire x ;
+        x := x + 2 ;
+    }
+}

@@ -1,0 +1,10 @@
+programme forNested {
+    entier x ;
+    entier y ;
+    pour x dans 0 .. 2 repeter {
+        ecrire x ;
+        pour y dans 5 .. 6 repeter {
+            ecrire y ;
+        }
+    }
+}

@@ -11,6 +11,7 @@ public class Pour extends Iteration {
 	Expression e1, e2;
 
 	public static int nbBoucle = 1;
+	public static int idUnique = 1;
 
 	public Pour(Idf idf, Expression e1, Expression e2, Bloc b) {
 		blocARepeter = b;
@@ -41,7 +42,7 @@ public class Pour extends Iteration {
 
 	@Override
 	public String toMips() throws ErreurGenerationCode, Exception {
-		
+		int idDepart = idUnique++;
 		String s = FonctionAffichage
 				.stringInstruction("Pour " + identifiant + " dans " + e1 + " .. " + e2 + " repeter ...") + //
 				e2.toMips() + "\n" + //
@@ -49,9 +50,9 @@ public class Pour extends Iteration {
 				e1.toMips() + "\n" + //
 				Instruction.depilerDansV1() + "\n" + //
 				// Si la valeur de e2 est plus grande ou égale à e1, on entre dans la boucle
-				"	bge $v1, $v0, bouclePour" + nbBoucle + "\n" + //
-				"	b finBouclePour" + nbBoucle + "\n" + //
-				"	bouclePour" + nbBoucle + " : " + "\n" + //
+				"	bge $v1, $v0, bouclePour" + idDepart+"a"+nbBoucle + "\n" + //
+				"	b finBouclePour" + idDepart+"a"+nbBoucle + "\n" + //
+				"	bouclePour" + idDepart+"a"+nbBoucle + " : " + "\n" + //
 				"	"+identifiant.getAdresse()+"\n"+//
 				"	sw $v0, 0($a0)" + "\n" + //
 				"	add $v0, $v0, 1" + "\n" + //
@@ -66,10 +67,12 @@ public class Pour extends Iteration {
 		
 		s += Instruction.depilerDansV1() + "\n" + //
 				Instruction.depilerDansV0() + "\n" + //
-				"	blt $v1, $v0, finBouclePour" + nbBoucle + "\n" + //
-				"	bge $v1, $v0, bouclePour" + nbBoucle + "\n" + //
-				"	finBouclePour" + nbBoucle + " : " + "\n";//
+				"	blt $v1, $v0, finBouclePour" + idDepart+"a"+nbBoucle + "\n" + //
+				"	bge $v1, $v0, bouclePour" + idDepart+"a"+nbBoucle + "\n" + //
+				"	finBouclePour" + idDepart+"a"+nbBoucle + " : " + "\n";//
 
+		
+		
 		return s;
 	}
 

@@ -1,0 +1,11 @@
+programme ifThenElse {
+    entier x ;
+    tableau [ 1 ] tab ;
+    x := 4 ;
+    tab [ 0 ] := 3 ;
+    si ( x < tab [ 0 ] ) alors {
+        ecrire 1 ;
+    } sinon {
+        ecrire 0 ;
+    }
+}

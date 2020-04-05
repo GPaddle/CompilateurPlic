@@ -1,0 +1,10 @@
+programme testLire {
+    entier x ;
+    entier y ;
+    lire x ;
+    lire y ;
+    ecrire x ;
+    ecrire y ;
+    lire x ;
+    ecrire x ;
+}

@@ -1,0 +1,11 @@
+programme forExpression {
+    entier x ;
+    entier y ;
+    tableau [ 2 ] tab ;
+    x := 2 ;
+    y := 5 ;
+    tab [ 0 ] := 1 ;
+    pour x dans tab [ 0 ] + 10 .. ( y * 2 ) + 10 repeter {
+        ecrire x ;
+    }
+}

@@ -1,0 +1,7 @@
+programme forOne {
+    entier x ;
+    pour x dans 3 .. 3 repeter {
+        ecrire x ;
+    }
+    ecrire x ;
+}

@@ -13,6 +13,7 @@ public class Condition extends Instruction {
 	Bloc conditionSi, conditionSinon;
 
 	public static int nbCondition = 0;
+	public static int idUnique = 0;
 
 	public Condition(Expression exp1, Bloc conditionSi) {
 		super();
@@ -47,12 +48,13 @@ public class Condition extends Instruction {
 	@Override
 	public String toMips() throws ErreurGenerationCode, Exception {
 
+		int idDepart = idUnique++;
 
 		String s = FonctionAffichage.stringInstruction("si " + exp1 + " alors ... ") + //
 				exp1.toMips() + "\n" + //
 				FonctionAffichage.stringInfos("si non " + exp1 + " alors") + //
 				"	li $t0, 1 \n" + //
-				"	beq $v0, $t0, conditionSi" + nbCondition + "\n";//
+				"	beq $v0, $t0, conditionSi" + idDepart + "a" + nbCondition + "\n";//
 
 		nbCondition++;
 		if (conditionSinon != null) {
@@ -62,18 +64,18 @@ public class Condition extends Instruction {
 			}
 		}
 		nbCondition--;
-		s += "	b conditionFinSi" + nbCondition;//
+		s += "	b conditionFinSi" + idDepart + "a" + nbCondition;//
 		s += FonctionAffichage.stringInfos("si " + exp1 + " alors") + //
-				"	conditionSi" + nbCondition + " : \n"; //
+				"	conditionSi" + idDepart + "a" + nbCondition + " : \n"; //
 
 		ArrayList<Instruction> ali = conditionSi.getAli();
 		for (Instruction instruction : ali) {
 			s += instruction.toMips() + "\n";
 		}
-		s += FonctionAffichage.stringInfos("Sorti de la boucle") ; //
-		s += "	b conditionFinSi" + nbCondition + "\n";//
+		s += FonctionAffichage.stringInfos("Sorti de la boucle"); //
+		s += "	b conditionFinSi" + idDepart + "a" + nbCondition + "\n";//
 
-		s += "	conditionFinSi" + nbCondition + " : \n";
+		s += "	conditionFinSi" + idDepart + "a" + nbCondition + " : \n";
 
 		return s;
 	}

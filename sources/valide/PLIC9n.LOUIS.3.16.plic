@@ -1,0 +1,8 @@
+programme forVariableVar {
+    entier x ;
+    pour x dans 0 .. 4 repeter {
+        ecrire x ;
+        x := x + 1 ;
+    }
+    ecrire x ; // 5
+}

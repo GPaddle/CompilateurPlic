@@ -1,0 +1,10 @@
+programme forVariableEnd {
+    entier x ;
+    entier end ;
+    end := 10 ;
+    pour x dans 0 .. end repeter {
+        ecrire x ;
+        end := end - 1 ;
+    }
+    ecrire end ;
+}

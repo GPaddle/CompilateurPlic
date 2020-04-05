@@ -1,0 +1,6 @@
+programme for {
+    entier x ;
+    pour x dans 1 .. 10 repeter {
+        ecrire x ;
+    }
+}

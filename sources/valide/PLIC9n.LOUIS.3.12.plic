@@ -1,0 +1,9 @@
+programme for {
+    entier x ;
+    x := 10 ;
+    ecrire x ;
+    pour x dans 0 .. 2 repeter {
+        ecrire x ;
+    }
+    ecrire x ; // 2
+}

@@ -1,0 +1,9 @@
+programme ifThen {
+    entier x ;
+    entier y ;
+    x := 2 ;
+    y := 3 ;
+    si ( x < y ) alors {
+        ecrire 1 ;
+    }
+}

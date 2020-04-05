@@ -1,0 +1,9 @@
+programme forVariable {
+    entier x ;
+    entier y ;
+    x := 2 ;
+    y := 5 ;
+    pour x dans x .. y repeter {
+        ecrire x ;
+    }
+}
